@@ -51,6 +51,8 @@ def evaluate_retrieval(top_k=4, dataset_path=None, results_path=None, searcher=N
                     results_path = os.path.join(base_dir, "data", "eval_results_keyword_kg.json")
                 elif mode == "keyword+RRF":
                     results_path = os.path.join(base_dir, "data", "eval_results_keyword_rrf.json")
+                elif mode == "gated":
+                    results_path = os.path.join(base_dir, "data", "eval_results_gated.json")
                 else:
                     results_path = os.path.join(base_dir, "data", "eval_results_hybrid.json")
             else:
@@ -161,9 +163,9 @@ if __name__ == "__main__":
     parser.add_argument("--hybrid", action="store_true", help="使用 HybridSearcher (RRF + KG)")
     parser.add_argument(
         "--mode",
-        choices=["keyword", "keyword+KG", "keyword+RRF", "full"],
+        choices=["keyword", "keyword+KG", "keyword+RRF", "full", "gated"],
         default=None,
-        help="消融實驗檢索模式"
+        help="消融實驗與信心閘門檢索模式"
     )
     parser.add_argument("--results-path", default=None, help="結果儲存路徑")
     args = parser.parse_args()

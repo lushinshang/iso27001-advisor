@@ -134,3 +134,69 @@ def test_hybrid_searcher_ablation_modes(tmp_path, monkeypatch):
     assert "control_d" in ids
     assert {r["source"] for r in res_full} == {"rrf", "kg_1hop"}
 
+
+class FlexibleSearcher:
+    def __init__(self):
+        self.items = [
+            {"id": "control_a", "title": "A", "content": "A content"},
+            {"id": "control_b", "title": "B", "content": "B content"},
+            {"id": "control_c", "title": "C", "content": "C content"},
+            {"id": "control_d", "title": "D", "content": "D content"},
+        ]
+        self._id_index = {item["id"]: item for item in self.items}
+        self.mock_results = []
+
+    def get_by_id(self, item_id):
+        return self._id_index.get(item_id)
+
+    def search(self, query, limit=5):
+        return [
+            {"item": self._id_index[r["id"]], "score": r["score"]}
+            for r in self.mock_results
+        ][:limit]
+
+
+def test_hybrid_searcher_gated_mode(tmp_path, monkeypatch):
+    emb_path = tmp_path / "embeddings.json"
+    kg_path = tmp_path / "knowledge_graph.json"
+    _write_embeddings(emb_path)
+    _write_kg(kg_path)
+    monkeypatch.setattr(
+        "iso27001_advisor.core.hybrid_search.get_embedding",
+        lambda text, model, host: [0.0, 1.0],
+    )
+
+    fake_searcher = FlexibleSearcher()
+    searcher = HybridSearcher(searcher=fake_searcher, emb_path=emb_path, kg_path=kg_path, mode="gated")
+
+    # 1. 測試高信心: top-1 = 105.0 (>= 100)，應跳過向量/KG，直接回傳純 keyword 結果
+    fake_searcher.mock_results = [{"id": "control_a", "score": 105.0}, {"id": "control_b", "score": 90.0}]
+    results = searcher.search("query", limit=3)
+    assert [r["item"]["id"] for r in results] == ["control_a", "control_b"]
+    assert {r["source"] for r in results} == {"keyword"}
+
+    # 2. 測試邊界值: top-1 = 100.0 (>= 100)，應視為高信心，回傳純 keyword 結果
+    fake_searcher.mock_results = [{"id": "control_a", "score": 100.0}, {"id": "control_b", "score": 90.0}]
+    results = searcher.search("query", limit=3)
+    assert [r["item"]["id"] for r in results] == ["control_a", "control_b"]
+    assert {r["source"] for r in results} == {"keyword"}
+
+    # 3. 測試低信心: top-1 = 99.9 (< 100)，應走完整 full (RRF + KG)
+    fake_searcher.mock_results = [{"id": "control_a", "score": 99.9}, {"id": "control_b", "score": 90.0}]
+    results = searcher.search("query", limit=4)
+    ids = [r["item"]["id"] for r in results]
+    assert "control_c" in ids
+    assert "control_d" in ids
+    assert {r["source"] for r in results} == {"rrf", "kg_1hop"}
+
+    # 4. 測試離線 fallback 下的閘門行為 (低信心但 embedding 失敗)
+    monkeypatch.setattr(
+        "iso27001_advisor.core.hybrid_search.get_embedding",
+        lambda text, model, host: exec('raise(Exception("Ollama offline"))')
+    )
+    fake_searcher.mock_results = [{"id": "control_a", "score": 99.9}, {"id": "control_b", "score": 90.0}]
+    results = searcher.search("query", limit=2)
+    assert [r["item"]["id"] for r in results] == ["control_a", "control_b"]
+    assert {r["source"] for r in results} == {"keyword_fallback"}
+
+

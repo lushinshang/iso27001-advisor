@@ -174,6 +174,15 @@ class HybridSearcher:
 
         keyword_results = self.searcher.search(query, limit=20)
 
+        # gated 模式判斷
+        if self.mode == "gated":
+            top_score = keyword_results[0]["score"] if keyword_results else 0.0
+            if top_score >= 100.0:
+                return [
+                    {"item": result["item"], "score": result["score"], "source": "keyword"}
+                    for result in keyword_results[:limit]
+                ]
+
         # keyword+KG 模式：對關鍵字結果直接做 KG 擴展，跳過向量 RRF 融合
         if self.mode == "keyword+KG":
             results = [
@@ -184,7 +193,7 @@ class HybridSearcher:
                 return self._apply_kg_one_hop(results, limit)
             return results[:limit]
 
-        # 向量融合相關模式 (keyword+RRF 與 full)
+        # 向量融合相關模式 (keyword+RRF, full, 以及 gated 低信心題)
         if not self._hybrid_ready:
             return [
                 {"item": result["item"], "score": result["score"], "source": "keyword_fallback"}
@@ -208,7 +217,7 @@ class HybridSearcher:
         if self.mode == "keyword+RRF":
             return results[:limit]
 
-        # full 模式：套用 KG 擴展
-        if self.mode == "full" and self._kg_neighbors:
+        # full 模式與 gated 低信心題：套用 KG 擴展
+        if (self.mode == "full" or self.mode == "gated") and self._kg_neighbors:
             return self._apply_kg_one_hop(results, limit)
         return results[:limit]

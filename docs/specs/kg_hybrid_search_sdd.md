@@ -322,11 +322,18 @@ git init + 基準 commit**。
 目的：隔離退步來源（目前 q52/q56 的鍋只是推測給向量背）。
 若 keyword+KG 不退步 → KG 部分先行合併。
 
-**任務 B：信心閘門（confidence-gated fusion）**。HybridSearcher 新增規則：
-關鍵字 top-1 分數 ≥ 100（boost/intent 規則觸發的最小加分值，先驗固定，
-禁止迭代調整）→ 高信心，跳過向量融合（KG 擴展是否保留依任務 A 結果）；
-< 100 → 低信心，走完整 RRF。設計原則：人工調校訊號的信任等級高於統計融合
-（同 pdca 邊免走 G2/G4 的邏輯）。此設計在原 60 題上按構造不退步。
+**任務 B：信心閘門（confidence-gated fusion）**【任務 A 後定案】。
+HybridSearcher 新增 gated 模式，閘門罩住**整個增強層**（向量 RRF + KG 擴展，
+全有或全無）：
+- 關鍵字 top-1 分數 ≥ 100（boost/intent 觸發的最小加分值，先驗固定，禁止調整）
+  → 高信心，回傳純 keyword 結果
+- < 100 → 低信心，走完整 full（RRF + KG）
+定案依據（任務 A 消融矩陣）：q52/q56 之 RRF 污染僅發生於高信心題（top-1=180）；
+q51 之 KG 插隊僅發生於 keyword+KG 單獨模式，於 full 模式被向量重排吸收
+（clause_9.1 被語意檢索拉回前排）——故 KG 不單獨疊加於高信心 keyword 之上。
+**先驗預測（任務 B 實測檢驗此預測）**：gated 模式於原 60 題
+Hit Rate = 100%（高信心題走 keyword 全過、低信心題走 full 全過、
+q51 兩側皆過），MRR 於低信心題承接 full 之排序紅利。預測不中即回報推理漏洞。
 
 **任務 C：改寫題評估集**。`scripts/generate_paraphrase_eval.py`：
 以地端模型將 60 題問句改寫（clause_ids 標準答案不變、禁止照抄原題
@@ -337,3 +344,20 @@ LLM 只改寫問句、不產生答案，無誠實性風險。
 1. 原 60 題：gated-hybrid 不退步（閘門按構造保證，仍需實測確認）
 2. 改寫 60 題：gated-hybrid 相對 keyword-only 有提升（hybrid 的價值證明）
 兩者皆達成 → 合併；改寫題集無提升 → hybrid 封存，僅保留（若任務 A 過關的）KG。
+
+### 10.4 任務 A 消融實驗結果（2026-07-04，commit 5bed1cc）
+
+| 模式 | Hit Rate@4 | Recall@4 | Precision@4 | MRR@4 |
+|---|---|---|---|---|
+| keyword | 100.0% | 79.7% | 37.1% | 0.8597 |
+| keyword+KG | 98.3%（q51 ❌） | 80.9% | 37.5% | 0.8556 |
+| keyword+RRF | 96.7%（q52/q56 ❌） | 79.0% | 35.4% | 0.8917 |
+| full（RRF+KG） | 96.7%（q52/q56 ❌） | 79.0% | 35.4% | 0.8917 |
+
+關鍵發現：
+- q52/q56 退步唯一根源為 RRF 等權融合稀釋 intent boost（兩題 top-1=180）
+- q51 僅在 keyword+KG 失敗（rank-1 的 KG 鄰居 control_5.25 以 0.5 折扣分
+  擠掉低分吊車尾的正解 clause_9.1）；於 full 模式被向量重排救回 → 證明
+  KG 不應單獨疊加，應與 RRF 同進退
+- MRR 提升（+0.032）來自向量對語意型問句的排序改善 → hybrid 價值存在，
+  需要正確的出場時機（即任務 B 閘門）
