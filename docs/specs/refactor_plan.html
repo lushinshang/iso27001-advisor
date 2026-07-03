@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 27001 Advisor — Refactor Execution Plan</title>
+<style>
+:root {
+  --bg: #0b0f19;
+  --surface: rgba(17,24,39,0.7);
+  --surface2: rgba(22,28,45,0.5);
+  --border: rgba(255,255,255,0.08);
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --green: #10b981;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --orange: #f97316;
+  --font: 'Segoe UI', system-ui, sans-serif;
+  --mono: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(at 10% 20%, rgba(59,130,246,0.07) 0, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(139,92,246,0.07) 0, transparent 50%);
+}
+.layout { display: flex; min-height: 100vh; }
+nav {
+  width: 256px; flex-shrink: 0;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  background: var(--surface); border-right: 1px solid var(--border);
+  backdrop-filter: blur(16px); padding: 24px 0;
+}
+nav .logo { padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+nav .logo h1 { font-size: 13px; font-weight: 700; color: var(--orange); }
+nav .logo p { font-size: 11px; color: var(--muted); margin-top: 3px; }
+nav .sec { padding: 12px 20px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(156,163,175,0.4); }
+nav a { display: block; padding: 7px 20px; font-size: 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; transition: all 0.15s; }
+nav a:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+nav a.phase { padding-left: 28px; font-size: 11px; }
+main { flex: 1; padding: 40px 48px; max-width: 980px; }
+
+/* Header */
+.page-header { margin-bottom: 40px; }
+.badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.badge-orange { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.3); }
+.badge-blue { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+.badge-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+.badge-yellow { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
+.page-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+.page-header h1 span { background: linear-gradient(135deg,#f97316,#8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.page-header p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+/* Sections */
+section { margin-bottom: 52px; scroll-margin-top: 24px; }
+h2 { font-size: 17px; font-weight: 700; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+h3 { font-size: 13px; font-weight: 600; color: var(--blue); margin: 18px 0 10px; }
+h4 { font-size: 12px; font-weight: 600; color: var(--muted); margin: 14px 0 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+p { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 10px; }
+ul,ol { padding-left: 20px; }
+li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 3px; }
+li strong, strong { color: var(--text); }
+
+/* Phase cards */
+.phase-card {
+  border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; margin-bottom: 16px;
+}
+.phase-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.phase-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0;
+}
+.p1 .phase-num { background: rgba(59,130,246,0.2); color: var(--blue); }
+.p2 .phase-num { background: rgba(139,92,246,0.2); color: var(--purple); }
+.p3 .phase-num { background: rgba(16,185,129,0.2); color: var(--green); }
+.p4 .phase-num { background: rgba(245,158,11,0.2); color: var(--yellow); }
+.p5 .phase-num { background: rgba(249,115,22,0.2); color: var(--orange); }
+.p6 .phase-num { background: rgba(239,68,68,0.2); color: var(--red); }
+.p7 .phase-num { background: rgba(16,185,129,0.2); color: var(--green); }
+.p8 .phase-num { background: rgba(59,130,246,0.2); color: var(--blue); }
+.phase-title { font-size: 14px; font-weight: 700; }
+.phase-sub { font-size: 12px; color: var(--muted); margin-left: auto; }
+.phase-body { padding: 16px 20px; }
+
+/* Code */
+pre {
+  background: rgba(0,0,0,0.35); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px; overflow-x: auto;
+  font-size: 12px; line-height: 1.6; color: #e2e8f0;
+  font-family: var(--mono); margin: 8px 0;
+}
+code { background: rgba(59,130,246,0.12); color: #93c5fd; padding: 1px 5px; border-radius: 4px; font-size: 11px; font-family: var(--mono); }
+.cmd { background: rgba(16,185,129,0.1); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.2); border-radius: 6px; padding: 10px 14px; font-family: var(--mono); font-size: 12px; margin: 6px 0; display: block; }
+
+/* Tables */
+.tbl-wrap { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 10px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { text-align: left; padding: 8px 12px; background: rgba(255,255,255,0.04); color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+td { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; font-family: var(--mono); }
+tr:last-child td { border-bottom: none; }
+td.normal { font-family: var(--font); }
+.del { color: var(--red); text-decoration: line-through; opacity: 0.7; }
+.add { color: var(--green); }
+.keep { color: var(--muted); }
+.warn { color: var(--yellow); }
+
+/* Boxes */
+.box { border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; line-height: 1.6; }
+.box-blue { background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2); border-left: 3px solid var(--blue); }
+.box-green { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-left: 3px solid var(--green); }
+.box-yellow { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2); border-left: 3px solid var(--yellow); }
+.box-red { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); border-left: 3px solid var(--red); }
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; }
+.checklist li { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); }
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before { content: '☐'; color: var(--muted); flex-shrink: 0; font-size: 14px; }
+
+/* File tree */
+.tree { font-family: var(--mono); font-size: 12px; line-height: 1.8; }
+.tree .moved { color: var(--yellow); }
+.tree .new { color: var(--green); }
+.tree .stays { color: var(--muted); }
+.tree .deleted { color: var(--red); text-decoration: line-through; }
+
+/* Summary row */
+.summary-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin: 16px 0; }
+.summary-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+.summary-card .num { font-size: 22px; font-weight: 800; }
+.summary-card .lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- Nav -->
+<nav>
+  <div class="logo">
+    <h1>🔧 Refactor Plan</h1>
+    <p>src layout · 2026-06-26 · for Codex</p>
+  </div>
+  <div class="sec">概覽</div>
+  <a href="#overview">目標與範圍</a>
+  <a href="#structure">目標目錄結構</a>
+  <a href="#import-map">Import 對照表</a>
+  <div class="sec">執行步驟</div>
+  <a href="#p1" class="phase">Phase 1 · 環境基礎</a>
+  <a href="#p2" class="phase">Phase 2 · 建 Package</a>
+  <a href="#p3" class="phase">Phase 3 · 抽取 llm.py</a>
+  <a href="#p4" class="phase">Phase 4 · 移動 tools/</a>
+  <a href="#p5" class="phase">Phase 5 · 移動 eval/ scripts/</a>
+  <a href="#p6" class="phase">Phase 6 · 更新所有 import</a>
+  <a href="#p7" class="phase">Phase 7 · 測試重組</a>
+  <a href="#p8" class="phase">Phase 8 · 驗證</a>
+  <div class="sec">後置</div>
+  <a href="#docs-update">Spec & README 更新</a>
+  <a href="#risks">風險清單</a>
+</nav>
+
+<main>
+
+<!-- Header -->
+<div class="page-header">
+  <div class="badges">
+    <span class="badge badge-orange">Codex 執行計畫</span>
+    <span class="badge badge-blue">src layout + pyproject.toml</span>
+    <span class="badge badge-yellow">請勿部分執行</span>
+    <span class="badge badge-green">2026-06-26</span>
+  </div>
+  <h1><span>ISO 27001 Advisor</span> — 完整重構執行計畫</h1>
+  <p>將現有扁平根目錄架構升級為 <strong>src layout + pyproject.toml</strong> 套件化結構，消除所有 sys.path hack，實現 Docker / ADK 移植就緒。本文件為 Codex 逐步執行指引，每個 Phase 結束後需驗證再繼續。</p>
+</div>
+
+<!-- 0. Overview -->
+<section id="overview">
+  <h2>🎯 目標與範圍</h2>
+
+  <div class="summary-grid">
+    <div class="summary-card"><div class="num" style="color:var(--red)">14</div><div class="lbl">sys.path hack 待清除</div></div>
+    <div class="summary-card"><div class="num" style="color:var(--yellow)">8+</div><div class="lbl">跨檔 import 需更新</div></div>
+    <div class="summary-card"><div class="num" style="color:var(--green)">187</div><div class="lbl">tests 必須全部通過</div></div>
+    <div class="summary-card"><div class="num" style="color:var(--blue)">8</div><div class="lbl">執行 Phase</div></div>
+  </div>
+
+  <div class="box box-yellow">
+    <strong>執行前提：</strong>本計畫為整體性重構，各 Phase 有依賴順序。請從 Phase 1 依序執行，每 Phase 跑一次 <code>pytest</code> 確認通過後再繼續。不要跳 Phase。
+  </div>
+
+  <h3>重構前後對比</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>面向</th><th>重構前</th><th>重構後</th></tr></thead>
+      <tbody>
+        <tr><td class="normal">Import 根</td><td class="del">cwd 隱性依賴</td><td class="add">pyproject.toml pythonpath 明確定義</td></tr>
+        <tr><td class="normal">sys.path hack</td><td class="del">14 處散落各地</td><td class="add">0 處（全部移除）</td></tr>
+        <tr><td class="normal">核心模組位置</td><td class="del">根目錄雜放</td><td class="add">src/iso27001_advisor/core/</td></tr>
+        <tr><td class="normal">LLM 工具函式</td><td class="del">main.py 混雜 CLI 邏輯</td><td class="add">src/iso27001_advisor/llm/llm.py 獨立</td></tr>
+        <tr><td class="normal">評估套件</td><td class="del">根目錄</td><td class="add">eval/ 獨立目錄</td></tr>
+        <tr><td class="normal">維運工具</td><td class="del">根目錄</td><td class="add">scripts/ 獨立目錄</td></tr>
+        <tr><td class="normal">Docker 移植</td><td class="del">需指定 WORKDIR/PYTHONPATH</td><td class="add">pip install -e . 即可</td></tr>
+        <tr><td class="normal">ADK 嵌入</td><td class="del">命名空間衝突風險</td><td class="add">套件直接掛載</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 1. Structure -->
+<section id="structure">
+  <h2>📁 目標目錄結構</h2>
+  <pre class="tree"><span class="stays">iso27001-advisor/</span>
+├── <span class="new">pyproject.toml</span>                          ← NEW：套件定義 + pytest 設定
+├── <span class="stays">app.py</span>                                  ← 入口，留根（更新 import）
+├── <span class="stays">main.py</span>                                 ← CLI 入口，留根（移除函式定義，改 import from llm）
+├── <span class="stays">agent.py</span>                                ← LV2 CLI 入口，留根（更新 import）
+│
+├── <span class="new">src/</span>
+│   └── <span class="new">iso27001_advisor/</span>
+│       ├── <span class="new">__init__.py</span>
+│       ├── <span class="new">core/</span>
+│       │   ├── <span class="new">__init__.py</span>
+│       │   ├── <span class="moved">search_tool.py</span>              ← MOVED from root
+│       │   ├── <span class="moved">semantic_cache.py</span>           ← MOVED from root
+│       │   └── <span class="moved">recommendation.py</span>          ← MOVED from root
+│       ├── <span class="new">llm/</span>
+│       │   ├── <span class="new">__init__.py</span>
+│       │   └── <span class="new">llm.py</span>                      ← NEW：從 main.py 抽出函式
+│       └── <span class="new">tools/</span>
+│           ├── <span class="new">__init__.py</span>
+│           ├── <span class="moved">iso_tools.py</span>                ← MOVED from tools/
+│           ├── <span class="moved">gap_analysis_tools.py</span>       ← MOVED from tools/
+│           ├── <span class="moved">evidence_tools.py</span>           ← MOVED from tools/
+│           ├── <span class="moved">draft_tools.py</span>              ← MOVED from tools/
+│           ├── <span class="moved">soa_tools.py</span>                ← MOVED from tools/
+│           ├── <span class="moved">audit_report_tools.py</span>       ← MOVED from tools/
+│           ├── <span class="moved">action_plan_tools.py</span>        ← MOVED from tools/
+│           └── <span class="moved">export_tools.py</span>             ← MOVED from tools/
+│
+├── <span class="new">scripts/</span>                                ← NEW 目錄
+│   ├── <span class="new">__init__.py</span>
+│   ├── <span class="moved">parse_iso.py</span>                        ← MOVED from root
+│   └── <span class="moved">generate_faq.py</span>                     ← MOVED from root
+│
+├── <span class="new">eval/</span>                                   ← NEW 目錄
+│   ├── <span class="new">__init__.py</span>
+│   ├── <span class="moved">evaluation.py</span>                       ← MOVED from root
+│   ├── <span class="moved">faithfulness_evaluation.py</span>          ← MOVED from root
+│   ├── <span class="moved">level2_evaluation.py</span>               ← MOVED from root
+│   ├── <span class="moved">level3_evaluation.py</span>               ← MOVED from root
+│   └── <span class="new">tests/</span>
+│       └── <span class="moved">test_evaluation.py</span>              ← MOVED from tests/
+│
+├── <span class="new">conftest.py</span>                             ← NEW：根目錄，供 eval/tests/ 共用
+├── <span class="stays">tests/</span>
+│   ├── <span class="stays">conftest.py</span>                         ← UPDATE：移除 sys.path，改 import 路徑
+│   └── <span class="stays">test_*.py</span>                           ← UPDATE：import 路徑
+│
+├── <span class="deleted">tools/</span>                                  ← DELETED（移至 src/iso27001_advisor/tools/）
+├── <span class="stays">data/</span>
+├── <span class="stays">tmp/</span>
+└── <span class="stays">docs/</span></pre>
+
+  <div class="box box-blue">
+    <strong>凡例：</strong>
+    <span style="color:var(--green)">綠色 = 新建</span> ·
+    <span style="color:var(--yellow)">黃色 = 移動</span> ·
+    <span style="color:var(--muted)">灰色 = 不動（僅更新 import）</span> ·
+    <span style="color:var(--red)">紅色 = 刪除</span>
+  </div>
+</section>
+
+<!-- 2. Import Map -->
+<section id="import-map">
+  <h2>🗺️ 完整 Import 對照表</h2>
+  <p>以下為所有需要更新的 import，Codex 請逐行比對修改。</p>
+
+  <h3>search_tool（→ iso27001_advisor.core.search_tool）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>檔案</th><th>舊 import</th><th>新 import</th></tr></thead>
+      <tbody>
+        <tr><td>main.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>app.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>agent.py (L405)</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>eval/evaluation.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>eval/faithfulness_evaluation.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>scripts/generate_faq.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>src/.../iso_tools.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>tests/conftest.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+        <tr><td>tests/test_search_tool.py</td><td class="del">from search_tool import ISO27001Searcher</td><td class="add">from iso27001_advisor.core.search_tool import ISO27001Searcher</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>LLM 工具函式（main.py → iso27001_advisor.llm）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>檔案</th><th>舊 import</th><th>新 import</th></tr></thead>
+      <tbody>
+        <tr><td>agent.py</td><td class="del">from main import call_ollama, call_gemini, build_prompt, get_system_prompt, load_dotenv, map_reduce_query</td><td class="add">from iso27001_advisor.llm import call_ollama, call_gemini, build_prompt, get_system_prompt, load_dotenv, map_reduce_query</td></tr>
+        <tr><td>app.py</td><td class="del">import main as main_module<br>main_module.load_dotenv()</td><td class="add">from iso27001_advisor.llm import load_dotenv<br>load_dotenv()</td></tr>
+        <tr><td>app.py (L67)</td><td class="del">from agent import (call_ollama, ...)</td><td class="warn">確認 app.py L67 agent import 內容，call_ollama 類函式改為 from iso27001_advisor.llm import</td></tr>
+        <tr><td>eval/faithfulness_evaluation.py</td><td class="del">from main import call_ollama, call_gemini, build_prompt, get_system_prompt, load_dotenv</td><td class="add">from iso27001_advisor.llm import call_ollama, call_gemini, build_prompt, get_system_prompt, load_dotenv</td></tr>
+        <tr><td>scripts/generate_faq.py</td><td class="del">from main import call_ollama, build_prompt, get_system_prompt, load_dotenv</td><td class="add">from iso27001_advisor.llm import call_ollama, build_prompt, get_system_prompt, load_dotenv</td></tr>
+        <tr><td>tests/test_cli.py</td><td class="del">from main import build_prompt</td><td class="add">from iso27001_advisor.llm import build_prompt</td></tr>
+        <tr><td>tests/test_cli.py</td><td class="del">import main as main_module</td><td class="add">import iso27001_advisor.llm as llm_module</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>recommendation / semantic_cache（→ iso27001_advisor.core.*）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>檔案</th><th>舊 import</th><th>新 import</th></tr></thead>
+      <tbody>
+        <tr><td>app.py</td><td class="del">from recommendation import RecommendationEngine</td><td class="add">from iso27001_advisor.core.recommendation import RecommendationEngine</td></tr>
+        <tr><td>agent.py (L485)</td><td class="del">from recommendation import RecommendationEngine</td><td class="add">from iso27001_advisor.core.recommendation import RecommendationEngine</td></tr>
+        <tr><td>app.py</td><td class="del">from semantic_cache import SemanticCache</td><td class="add">from iso27001_advisor.core.semantic_cache import SemanticCache</td></tr>
+        <tr><td>main.py (L269)</td><td class="del">from semantic_cache import SemanticCache</td><td class="add">from iso27001_advisor.core.semantic_cache import SemanticCache</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>tools（→ iso27001_advisor.tools.*）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>檔案</th><th>舊 import</th><th>新 import</th></tr></thead>
+      <tbody>
+        <tr><td>agent.py (L43-61)</td><td class="del">from tools.soa_tools import ...<br>from tools.iso_tools import ...<br>from tools.gap_analysis_tools import ...<br>from tools.evidence_tools import ...<br>from tools.draft_tools import ...<br>from tools.audit_report_tools import ...<br>from tools.action_plan_tools import ...<br>from tools.export_tools import ...</td><td class="add">from iso27001_advisor.tools.soa_tools import ...<br>from iso27001_advisor.tools.iso_tools import ...<br>（其餘依此類推）</td></tr>
+        <tr><td>eval/level2_evaluation.py</td><td class="del">from tools.iso_tools import ...<br>from tools.gap_analysis_tools import ...<br>from tools.evidence_tools import ...</td><td class="add">from iso27001_advisor.tools.iso_tools import ...<br>（依此類推）</td></tr>
+        <tr><td>eval/level3_evaluation.py</td><td class="del">from tools.soa_tools import ...<br>from tools.audit_report_tools import ...<br>from tools.action_plan_tools import ...<br>from tools.evidence_tools import ...</td><td class="add">from iso27001_advisor.tools.soa_tools import ...<br>（依此類推）</td></tr>
+        <tr><td>tests/test_agent_tools.py</td><td class="del">from tools.xxx import ...</td><td class="add">from iso27001_advisor.tools.xxx import ...</td></tr>
+        <tr><td>tests/test_level3_tools.py</td><td class="del">from tools.xxx import ...</td><td class="add">from iso27001_advisor.tools.xxx import ...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>不需更改的 import</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>檔案</th><th>Import</th><th>原因</th></tr></thead>
+      <tbody>
+        <tr><td class="keep">eval/level3_evaluation.py</td><td class="keep">from agent import classify_task</td><td class="normal keep">agent.py 留根目錄，pyproject pythonpath=["."] 可直接解析</td></tr>
+        <tr><td class="keep">tests/test_level3_agent.py</td><td class="keep">from agent import classify_task</td><td class="normal keep">同上</td></tr>
+        <tr><td class="keep">tests/test_level2_agent.py</td><td class="keep">from agent import ...</td><td class="normal keep">同上</td></tr>
+        <tr><td class="keep">app.py</td><td class="keep">from agent import ...</td><td class="normal keep">agent.py 留根目錄</td></tr>
+        <tr><td class="keep">parse_iso.py</td><td class="keep">import re, json, os</td><td class="normal keep">無跨檔依賴，直接可動</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Phase 1 -->
+<section id="p1">
+  <h2>⚙️ Phase 1 · 環境基礎</h2>
+  <div class="phase-card p1">
+    <div class="phase-header"><div class="phase-num">1</div><div class="phase-title">建立 pyproject.toml + 目錄骨架</div><div class="phase-sub">驗證：pyproject.toml 可讀 · pytest 指令正常</div></div>
+    <div class="phase-body">
+      <h4>1-1 建立 pyproject.toml（根目錄）</h4>
+      <pre>[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "iso27001-advisor"
+version = "1.3.0"
+requires-python = ">=3.9"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests", "eval/tests"]
+addopts = "-q"</pre>
+
+      <h4>1-2 建立目錄骨架</h4>
+      <span class="cmd">mkdir -p src/iso27001_advisor/core src/iso27001_advisor/llm src/iso27001_advisor/tools</span>
+      <span class="cmd">mkdir -p eval/tests scripts</span>
+      <span class="cmd">touch src/iso27001_advisor/__init__.py src/iso27001_advisor/core/__init__.py src/iso27001_advisor/llm/__init__.py src/iso27001_advisor/tools/__init__.py</span>
+      <span class="cmd">touch eval/__init__.py scripts/__init__.py</span>
+
+      <h4>1-3 安裝套件（開發模式）</h4>
+      <span class="cmd">pip install -e .</span>
+
+      <div class="box box-green" style="margin-top:12px">
+        <strong>✓ Phase 1 驗證：</strong><code>python -c "import iso27001_advisor"</code> 不報錯即成功。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 2 -->
+<section id="p2">
+  <h2>📦 Phase 2 · 建立 Package 核心模組</h2>
+  <div class="phase-card p2">
+    <div class="phase-header"><div class="phase-num">2</div><div class="phase-title">複製核心模組到 src/（先複製，不刪原檔）</div><div class="phase-sub">驗證：import 可解析</div></div>
+    <div class="phase-body">
+      <h4>2-1 複製（不移除根目錄原檔，等 Phase 6 全部更新完再刪）</h4>
+      <span class="cmd">cp search_tool.py src/iso27001_advisor/core/search_tool.py</span>
+      <span class="cmd">cp semantic_cache.py src/iso27001_advisor/core/semantic_cache.py</span>
+      <span class="cmd">cp recommendation.py src/iso27001_advisor/core/recommendation.py</span>
+
+      <h4>2-2 複製 tools/ 到 src/iso27001_advisor/tools/</h4>
+      <span class="cmd">cp tools/iso_tools.py src/iso27001_advisor/tools/iso_tools.py</span>
+      <span class="cmd">cp tools/gap_analysis_tools.py src/iso27001_advisor/tools/gap_analysis_tools.py</span>
+      <span class="cmd">cp tools/evidence_tools.py src/iso27001_advisor/tools/evidence_tools.py</span>
+      <span class="cmd">cp tools/draft_tools.py src/iso27001_advisor/tools/draft_tools.py</span>
+      <span class="cmd">cp tools/soa_tools.py src/iso27001_advisor/tools/soa_tools.py</span>
+      <span class="cmd">cp tools/audit_report_tools.py src/iso27001_advisor/tools/audit_report_tools.py</span>
+      <span class="cmd">cp tools/action_plan_tools.py src/iso27001_advisor/tools/action_plan_tools.py</span>
+      <span class="cmd">cp tools/export_tools.py src/iso27001_advisor/tools/export_tools.py</span>
+
+      <h4>2-3 修正 src/iso27001_advisor/tools/iso_tools.py 內的 sys.path hack</h4>
+      <p>將原本的 sys.path.insert 和 search_tool import 改為：</p>
+      <pre># 移除：
+# import sys, os
+# _parent_dir = ...
+# sys.path.insert(0, _parent_dir)
+# from search_tool import ISO27001Searcher
+
+# 改為：
+from iso27001_advisor.core.search_tool import ISO27001Searcher</pre>
+
+      <div class="box box-green" style="margin-top:12px">
+        <strong>✓ Phase 2 驗證：</strong><code>python -c "from iso27001_advisor.core.search_tool import ISO27001Searcher; print('OK')"</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 3 -->
+<section id="p3">
+  <h2>⚗️ Phase 3 · 抽取 llm.py</h2>
+  <div class="phase-card p3">
+    <div class="phase-header"><div class="phase-num">3</div><div class="phase-title">從 main.py 抽出可重用函式到 llm.py</div><div class="phase-sub">驗證：from iso27001_advisor.llm import call_ollama 可執行</div></div>
+    <div class="phase-body">
+      <h4>3-1 建立 src/iso27001_advisor/llm/llm.py</h4>
+      <p>將以下函式從 <code>main.py</code> 複製到 <code>src/iso27001_advisor/llm/llm.py</code>（完整函式定義，包含所有標準庫 import）：</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>函式</th><th>main.py 行號</th><th>說明</th></tr></thead>
+          <tbody>
+            <tr><td>call_ollama()</td><td>10</td><td>Ollama API 呼叫（串流）</td></tr>
+            <tr><td>call_gemini()</td><td>59</td><td>Gemini API 呼叫</td></tr>
+            <tr><td>build_prompt()</td><td>95</td><td>組裝 RAG Context + Prompt</td></tr>
+            <tr><td>map_phase()</td><td>134</td><td>Map-Reduce 的 Map 步驟</td></tr>
+            <tr><td>reduce_phase()</td><td>151</td><td>Map-Reduce 的 Reduce 步驟</td></tr>
+            <tr><td>map_reduce_query()</td><td>172</td><td>Map-Reduce 完整流程</td></tr>
+            <tr><td>get_system_prompt()</td><td>186</td><td>顧問 System Prompt（含三層引用架構）</td></tr>
+            <tr><td>load_dotenv()</td><td>207</td><td>.env 載入器</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>3-2 建立 src/iso27001_advisor/llm/__init__.py</h4>
+      <pre># src/iso27001_advisor/llm/__init__.py
+from iso27001_advisor.llm.llm import (
+    call_ollama,
+    call_gemini,
+    build_prompt,
+    map_phase,
+    reduce_phase,
+    map_reduce_query,
+    get_system_prompt,
+    load_dotenv,
+)</pre>
+
+      <h4>3-3 精簡 main.py（保留 CLI 邏輯，移除函式定義）</h4>
+      <p>main.py 頂部改為：</p>
+      <pre>from iso27001_advisor.llm import (
+    call_ollama, call_gemini, build_prompt,
+    map_reduce_query, get_system_prompt, load_dotenv,
+)
+from iso27001_advisor.core.search_tool import ISO27001Searcher</pre>
+      <p>原有的函式定義（call_ollama ~ load_dotenv）全部刪除。保留 <code>_positive_int()</code> 和 <code>main()</code>。</p>
+
+      <div class="box box-green" style="margin-top:12px">
+        <strong>✓ Phase 3 驗證：</strong><code>python -c "from iso27001_advisor.llm import call_ollama, build_prompt, get_system_prompt; print('OK')"</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 4 -->
+<section id="p4">
+  <h2>🛠️ Phase 4 · 移動 eval/ 與 scripts/</h2>
+  <div class="phase-card p4">
+    <div class="phase-header"><div class="phase-num">4</div><div class="phase-title">移動評估套件與維運工具</div><div class="phase-sub">驗證：檔案存在，import 修正完成</div></div>
+    <div class="phase-body">
+      <h4>4-1 移動 eval 檔案</h4>
+      <span class="cmd">mv evaluation.py eval/evaluation.py</span>
+      <span class="cmd">mv faithfulness_evaluation.py eval/faithfulness_evaluation.py</span>
+      <span class="cmd">mv level2_evaluation.py eval/level2_evaluation.py</span>
+      <span class="cmd">mv level3_evaluation.py eval/level3_evaluation.py</span>
+
+      <h4>4-2 移動 scripts 檔案</h4>
+      <span class="cmd">mv parse_iso.py scripts/parse_iso.py</span>
+      <span class="cmd">mv generate_faq.py scripts/generate_faq.py</span>
+
+      <h4>4-3 更新 eval/*.py 的 import</h4>
+      <p>每個 eval/ 檔案頂部：移除 sys.path hack，更新 import（參照 Import 對照表）。</p>
+      <p><strong>eval/level2_evaluation.py 特別注意：</strong>原有的以下 sys.path 區塊全部刪除：</p>
+      <pre># 刪除：
+# _project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# if _project_dir not in sys.path:
+#     sys.path.insert(0, _project_dir)</pre>
+
+      <h4>4-4 更新 scripts/generate_faq.py 的 import</h4>
+      <pre># 刪除：sys.path.insert(0, ...)
+# 改：
+from iso27001_advisor.llm import call_ollama, build_prompt, get_system_prompt, load_dotenv
+from iso27001_advisor.core.search_tool import ISO27001Searcher</pre>
+
+      <h4>4-5 更新 data/ 路徑（eval 檔案移動後相對路徑改變）</h4>
+      <p>eval/ 下的評估檔用 <code>_BASE = os.path.dirname(os.path.abspath(__file__))</code> 計算路徑。</p>
+      <p>移到 eval/ 後，<code>data/</code> 在上一層，需更新：</p>
+      <pre># eval/evaluation.py, eval/faithfulness_evaluation.py 等：
+_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 指向根目錄
+DATASET_PATH = os.path.join(_BASE, "data", "eval_dataset.json")</pre>
+      <div class="box box-yellow" style="margin-top:10px">
+        <strong>⚠️ 路徑風險點：</strong>eval/ 下每個檔案對 data/ 的相對路徑都需要加一層 <code>os.path.dirname</code>。請逐一確認 DATASET_PATH、RESULTS_PATH、ANSWERS_PATH 等路徑變數。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 5 -->
+<section id="p5">
+  <h2>🔄 Phase 5 · 更新剩餘 import</h2>
+  <div class="phase-card p5">
+    <div class="phase-header"><div class="phase-num">5</div><div class="phase-title">更新 app.py / agent.py 的所有 import</div><div class="phase-sub">驗證：python app.py --help 不報錯</div></div>
+    <div class="phase-body">
+      <h4>5-1 app.py</h4>
+      <ul>
+        <li>移除 <code>sys.path.insert</code></li>
+        <li><code>import main as main_module</code> → <code>from iso27001_advisor.llm import load_dotenv</code>，並直接呼叫 <code>load_dotenv()</code></li>
+        <li><code>from search_tool import ISO27001Searcher</code> → <code>from iso27001_advisor.core.search_tool import ISO27001Searcher</code></li>
+        <li><code>from recommendation import RecommendationEngine</code> → <code>from iso27001_advisor.core.recommendation import RecommendationEngine</code></li>
+        <li><code>from semantic_cache import SemanticCache</code> → <code>from iso27001_advisor.core.semantic_cache import SemanticCache</code></li>
+        <li>所有 <code>from tools.xxx import</code> → <code>from iso27001_advisor.tools.xxx import</code></li>
+      </ul>
+
+      <h4>5-2 agent.py</h4>
+      <ul>
+        <li><code>from main import call_ollama, ...</code> → <code>from iso27001_advisor.llm import call_ollama, ...</code></li>
+        <li><code>from search_tool import ISO27001Searcher</code> → <code>from iso27001_advisor.core.search_tool import ISO27001Searcher</code></li>
+        <li><code>from recommendation import RecommendationEngine</code> → <code>from iso27001_advisor.core.recommendation import RecommendationEngine</code></li>
+        <li>所有 <code>from tools.xxx import</code> → <code>from iso27001_advisor.tools.xxx import</code></li>
+      </ul>
+
+      <h4>5-3 刪除根目錄原始檔（Phase 2 留下的舊版本）</h4>
+      <span class="cmd">rm search_tool.py semantic_cache.py recommendation.py</span>
+      <span class="cmd">rm -rf tools/</span>
+      <div class="box box-red" style="margin-top:10px">
+        <strong>⚠️ 確認</strong>：執行 rm 前請確認 Phase 6（測試更新）已完成，否則測試會找不到模組。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 6 -->
+<section id="p6">
+  <h2>🧪 Phase 6 · 測試重組</h2>
+  <div class="phase-card p6">
+    <div class="phase-header"><div class="phase-num">6</div><div class="phase-title">更新 tests/ + 建立 eval/tests/ + 根目錄 conftest</div><div class="phase-sub">驗證：pytest → 187 passed</div></div>
+    <div class="phase-body">
+      <h4>6-1 建立根目錄 conftest.py</h4>
+      <p>供 <code>eval/tests/</code> 共用 fixture。內容與 tests/conftest.py 相同，但不含 sys.path hack：</p>
+      <pre># conftest.py（根目錄）
+import os
+import pytest
+from iso27001_advisor.core.search_tool import ISO27001Searcher
+
+@pytest.fixture(scope="session")
+def searcher():
+    base = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(base, "data", "iso27001_structure.json")
+    s = ISO27001Searcher(data_path)
+    return s</pre>
+
+      <h4>6-2 更新 tests/conftest.py</h4>
+      <ul>
+        <li>移除 <code>sys.path.insert</code></li>
+        <li><code>from search_tool import ISO27001Searcher</code> → <code>from iso27001_advisor.core.search_tool import ISO27001Searcher</code></li>
+        <li>路徑計算：<code>_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</code>（指根目錄）</li>
+      </ul>
+
+      <h4>6-3 移動 test_evaluation.py 到 eval/tests/</h4>
+      <span class="cmd">mv tests/test_evaluation.py eval/tests/test_evaluation.py</span>
+      <p>更新 eval/tests/test_evaluation.py：</p>
+      <ul>
+        <li>移除 <code>sys.path.insert</code></li>
+        <li><code>from evaluation import compute_recall, compute_precision, compute_mrr</code> → <code>from eval.evaluation import compute_recall, compute_precision, compute_mrr</code></li>
+        <li>路徑：<code>eval_dataset.json</code> 指向 <code>os.path.join(base, "data", "eval_dataset.json")</code>，base 往上兩層</li>
+      </ul>
+
+      <h4>6-4 更新 tests/ 下所有 test_*.py</h4>
+      <p>逐一移除 sys.path.insert，並更新 import 路徑（參照 Import 對照表）：</p>
+      <ul class="checklist">
+        <li>tests/test_cli.py — from main import → from iso27001_advisor.llm import; import main as → from iso27001_advisor.llm</li>
+        <li>tests/test_search_tool.py — from search_tool → from iso27001_advisor.core.search_tool</li>
+        <li>tests/test_agent_tools.py — from tools.xxx → from iso27001_advisor.tools.xxx</li>
+        <li>tests/test_level3_tools.py — from tools.xxx → from iso27001_advisor.tools.xxx</li>
+        <li>tests/test_level2_agent.py — from tools.xxx → from iso27001_advisor.tools.xxx（from agent import 不動）</li>
+        <li>tests/test_level3_agent.py — from agent import 不動</li>
+        <li>tests/test_recall_regression.py — 確認 import 路徑</li>
+        <li>tests/test_done_event_metadata.py — 確認 import 路徑</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 7 -->
+<section id="p7">
+  <h2>✅ Phase 7 · 加入詳細模組註解</h2>
+  <div class="phase-card p7">
+    <div class="phase-header"><div class="phase-num">7</div><div class="phase-title">各 py 加詳細 module docstring + 函式說明</div><div class="phase-sub">不影響邏輯，可並行</div></div>
+    <div class="phase-body">
+      <p>每個模組頂部加標準 docstring 格式：</p>
+      <pre>"""
+模組名稱 (Module Name)
+======================
+職責：一句話說明這個模組做什麼
+
+使用方式：
+    from iso27001_advisor.core.search_tool import ISO27001Searcher
+    searcher = ISO27001Searcher("data/iso27001_structure.json")
+    results = searcher.search("備份的稽核要求", limit=4)
+
+關鍵設計決策：
+    - 使用三層評分機制（Soul-Word / N-gram / Token）
+    - _id_index 提供 O(1) ID 查找
+    - 類別常數（_SYNONYMS / _BOOST_WORDS）避免重複初始化
+"""</pre>
+
+      <h4>優先順序（可用 Subagent 並行）</h4>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Agent</th><th>負責檔案</th></tr></thead>
+          <tbody>
+            <tr><td class="normal">Agent A</td><td>src/iso27001_advisor/core/search_tool.py（最重要，邏輯最複雜）</td></tr>
+            <tr><td class="normal">Agent B</td><td>src/iso27001_advisor/llm/llm.py + main.py（精簡後的 CLI）</td></tr>
+            <tr><td class="normal">Agent C</td><td>app.py + agent.py（入口邏輯）</td></tr>
+            <tr><td class="normal">Agent D</td><td>eval/*.py（評估邏輯）</td></tr>
+            <tr><td class="normal">Agent E</td><td>src/iso27001_advisor/core/semantic_cache.py + recommendation.py</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 8 -->
+<section id="p8">
+  <h2>🔍 Phase 8 · 最終驗證</h2>
+  <div class="phase-card p8">
+    <div class="phase-header"><div class="phase-num">8</div><div class="phase-title">全面驗證，確認無回歸</div><div class="phase-sub">目標：187 passed，0 sys.path hack</div></div>
+    <div class="phase-body">
+      <h4>8-1 逐步驗證指令</h4>
+      <span class="cmd">pytest -q                                        # 目標 187 passed</span>
+      <span class="cmd">python -c "from iso27001_advisor.core.search_tool import ISO27001Searcher; print('core OK')"</span>
+      <span class="cmd">python -c "from iso27001_advisor.llm import call_ollama, get_system_prompt; print('llm OK')"</span>
+      <span class="cmd">python -c "from iso27001_advisor.tools.iso_tools import search_iso; print('tools OK')"</span>
+      <span class="cmd">python main.py "備份的稽核證據"                    # CLI 基本功能</span>
+      <span class="cmd">python eval/evaluation.py                         # 評估套件可執行</span>
+
+      <h4>8-2 確認 sys.path hack 已全清</h4>
+      <span class="cmd">grep -rn "sys.path.insert" . --include="*.py" | grep -v __pycache__   # 應回傳空</span>
+
+      <h4>8-3 Docker 移植性驗證（可選）</h4>
+      <pre># Dockerfile 雛形（確認 pip install -e . 可完成）
+FROM python:3.11-slim
+WORKDIR /app
+COPY . .
+RUN pip install -e .
+CMD ["python", "main.py"]</pre>
+    </div>
+  </div>
+</section>
+
+<!-- Docs Update -->
+<section id="docs-update">
+  <h2>📄 後置：Spec & README 更新</h2>
+  <p>重構完成後，需要更新以下文件（在 Phase 8 驗證通過後執行）：</p>
+  <ul class="checklist">
+    <li>docs/specs/system_spec.html — 目錄結構章節，反映 src/iso27001_advisor/ 結構</li>
+    <li>readme.md — 目錄結構、評估指令（eval/evaluation.py 路徑）</li>
+    <li>docs/guides/ — 4 個 guide 轉 HTML，路徑全部更新</li>
+  </ul>
+</section>
+
+<!-- Risks -->
+<section id="risks">
+  <h2>⚠️ 風險清單</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>風險</th><th>說明</th><th>緩解措施</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="normal warn">eval/ 路徑層數</td>
+          <td class="normal">eval/*.py 移動後，data/ 路徑的 os.path.dirname 層數需加一層</td>
+          <td class="normal">Phase 4 後立即執行 python eval/evaluation.py 測試</td>
+        </tr>
+        <tr>
+          <td class="normal warn">app.py L67 agent import</td>
+          <td class="normal">app.py 從 agent import 某些 LLM 函式，需確認實際內容（call_ollama 等已移到 llm）</td>
+          <td class="normal">Phase 5 時仔細閱讀 app.py L60-80</td>
+        </tr>
+        <tr>
+          <td class="normal warn">conftest fixture 路徑</td>
+          <td class="normal">eval/tests/ 的 conftest 來自根目錄，iso27001_structure.json 路徑計算需正確</td>
+          <td class="normal">Phase 6 後 pytest eval/tests/ 單獨跑一次</td>
+        </tr>
+        <tr>
+          <td class="normal warn">tools/__init__.py 舊版</td>
+          <td class="normal">舊 tools/ 有自己的 __init__.py，刪除時確認沒有其他 import from tools</td>
+          <td class="normal">grep -rn "from tools import" 確認清空後再 rm -rf tools/</td>
+        </tr>
+        <tr>
+          <td class="normal">test_cli.py main_module</td>
+          <td class="normal">test_cli.py 有多處 import main as main_module，全部需改為 from iso27001_advisor.llm</td>
+          <td class="normal">Phase 6 逐行檢查 test_cli.py</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box box-blue" style="margin-top:16px">
+    <strong>給 Codex 的執行原則：</strong>每個 Phase 結束後必須跑一次 <code>pytest -q</code>。若有 test 失敗，停下來修復後再繼續，不要累積到最後再修。import 錯誤通常是 ModuleNotFoundError，直接看 traceback 定位哪個檔案的哪一行。
+  </div>
+</section>
+
+<div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:rgba(156,163,175,0.3);text-align:center">
+  ISO 27001 Advisor · Refactor Execution Plan · 2026-06-26 · Codex 執行用
+</div>
+</main>
+</div>
+
+<script>
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('nav a[href^="#"]');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(a => a.style.color = '');
+      const a = document.querySelector(`nav a[href="#${e.target.id}"]`);
+      if (a) a.style.color = '#3b82f6';
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

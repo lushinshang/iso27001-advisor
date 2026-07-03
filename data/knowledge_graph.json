@@ -1,0 +1,1524 @@
+{
+  "built_at": "2026-07-03T15:17:19",
+  "nominators": [
+    "pdca_graph"
+  ],
+  "gates_version": 1,
+  "gate_report": {
+    "nominated": 127,
+    "g1_rejected": 2,
+    "g2_rejected": 0,
+    "g3_rejected": 0,
+    "g4_rejected": 0,
+    "survived": 125
+  },
+  "similarity_distribution": {
+    "count": 125,
+    "min": 0.8536,
+    "max": 0.9622,
+    "avg": 0.9047,
+    "median": 0.9035
+  },
+  "edges": [
+    {
+      "from": "clause_10.1",
+      "to": "clause_9.3",
+      "similarity": 0.8559,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_10.1",
+      "to": "control_5.36",
+      "similarity": 0.9102,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_6.1",
+      "to": "clause_6.2",
+      "similarity": 0.8721,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_6.1",
+      "to": "clause_8.2",
+      "similarity": 0.8752,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_6.1",
+      "to": "clause_8.3",
+      "similarity": 0.8712,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_8.2",
+      "to": "clause_8.3",
+      "similarity": 0.9488,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.1",
+      "to": "clause_9.2",
+      "similarity": 0.891,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.1",
+      "to": "clause_9.3",
+      "similarity": 0.9003,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.2",
+      "to": "clause_9.3",
+      "similarity": 0.943,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.2",
+      "to": "control_5.35",
+      "similarity": 0.8536,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.1",
+      "to": "control_5.2",
+      "similarity": 0.9074,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.1",
+      "to": "control_5.36",
+      "similarity": 0.9417,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.1",
+      "to": "control_5.4",
+      "similarity": 0.9431,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.10",
+      "to": "control_5.12",
+      "similarity": 0.8916,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.10",
+      "to": "control_5.9",
+      "similarity": 0.9334,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.11",
+      "to": "control_5.9",
+      "similarity": 0.8978,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_5.13",
+      "similarity": 0.9397,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_5.14",
+      "similarity": 0.9035,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_5.9",
+      "similarity": 0.8901,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_8.10",
+      "similarity": 0.898,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_8.11",
+      "similarity": 0.9026,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.13",
+      "to": "control_5.14",
+      "similarity": 0.9145,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.13",
+      "to": "control_8.11",
+      "similarity": 0.8922,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_6.6",
+      "similarity": 0.8873,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_6.7",
+      "similarity": 0.8726,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_8.12",
+      "similarity": 0.9043,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_8.20",
+      "similarity": 0.8714,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.16",
+      "similarity": 0.8798,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.17",
+      "similarity": 0.9148,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.18",
+      "similarity": 0.9496,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.3",
+      "similarity": 0.8631,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_8.1",
+      "similarity": 0.8939,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_8.2",
+      "similarity": 0.9116,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.16",
+      "to": "control_5.17",
+      "similarity": 0.8791,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.16",
+      "to": "control_5.18",
+      "similarity": 0.8749,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.16",
+      "to": "control_8.2",
+      "similarity": 0.8631,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.17",
+      "to": "control_8.5",
+      "similarity": 0.9177,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.18",
+      "to": "control_5.3",
+      "similarity": 0.8664,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.18",
+      "to": "control_6.5",
+      "similarity": 0.8964,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.18",
+      "to": "control_8.3",
+      "similarity": 0.9502,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.20",
+      "similarity": 0.9593,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.21",
+      "similarity": 0.9622,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.22",
+      "similarity": 0.931,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.23",
+      "similarity": 0.9204,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.2",
+      "to": "control_5.3",
+      "similarity": 0.8926,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.2",
+      "to": "control_5.4",
+      "similarity": 0.9182,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.20",
+      "to": "control_5.21",
+      "similarity": 0.9374,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.20",
+      "to": "control_5.22",
+      "similarity": 0.9185,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.21",
+      "to": "control_5.22",
+      "similarity": 0.9328,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.22",
+      "to": "control_5.23",
+      "similarity": 0.9102,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_5.25",
+      "similarity": 0.9344,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_5.26",
+      "similarity": 0.9154,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_5.7",
+      "similarity": 0.8958,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_6.8",
+      "similarity": 0.9189,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.25",
+      "to": "control_5.26",
+      "similarity": 0.9199,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.25",
+      "to": "control_5.27",
+      "similarity": 0.9185,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.25",
+      "to": "control_6.8",
+      "similarity": 0.9259,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.26",
+      "to": "control_5.27",
+      "similarity": 0.9258,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.26",
+      "to": "control_5.28",
+      "similarity": 0.9144,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.27",
+      "to": "control_5.28",
+      "similarity": 0.9122,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.28",
+      "to": "control_8.15",
+      "similarity": 0.9104,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.29",
+      "to": "control_5.30",
+      "similarity": 0.8999,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.29",
+      "to": "control_8.13",
+      "similarity": 0.8917,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.30",
+      "to": "control_7.11",
+      "similarity": 0.8939,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.30",
+      "to": "control_8.13",
+      "similarity": 0.8966,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_5.32",
+      "similarity": 0.8767,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_5.33",
+      "similarity": 0.8923,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_5.34",
+      "similarity": 0.9315,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_8.24",
+      "similarity": 0.8672,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.32",
+      "to": "control_5.33",
+      "similarity": 0.8846,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.33",
+      "to": "control_5.34",
+      "similarity": 0.9015,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.34",
+      "to": "control_8.11",
+      "similarity": 0.9031,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.35",
+      "to": "control_5.36",
+      "similarity": 0.92,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.37",
+      "to": "control_8.19",
+      "similarity": 0.8749,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.37",
+      "to": "control_8.32",
+      "similarity": 0.8956,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.37",
+      "to": "control_8.9",
+      "similarity": 0.8763,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.4",
+      "to": "control_6.3",
+      "similarity": 0.9194,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.7",
+      "to": "control_8.8",
+      "similarity": 0.8855,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.9",
+      "to": "control_7.10",
+      "similarity": 0.8652,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.1",
+      "to": "control_6.2",
+      "similarity": 0.902,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.1",
+      "to": "control_6.3",
+      "similarity": 0.8989,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.2",
+      "to": "control_6.5",
+      "similarity": 0.9447,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.2",
+      "to": "control_6.6",
+      "similarity": 0.9054,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.3",
+      "to": "control_6.4",
+      "similarity": 0.9135,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.3",
+      "to": "control_6.8",
+      "similarity": 0.9127,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.7",
+      "to": "control_8.1",
+      "similarity": 0.8944,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.7",
+      "to": "control_8.20",
+      "similarity": 0.8907,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.1",
+      "to": "control_7.2",
+      "similarity": 0.9313,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.1",
+      "to": "control_7.3",
+      "similarity": 0.905,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.1",
+      "to": "control_7.4",
+      "similarity": 0.9176,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.10",
+      "to": "control_7.14",
+      "similarity": 0.9188,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.11",
+      "to": "control_8.6",
+      "similarity": 0.867,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.14",
+      "to": "control_8.10",
+      "similarity": 0.9172,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.2",
+      "to": "control_7.4",
+      "similarity": 0.9324,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.2",
+      "to": "control_7.7",
+      "similarity": 0.8736,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.4",
+      "to": "control_8.15",
+      "similarity": 0.8611,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.1",
+      "to": "control_8.7",
+      "similarity": 0.9034,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.10",
+      "to": "control_8.11",
+      "similarity": 0.8974,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.12",
+      "to": "control_8.15",
+      "similarity": 0.9017,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.12",
+      "to": "control_8.16",
+      "similarity": 0.9169,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.13",
+      "to": "control_8.6",
+      "similarity": 0.8828,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.15",
+      "to": "control_8.16",
+      "similarity": 0.9033,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.19",
+      "to": "control_8.8",
+      "similarity": 0.8904,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.19",
+      "to": "control_8.9",
+      "similarity": 0.9084,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.2",
+      "to": "control_8.3",
+      "similarity": 0.9361,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.2",
+      "to": "control_8.4",
+      "similarity": 0.9066,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.2",
+      "to": "control_8.5",
+      "similarity": 0.9353,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.20",
+      "to": "control_8.21",
+      "similarity": 0.9411,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.20",
+      "to": "control_8.22",
+      "similarity": 0.9127,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.21",
+      "to": "control_8.22",
+      "similarity": 0.912,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.22",
+      "to": "control_8.23",
+      "similarity": 0.8822,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.22",
+      "to": "control_8.26",
+      "similarity": 0.8882,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.23",
+      "to": "control_8.26",
+      "similarity": 0.8714,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.24",
+      "to": "control_8.25",
+      "similarity": 0.899,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.25",
+      "to": "control_8.26",
+      "similarity": 0.9315,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.25",
+      "to": "control_8.27",
+      "similarity": 0.9172,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.26",
+      "to": "control_8.27",
+      "similarity": 0.9196,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.26",
+      "to": "control_8.28",
+      "similarity": 0.919,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.27",
+      "to": "control_8.28",
+      "similarity": 0.9183,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.27",
+      "to": "control_8.29",
+      "similarity": 0.8882,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.28",
+      "to": "control_8.29",
+      "similarity": 0.9057,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.3",
+      "to": "control_8.4",
+      "similarity": 0.8946,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.32",
+      "to": "control_8.9",
+      "similarity": 0.8957,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.4",
+      "to": "control_8.5",
+      "similarity": 0.8918,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.7",
+      "to": "control_8.8",
+      "similarity": 0.906,
+      "evidence_from": "",
+      "evidence_to": "",
+      "nominated_by": [
+        "pdca_graph"
+      ],
+      "bidirectional": true,
+      "source": "pdca_graph"
+    }
+  ]
+}

@@ -1,0 +1,2186 @@
+{
+  "model": "gemma4:e2b-mlx",
+  "top_k": 4,
+  "avg_citation_faithfulness": 0.9181,
+  "avg_content_faithfulness": 0.9888,
+  "avg_concept_score": 0.99,
+  "avg_traceability_score": 0.9833,
+  "avg_citation_accuracy_score": 0.9917,
+  "details": [
+    {
+      "id": "q1",
+      "question": "如何決定 ISMS 的適用範圍？我們需要考量哪些因素？",
+      "retrieved_ids": [
+        "clause_4.3",
+        "clause_6.1.3",
+        "clause_4.2",
+        "clause_9.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本查詢要求釐清如何決定資訊安全管理系統（ISMS）的適用範圍，以及在決定範圍時應考量的因素。\n\n📖 **依據條文與控制項說明**\n決定 ISMS 範圍應考慮以下三個核心方面：\n1. 組織應決定資訊安全管理系統之邊界及適用性，以建立其範圍 [clause_4.3]。\n2. 在決定範圍時，組織應考量外部及內部議題、要求事項，以及組織執行活動與其他組織活動間之介面及相依性 [c",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_4.2",
+          "clause_4.3",
+          "clause_6.1.3"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_4.2",
+          "clause_4.3",
+          "clause_6.1.3"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念完全符合 ISO 27001 精神且無矛盾，所有建議與引用均可完全追溯至檢索到的條文 context，引用的條文編號亦完全準確。"
+      }
+    },
+    {
+      "id": "q2",
+      "question": "ISO 27001 要求我們如何進行資訊安全風險評鑑？",
+      "retrieved_ids": [
+        "clause_6.1.2",
+        "clause_8.2",
+        "clause_6.1.3",
+        "clause_8.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解 ISO 27001 在資訊安全風險評鑑方面的具體要求，即組織應如何進行風險識別、分析、評估及處理的流程。\n\n📖 **依據條文與控制項說明**\n*   **風險評鑑過程的定義與準則建立：** 組織必須定義並應用資訊安全風險評鑑過程，以識別與喪失資訊之機密性、完整性及可用性相關聯的風險 [6.1.2 c)。\n*   **風險識別：** 應識別風險當責者 [6.",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.2"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案觀念正確且與 context 完全一致，所有建議與文件缺口皆能精確追溯至檢索條文，且引用的條文編號完全準確。"
+      }
+    },
+    {
+      "id": "q3",
+      "question": "最高管理階層應如何展現對資訊安全管理系統的領導力與承諾？",
+      "retrieved_ids": [
+        "clause_4.3",
+        "clause_4.4",
+        "clause_5.1",
+        "clause_6.1.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本問題要求最高管理階層應如何透過具體行動展現對資訊安全管理系統（ISMS）的領導地位、以及其所承擔的責任。\n\n📖 **依據條文與控制項說明**\n最高管理階層應藉由下列事項，展現對資訊安全管理系統之領導作為及承諾 [clause_5.1]。\na) 確保已建立資訊安全政策及資訊安全目標，並與組織之策略方向相容 [clause_5.1 a]。\nb) 確保資訊安全管理系統要求事項",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_4.3",
+          "clause_4.4",
+          "clause_5.1",
+          "clause_6.1.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_4.3",
+          "clause_4.4",
+          "clause_5.1",
+          "clause_6.1.2"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全忠實於檢索到的 ISO 27001 條文，觀念正確，建議均能追溯至條文且引用編號無誤。"
+      }
+    },
+    {
+      "id": "q4",
+      "question": "ISO 27001 對於威脅情資（Threat Intelligence）的收集有什麼具體要求？",
+      "retrieved_ids": [
+        "control_5.7",
+        "control_7.5",
+        "clause_7.5.1",
+        "clause_6.1.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解 ISO 27001 在威脅情資（Threat Intelligence）收集方面具體的要求。\n\n📖 **依據條文與控制項說明**\n核心條文：\n應蒐集並分析與資訊安全威脅相關之資訊,以產生威脅情資 [control_5.7]。\n\n延伸條文：\n組織必須透過規劃行動來達成資訊安全管理系統的目標，這包含預防或減少非所欲之影響 [clause_6.1.1]。📌 相關",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.1",
+          "clause_7.5.1",
+          "control_5.7"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.1",
+          "clause_7.5.1",
+          "control_5.7"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有觀念皆正確，且所有建議均能精確追溯至 Context 中的條文編號與控制精神，引用條文亦完全無誤。"
+      }
+    },
+    {
+      "id": "q5",
+      "question": "為了保護智慧財產權，我們在 ISO 27001 框架下需要注意什麼？",
+      "retrieved_ids": [
+        "control_5.32",
+        "control_5.34",
+        "control_5.33",
+        "control_7.8"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求在 ISO 27001 框架下針對智慧財產權進行保護措施。\n\n📖 **依據條文與控制項說明**\n*   組織應實作適切程序，以保護智慧財產權 [control_5.32]。\n*   組織應依適用之法律、法規及契約的要求事項，識別並符合關於隱私保護及 PII 保護之要求事項 [control_5.34]。\n*   應保護記錄，免於遺失、毀損、偽造、未經授權存取及未",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_5.32",
+          "control_5.33",
+          "control_5.34",
+          "control_7.8"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.32",
+          "control_5.33",
+          "control_5.34",
+          "control_7.8"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全忠實於檢索到的條文，所有建議與控制措施皆可追溯且與條文內容一致。"
+      }
+    },
+    {
+      "id": "q6",
+      "question": "組織需要定期進行內部稽核嗎？稽核計畫該怎麼建立？",
+      "retrieved_ids": [
+        "clause_9.2.2",
+        "clause_9.2",
+        "clause_4.1",
+        "control_8.34"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解組織是否需要定期進行內部稽核，以及如何建立稽核計畫。\n\n📖 **依據條文與控制項說明**\n組織應規劃、建立、實作及維持稽核計畫，其中包括頻率、方法、責任、規劃要求事項及報告 [clause_9.2.2]。\n在建立內部稽核計畫時，組織應考量所關切過程之重要性及先前稽核的結果 [clause_9.2.2]。\n組織應定義各稽核之稽核準則及稽核範圍 [clause_",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_4.1",
+          "clause_9.2.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_4.1",
+          "clause_9.2.2"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全忠實於提供的 Context 條文，建議與要求均有明確對應且邏輯清晰。"
+      }
+    },
+    {
+      "id": "q7",
+      "question": "對於資訊系統的備份，有什麼控制措施要求？稽核時需要提供什麼證據？",
+      "retrieved_ids": [
+        "control_8.13",
+        "clause_7.5.3",
+        "control_8.34",
+        "clause_6.1.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求針對資訊系統的備份措施及稽核時應提供的證據，以確保符合 ISO 27001 要求。\n\n📖 **依據條文與控制項說明**\n核心條文：\n應依議定之關於備份的主題特定政策，維護資訊、軟體及系統之備份複本，並定期測試之 [control_8.13]。\n應控制資訊安全管理系統及本標準要求之文件化資訊，以確保其於需要處及需要時為可用及適用 [clause_7.5.3]。\n稽",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "clause_7.5.3",
+          "control_8.13",
+          "control_8.34"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "clause_7.5.3",
+          "control_8.13",
+          "control_8.34"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案所引用的條文與建議完全契合檢索到的 Context，觀念正確、邏輯可追溯且條文編號完全準確。"
+      }
+    },
+    {
+      "id": "q8",
+      "question": "我們該如何實施桌面淨空與螢幕淨空（Clean desk and clean screen）？",
+      "retrieved_ids": [
+        "control_7.7",
+        "control_7.5",
+        "clause_10.2",
+        "control_5.4"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求實施桌面與螢幕淨空措施，旨在了解如何將此行為納入 ISO 27001 的體系中。\n\n📖 **依據條文與控制項說明**\n*   應定義對紙本及可移除式儲存媒體之桌面淨空規則,以及對資訊處理設施的螢幕淨空規則,並適切實施之 [control_7.7]。\n*   應設計並實作防範實體及環境威脅(諸如天然災害及其他對基礎設施之蓄意或非蓄意的實體威脅)之措施 [contr",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.2",
+          "clause_7.5",
+          "control_5.4",
+          "control_7.7"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.2",
+          "control_5.4",
+          "control_7.7"
+        ],
+        "cited_out_of_context": [
+          "clause_7.5"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "所有建議與觀念皆與 Context 完全一致，且引用的條文編號完全正確並可精確追溯。"
+      }
+    },
+    {
+      "id": "q9",
+      "question": "管理審查（Management Review）的輸入項目有哪些？",
+      "retrieved_ids": [
+        "clause_9.3.2",
+        "clause_9.3.3",
+        "control_5.22",
+        "clause_9.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本次諮詢要求釐清 ISO 27001 管理審查（Management Review）應納入的具體輸入項目。\n\n📖 **依據條文與控制項說明**\n管理審查應考量下列事項 [clause_9.3.2]：\n*   過往管理審查之決議的處理狀態 [clause_9.3.2]。\n* 與資訊安全管理系統有關之外部及內部議題之變更 [clause_9.3.2]。\n* 與資訊安全管理系統",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_9.3.2",
+          "clause_9.3.3",
+          "control_5.22"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_9.3.2",
+          "clause_9.3.3",
+          "control_5.22"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案完全忠實於檢索到的 ISO 27001 條文 Context，觀念正確、邏輯可追溯且條文編號引用完全無誤。"
+      }
+    },
+    {
+      "id": "q10",
+      "question": "公司要處理敏感性個資，ISO 27001 建議使用什麼控制措施來保護這些敏感資料？",
+      "retrieved_ids": [
+        "control_8.12",
+        "control_5.34",
+        "control_8.11",
+        "control_7.14"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求針對處理敏感性個人資料應採取的 ISO 27001 技術與組織控制措施。\n\n📖 **依據條文與控制項說明**\n保護敏感資料應著重於技術防護、法律合規及資產安全三個面向 [control_8.12] 應將資料洩漏預防措施，套用至處理、儲存或傳輸敏感性資訊之系統、網路及所有其他裝置 [control_8.12]。\n組織必須識別並符合關於隱私保護及 PII 保護之要求",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_5.34",
+          "control_7.14",
+          "control_8.11",
+          "control_8.12"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.34",
+          "control_7.14",
+          "control_8.11",
+          "control_8.12"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案之觀念、邏輯追溯與條文引用皆與 Context 完全一致，無任何矛盾或無法追溯的聲明。"
+      }
+    },
+    {
+      "id": "q11",
+      "question": "ISMS 建立之後，clause 4.4 要求組織持續維護和改善哪些面向？",
+      "retrieved_ids": [
+        "clause_4.4",
+        "clause_10.1",
+        "control_5.30",
+        "clause_4.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清在 ISMS 建立後，組織應持續維護與改善哪些面向。\n\n📖 **依據條文與控制項說明**\n*   核心條文：組織應依本標準之要求事項,建立、實作、維持及持續改善資訊安全管理系統,包括所需過程及其互動 [clause_4.4]。\n*   核心條文：組織應持續改善資訊安全管理系統之合宜性、適切性及有效性 [clause_10.1]。\n*   核心條文：應依營運持",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.1",
+          "clause_4.1",
+          "clause_4.4",
+          "control_5.30"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.1",
+          "clause_4.1",
+          "clause_4.4",
+          "control_5.30"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有實務建議均能精確追溯至 Context 中的對應條文，且引用的條文編號完全正確，無任何矛盾。"
+      }
+    },
+    {
+      "id": "q12",
+      "question": "資訊安全政策應該涵蓋哪些內容？需要由誰核准並如何傳達給員工？",
+      "retrieved_ids": [
+        "control_5.1",
+        "control_5.36",
+        "clause_6.2",
+        "clause_6.1.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清資訊安全政策應涵蓋的核心內容、核准機制以及傳達方式。\n\n📖 **依據條文與控制項說明**\n\n**核心條文：資訊安全政策的定義、核准及傳達**\n資訊安全政策及主題特定政策應予以定義、由管理階層核可、發布、傳達予相關人員及相關關注方,且其係知悉,並依規劃期間及發生重大變更時審查 [control_5.1]。\n\n**核心條文：政策與目標的關聯性**\n組織應於各相關",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_5.1",
+          "clause_6.1.3",
+          "clause_6.2",
+          "control_5.36"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "clause_6.2",
+          "control_5.36"
+        ],
+        "cited_out_of_context": [
+          "clause_5.1"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案完全忠實於檢索的條文 Context，提出的所有觀念與控制措施皆有明確條文依據，且條文編號引用完全正確。"
+      }
+    },
+    {
+      "id": "q13",
+      "question": "組織內的資訊安全角色與責任應如何分配？誰負責指派這些職責？",
+      "retrieved_ids": [
+        "control_5.2",
+        "clause_5.3",
+        "clause_6.1.3",
+        "clause_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本提問要求釐清組織內資訊安全角色與責任的定義、分配機制，以及職責指派的主體。\n\n📖 **依據條文與控制項說明**\n*   核心條文：應依組織需要，定義並配置資訊安全之角色及責任 [control_5.2]。\n*   核心條文：最高管理階層應確保資訊安全相關角色之責任及權限已於組織內指派並傳達 [clause_5.3]。\n*   核心條文：最高管理階層應指派確保資訊安全管理",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_5.2",
+          "clause_5.3",
+          "clause_6.1.3",
+          "clause_6.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_5.3",
+          "clause_6.1.3",
+          "clause_6.2"
+        ],
+        "cited_out_of_context": [
+          "clause_5.2"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念正確、邏輯皆可追溯至檢索條文，且引用的條文編號完全符合 Context 內容。"
+      }
+    },
+    {
+      "id": "q14",
+      "question": "進行風險評鑑之前，需要先建立哪些準則？這些準則如何影響後續的風險判斷？",
+      "retrieved_ids": [
+        "clause_6.1.2",
+        "clause_8.2",
+        "clause_6.1.3",
+        "clause_0.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求在進行資訊安全風險評鑑前，應建立哪些準則，以及這些準則如何影響後續的風險判斷。\n\n📖 **依據條文與控制項說明**\n核心條文：\n組織應定義及應用資訊安全風險評鑑過程於下列事項中：建立及維持包括下列準則之資訊安全風險準則：風險接受準則，及執行資訊安全風險評鑑之準則 [clause_6.1.2]。\n組織應識別資訊安全管理系統範圍內與喪失資訊之機密性、完整性及可用性相",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.2"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全忠實於所提供的條文 Context，所指出的風險準則與對後續風險判斷的影響皆有明確的條文對應，且引用的條文編號完全準確無誤。"
+      }
+    },
+    {
+      "id": "q15",
+      "question": "SoA（適用性聲明）應該包含哪些內容？哪些情況下可以排除 Annex A 的控制措施？",
+      "retrieved_ids": [
+        "clause_6.1.3",
+        "clause_7.5.3",
+        "clause_10.2",
+        "clause_8.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清適用性聲明（SoA）應包含哪些內容，以及在何種情況下可以排除附錄 A 的控制措施。\n\n📖 **依據條文與控制項說明**\n**關於 SoA 應包含的內容：**\n1. 必要之控制措施 (參照 6.1.3 b) 及 c)) [clause_6.1.3]\n2. 納入之衡量理由 [clause_6.1.3]\n3. 是否實作必要之控制措施 [clause_6.1.3]\n",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.2",
+          "clause_6.1.3",
+          "clause_7.5.3"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.2",
+          "clause_6.1.3",
+          "clause_7.5.3"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有觀念、建議與引用條文皆完全與 Context 一致且可追溯，無任何矛盾或不實宣稱。"
+      }
+    },
+    {
+      "id": "q16",
+      "question": "資訊安全目標應如何設定？ISO 27001 對目標的特性有什麼要求？",
+      "retrieved_ids": [
+        "clause_6.2",
+        "clause_6.1.3",
+        "clause_6.1.2",
+        "clause_4.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解資訊安全目標應如何設定，以及 ISO 27001 對資訊安全目標的特性要求。\n\n📖 **依據條文與控制項說明**\n資訊安全目標應滿足下列事項 [clause_6.2]：\n*   與資訊安全政策保持一致 [clause_6.2 a]。\n*   應可量測（若可行）[clause_6.2 b]。\n*   需考量適用之資訊安全要求事項、風險評鑑及風險處理的結果 [c",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_6.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_6.2"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案完全符合檢索條文，觀念正確、邏輯皆可追溯至對應條文，且引用的條文編號皆正確無誤。"
+      }
+    },
+    {
+      "id": "q17",
+      "question": "ISO 27001 要求哪些文件化資訊必須保存？文件版本應如何管控？",
+      "retrieved_ids": [
+        "clause_7.5.3",
+        "clause_7.5",
+        "clause_6.1.3",
+        "clause_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解 ISO 27001 對文件化資訊的保存要求及版本管控機制。\n\n📖 **依據條文與控制項說明**\n核心條文：\n應控制資訊安全管理系統及本標準要求之文件化資訊，以確保其於需要處及需要時為可用及適用 [clause 7.5.3]。\n應對文件化資訊進行派送、存取、檢索及使用之控制 [clause 7.5.3]。\n組織應對文件化資訊實施變更之控制（例如版本控制）[c",
+      "citation_faithfulness": {
+        "cited_ids": [],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [],
+        "cited_out_of_context": [],
+        "citation_score": null,
+        "no_citations_found": true
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案觀念正確、引用的條文均在 context 中，且各項建議與宣稱皆能高度追溯至檢索條文之要求與精神。"
+      }
+    },
+    {
+      "id": "q18",
+      "question": "組織應如何規劃員工的資訊安全認知與教育訓練計畫？",
+      "retrieved_ids": [
+        "control_6.3",
+        "clause_6.2",
+        "clause_6.1.3",
+        "control_5.24"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本查詢要求組織如何規劃員工的資訊安全認知與教育訓練計畫，核心在於將資訊安全認知及教育訓練與組織的資訊安全政策、風險處理結果以及資訊安全目標達成連結起來。\n\n📖 **依據條文與控制項說明**\n*   **核心條文：** 組織及相關關注方之人員,均應接受與其工作職能相關的組織資訊安全政策、主題特定政策及程序之適切資訊安全認知及教育訓練,並定期更新 [control_6.3]。",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "clause_6.2",
+          "clause_6.3",
+          "control_5.24"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "clause_6.2",
+          "control_5.24"
+        ],
+        "cited_out_of_context": [
+          "clause_6.3"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案之觀念完全正確，所引用的條文編號與內容皆完全存在於檢索的 context 中，且每項建議均能明確追溯至對應條文的要求精神。"
+      }
+    },
+    {
+      "id": "q19",
+      "question": "ISO 27001 clause 8.1 對於運作規劃與控制有什麼要求？外包作業如何納管？",
+      "retrieved_ids": [
+        "clause_8.1",
+        "clause_7.5.3",
+        "control_5.24",
+        "clause_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清 ISO 27001 章節 8.1 對於營運規劃與控制的要求，以及如何應對外包作業的管理規範。\n\n📖 **依據條文與控制項說明**\n核心要求：組織必須規劃、實作及控制符合要求事項所需之過程，並藉由建立過程之準則及實作過程之控制措施來達成行動 [clause_8.1]。\n核心要求：組織應提供文件化資訊，其程度須具足以達成其過程已依規劃執行之信心 [clause",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.2",
+          "clause_7.5.3",
+          "clause_8.1",
+          "control_5.24"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.2",
+          "clause_7.5.3",
+          "clause_8.1",
+          "control_5.24"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案中所有觀念皆正確、建議皆有 context 條文依據可追溯，且引用的條文編號皆在 context 中，完全忠實。"
+      }
+    },
+    {
+      "id": "q20",
+      "question": "我們應該如何評估 ISMS 的績效？需要監視和量測哪些項目？",
+      "retrieved_ids": [
+        "clause_9.1",
+        "control_5.22",
+        "control_8.16",
+        "clause_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求評估資訊安全管理系統 (ISMS) 的績效，需確定應監督、量測、分析的項目。\n\n📖 **依據條文與控制項說明**\n*   組織應決定需要監督及量測之事項，包括資訊安全過程及控制措施 [clause_9.1]。\n*   組織應評估資訊安全績效及資訊安全管理系統之有效性 [clause_9.1]。\n*   資訊安全目標應滿足可量測、受監視、被傳達、於適切時更新，並以",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.2",
+          "clause_9.1",
+          "control_5.22",
+          "control_8.16"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.2",
+          "clause_9.1",
+          "control_5.22",
+          "control_8.16"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念完全與 Context 一致，所有建議與文件缺口要求皆能明確追溯至 Context 條文，且引用的條文編號皆正確無誤。"
+      }
+    },
+    {
+      "id": "q21",
+      "question": "管理審查的輸出應包含哪些決議？這些決議如何驅動後續改善行動？",
+      "retrieved_ids": [
+        "clause_9.3.2",
+        "clause_9.3.3",
+        "control_5.22",
+        "clause_10.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本次諮詢要求釐清管理審查的輸出應包含哪些決議，以及這些決議如何驅動後續的改善行動。\n\n📖 **依據條文與控制項說明**\n管理審查的結果應包含與持續改善機會相關的決策，以及任何對資訊安全管理系統變更之需要 [clause_9.3.3]。\n管理審查的輸出必須具備文件化資訊，以作為管理審查結果之證據 [clause_9.3.3]。\n管理審查應考量資訊安全績效的回饋，包括不符合事",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.1",
+          "clause_9.3.2",
+          "clause_9.3.3"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.1",
+          "clause_9.3.2",
+          "clause_9.3.3"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案之觀念、邏輯追溯及條文引用皆與 Context 完全一致且無任何矛盾。"
+      }
+    },
+    {
+      "id": "q22",
+      "question": "稽核發現不符合事項時，矯正措施的完整流程是什麼？如何驗證有效性？",
+      "retrieved_ids": [
+        "clause_10.2",
+        "clause_9.2.2",
+        "clause_9.3.2",
+        "control_5.31"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解在稽核發現不符合事項時，組織應採取的矯正措施的完整流程以及如何驗證這些措施的有效性。\n\n📖 **依據條文與控制項說明**\n矯正措施的完整流程應包含以下步驟：\n1. 採取行動以控制並矯正不符合事項 [clause_10.2 a.1]。\n2. 處理不符合事項的後果 [clause_10.2 a.2]。\n3. 透過審查來評估消除不符合事項的原因所需的行動，使其不再",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.2",
+          "clause_9.2.2",
+          "clause_9.3.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.2",
+          "clause_9.2.2",
+          "clause_9.3.2"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 0.5,
+        "faithfulness_score": 0.95,
+        "unfaithful_claims": [
+          "顧問答案將『判定是否存在類似的不符合事項或可能發生的情況』錯誤標記為 [clause_10.2 b.2]（實際應對應至 clause_10.2 b) 3)）"
+        ],
+        "reasoning": "主要扣分原因為條文引用編號之技術性失誤，將 clause_10.2 b) 3) 之內容錯標為 [clause_10.2 b.2]，其餘觀念正確且完全可追溯。"
+      }
+    },
+    {
+      "id": "q23",
+      "question": "ISO 27001 對持續改善 ISMS 有什麼具體要求？與矯正措施有何不同？",
+      "retrieved_ids": [
+        "clause_10.2",
+        "clause_10.1",
+        "control_5.30",
+        "clause_6.1.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清 ISO 27001 中「持續改善」的要求與「矯正措施」的區別，以及如何具體實施。\n\n📖 **依據條文與控制項說明**\n核心要求：持續改善資訊安全管理系統之合宜性、適切性及有效性 [clause_10.1]。\n矯正措施：當不符合事項發生時，組織應採取行動以控制並矯正不符合事項，處理其後果，審查不符合事項，判定原因，審查所有矯正措施之有效性，必要時對 ISMS",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.1",
+          "clause_10.2",
+          "clause_6.1.1",
+          "control_5.30"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.1",
+          "clause_10.2",
+          "clause_6.1.1",
+          "control_5.30"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案的所有觀念、建議與引用條文皆完全符合檢索到的 Context，且可完全追溯至對應的條文內容。"
+      }
+    },
+    {
+      "id": "q24",
+      "question": "組織需要建立哪些內外部溝通機制來支援 ISMS？溝通的對象和時機如何決定？",
+      "retrieved_ids": [
+        "clause_7.4",
+        "clause_4.1",
+        "clause_4.3",
+        "clause_0.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本查詢要求組織應如何建立內部及外部溝通機制，以及如何決定溝通的對象和時機。\n\n📖 **依據條文與控制項說明**\n核心條文：\n組織應決定相關於資訊安全管理系統之內部及外部溝通或傳達的需要，包括溝通或傳達事項、溝通或傳達時間、溝通或傳達對象、以及溝通或傳達方式 [clause_7.4]。\n\n延伸條文：\n組織在決定溝通需求時，應考量資訊安全管理系統預期成果能力相關的外部及內部議",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_0.1",
+          "clause_4.1",
+          "clause_4.3",
+          "clause_7.4"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_0.1",
+          "clause_4.1",
+          "clause_4.3",
+          "clause_7.4"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案觀念完全正確，建議皆有 context 條文作為明確依據，且引用條文均包含在檢索範圍內，無任何矛盾或不忠實之處。"
+      }
+    },
+    {
+      "id": "q25",
+      "question": "風險處理計畫需要包含哪些要素？需要由誰核准才能正式執行？",
+      "retrieved_ids": [
+        "clause_6.1.3",
+        "clause_8.3",
+        "clause_6.1.2",
+        "clause_9.3.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清資訊安全風險處理計畫應包含哪些要素，以及正式執行需要誰的核准。\n\n📖 **依據條文與控制項說明**\n核心條文：\n*   風險處理計畫應達成下列事項 [6.1.3]：\n    *   考量風險評鑑結果，選擇適切之資訊安全風險處理選項 [6.1.3 a]。\n    *   決定所有必須實作之控制措施 [6.1.3 b]。\n    *   比較所決定之控制措施與附",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.3",
+          "clause_9.3.2"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.3",
+          "clause_9.3.2"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案之觀念、邏輯追溯及條文引用皆與 Context 完全吻合，且對 Context 中被截斷的條文進行了符合 ISO 27001 精神的正確補充。"
+      }
+    },
+    {
+      "id": "q26",
+      "question": "員工入職前，組織應進行哪些背景查核？查核範圍應如何決定？",
+      "retrieved_ids": [
+        "control_6.1",
+        "control_6.3",
+        "control_5.18",
+        "control_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求在員工入職前應進行哪些背景查核，以及如何決定查核的範圍。\n\n📖 **依據條文與控制項說明**\n1. 對所有成為員工之候選者，應於其加入組織前，進行背景查證調查，且持續進行，同時將適用的法律、法規及倫理納入考量，並宜相稱於營運要求事項，其將存取之資訊的分類分級及所察覺之風險 [control_6.1]。\n2. 聘用契約協議應敘明人員及組織對資訊安全之責任 [con",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1",
+          "clause_6.2",
+          "clause_6.3",
+          "control_5.18"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.18"
+        ],
+        "cited_out_of_context": [
+          "clause_6.1",
+          "clause_6.2",
+          "clause_6.3"
+        ],
+        "citation_score": 0.25,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念完全符合 Context，所有建議皆可追溯至檢索到的控制項，且引用的條文編號皆正確無誤。"
+      }
+    },
+    {
+      "id": "q27",
+      "question": "員工離職時，資訊安全相關責任如何移交？存取權限應何時撤銷？",
+      "retrieved_ids": [
+        "control_5.18",
+        "control_6.5",
+        "clause_5.3",
+        "control_5.11"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本次諮詢旨在釐清員工離職時資訊安全責任的移交機制，以及存取權限應何時進行撤銷。\n\n📖 **依據條文與控制項說明**\n\n**關於員工離職時資訊安全相關責任的移交：**\n*   應對相關人員及其他關注方定義、施行並傳達於聘用終止或變更後，仍保持有效之資訊安全責任及義務 [control_6.5]。\n*   最高管理階層應確保資訊安全相關角色之責任及權限已於組織內指派並傳達 [",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_5.3",
+          "control_5.11",
+          "control_5.18",
+          "control_6.5"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_5.3",
+          "control_5.11",
+          "control_5.18",
+          "control_6.5"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全契合檢索條文的內容與精神，引用條文皆在 context 內，且邏輯推論與證據建議皆具備明確的條文追溯依據。"
+      }
+    },
+    {
+      "id": "q28",
+      "question": "如何建立和維護資訊資產清冊？資產擁有者的責任是什麼？",
+      "retrieved_ids": [
+        "control_5.9",
+        "control_5.2",
+        "control_5.10",
+        "clause_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求建立資訊資產清冊的建立與維護方法，以及資產擁有者的責任歸屬。\n\n📖 **依據條文與控制項說明**\n1. 資訊及其他相關聯資產之清冊的製作與維護 [control_5.9]。\n2. 應依組織需要，定義並配置資訊安全之角色及責任 [control_5.2]。\n3. 應識別、書面紀錄及實作對處置資訊及其他相關聯資產之可接受使用的規則及程序 [control_5.10]",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_5.2",
+          "clause_6.2",
+          "control_5.10",
+          "control_5.9"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.2",
+          "control_5.10",
+          "control_5.9"
+        ],
+        "cited_out_of_context": [
+          "clause_5.2"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有建議皆能精確對應至 Context 條文，無過度延伸且於警示中正確指出 Context 缺乏資產擁有者具體責任的限制，完全符合忠實性要求。"
+      }
+    },
+    {
+      "id": "q29",
+      "question": "資訊分類分級的標準如何制定？文件和資料應如何標示？",
+      "retrieved_ids": [
+        "control_5.13",
+        "control_5.12",
+        "clause_7.5.3",
+        "control_5.36"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求制定資訊分類分級標準的依據，以及文件和資料應如何標示。\n\n📖 **依據條文與控制項說明**\n核心條文：\n1. 資訊應依組織之資訊安全需要，依機密性、完整性、可用性及相關關注方要求事項分類分級 [control_5.12]。\n2. 應依組織所採用之資訊分類分級方案，發展及實作一套適切的資訊標示程序 [control_5.13]。\n3. 應控制資訊安全管理系統及本標",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_7.5.3",
+          "control_5.12",
+          "control_5.13",
+          "control_5.36"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_7.5.3",
+          "control_5.12",
+          "control_5.13",
+          "control_5.36"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案完全基於 Context 中的條文進行回覆，引用條文與編號皆正確無誤，無任何超出或矛盾的聲明。"
+      }
+    },
+    {
+      "id": "q30",
+      "question": "存取控制政策應包含哪些原則？最小權限和需知原則如何落實？",
+      "retrieved_ids": [
+        "control_5.18",
+        "control_8.2",
+        "control_5.15",
+        "control_8.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清存取控制政策應包含哪些原則，以及如何落實最小權限和需知原則。\n\n📖 **依據條文與控制項說明**\n*   存取權限的提供、審查、修改及刪除必須依據組織之存取控制的主題特定政策及規則 [control_5.18]。\n*   應依營運及資訊安全要求事項，建立並實作對資訊及其他相關聯資產之實體及邏輯存取控制的規則 [control_5.15]。\n*   應依已建立",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_8.2",
+          "clause_8.3",
+          "control_5.15",
+          "control_5.18"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.15",
+          "control_5.18"
+        ],
+        "cited_out_of_context": [
+          "clause_8.2",
+          "clause_8.3"
+        ],
+        "citation_score": 0.5,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案完全忠實於檢索到的條文內容，所有建議均能精確追溯至對應控制項，且正確指出目前檢索範圍未包含最小權限與需知原則之實務細節，無任何過度推論或幻覺。"
+      }
+    },
+    {
+      "id": "q31",
+      "question": "系統管理員帳號（admin/root）等特殊存取權限應如何管控？",
+      "retrieved_ids": [
+        "control_5.18",
+        "control_8.2",
+        "control_5.11",
+        "control_6.5"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求針對系統管理員等特殊存取權限應採取的管控措施。\n\n📖 **依據條文與控制項說明**\n1. 應依據組織之存取控制的主題特定政策及規則，提供、審查、修改及刪除對資訊及其他相關聯資產之存取權限 [control_5.18]。\n2. 應限制及管理特殊存取權限之配置及使用 [control_8.2]。\n\n📌 **相關考量**\n系統管理員帳號的管控必須涵蓋「提供與審查」以及",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_8.2",
+          "control_5.18",
+          "control_6.5"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.18",
+          "control_6.5"
+        ],
+        "cited_out_of_context": [
+          "clause_8.2"
+        ],
+        "citation_score": 0.6667,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "所有建議與採用的控制措施均能完全追溯至 Context 中的條文，無任何與 Context 矛盾或虛構的宣稱。"
+      }
+    },
+    {
+      "id": "q32",
+      "question": "密碼和鑑別資訊的管理有哪些具體要求？多因素驗證在什麼情況下必須使用？",
+      "retrieved_ids": [
+        "control_8.24",
+        "control_5.17",
+        "control_5.23",
+        "clause_6.1.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本查詢要求釐清密碼與鑑別資訊的管理具體要求，以及多因素驗證的使用時機。\n\n📖 **依據條文與控制項說明**\n\n**密碼技術與鑑別資訊管理要求：**\n*   應定義並實作有效使用密碼技術之規則，這包含加密金鑰的管理 [control_8.24]。\n*   鑑別資訊之配置及管理應由管理過程控制，包括告知人員關於鑑別資訊的適切處理 [control_5.17]。\n\n**風險處理",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "control_5.17",
+          "control_8.24"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "control_5.17",
+          "control_8.24"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有建議均完全忠實於 context 提供的條文，無任何無法追溯或與之矛盾的宣稱，並正確補全了 context 中被截斷的條文內容。"
+      }
+    },
+    {
+      "id": "q33",
+      "question": "與供應商合作時，應如何透過合約和監視機制保護資訊安全？",
+      "retrieved_ids": [
+        "control_5.19",
+        "control_5.21",
+        "control_5.20",
+        "clause_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求在與供應商合作時，應如何透過合約和監視機制來保護資訊安全。\n\n📖 **依據條文與控制項說明**\n1. 應定義並實作過程及程序，管理與供應者產品或服務之使用相關聯的資訊安全風險 [control_5.19]。\n2. 應定義並實作過程及程序，管理與 ICT 產品及服務供應鏈相關聯之資訊安全風險 [control_5.21]。\n3. 應依供應者關係之型式，建立相關的資",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.2",
+          "control_5.19",
+          "control_5.20",
+          "control_5.21"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.2",
+          "control_5.19",
+          "control_5.20",
+          "control_5.21"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全忠實於 Context，所有建議均能與檢索到的條文精準連結，觀念正確且無任何引用錯誤。"
+      }
+    },
+    {
+      "id": "q34",
+      "question": "組織導入雲端服務（SaaS/IaaS）時，需要考慮哪些 ISO 27001 的資訊安全要求？",
+      "retrieved_ids": [
+        "control_5.23",
+        "control_5.20",
+        "control_5.19",
+        "control_8.9"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求在組織導入雲端服務（SaaS/IaaS）時應考慮哪些 ISO 27001 的資訊安全要求。\n\n📖 **依據條文與控制項說明**\n*   應依組織之資訊安全要求事項，建立獲取、使用、管理及退出雲端服務的過程 [control_5.23]。\n*   應依供應者關係之型式，建立相關的資訊安全要求事項，並與各供應者議定 [control_5.20]。\n*   應定義並實",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_5.19",
+          "control_5.20",
+          "control_5.23",
+          "control_8.9"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.19",
+          "control_5.20",
+          "control_5.23",
+          "control_8.9"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有觀念、引用的條文編號及文件建議，均完全與 Context 契合且可精確追溯，沒有任何矛盾或無根據的聲明。"
+      }
+    },
+    {
+      "id": "q35",
+      "question": "資訊安全事故發生時，正確的回應流程是什麼？誰負責協調處理？",
+      "retrieved_ids": [
+        "control_5.26",
+        "control_5.24",
+        "control_5.27",
+        "control_5.25"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解資訊安全事故發生時應採取的正確回應流程、協調責任歸屬及處理機制。\n\n📖 **依據條文與控制項說明**\n1. 應依書面記錄程序，來回應資訊安全事故 [control_5.26]。\n2. 組織必須藉由定義、建立並溝通或傳達資訊安全事故管理過程、角色及責任，並規劃準備管理資訊安全事故 [control_5.24]。\n3. 組織應評鑑資訊安全事件，並判定是否將其歸類",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_5.24",
+          "control_5.25",
+          "control_5.26",
+          "control_5.27"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.24",
+          "control_5.25",
+          "control_5.26",
+          "control_5.27"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念正確、邏輯完全可追溯至檢索條文，且引用的條文編號皆準確無誤。"
+      }
+    },
+    {
+      "id": "q36",
+      "question": "資安事故處理結束後，如何從中學習並避免類似事件再次發生？",
+      "retrieved_ids": [
+        "control_5.27",
+        "clause_6.1.3",
+        "control_5.24",
+        "control_5.25"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求在資訊安全事故處理後，如何利用所獲得的知識來強化和改善資訊安全控制措施，以避免未來事件再次發生。\n\n📖 **依據條文與控制項說明**\n核心條文：\n應藉由資訊安全事故中所獲得之知識,強化及改善資訊安全控制措施 [control_5.27]。\n組織應定義並應用資訊安全風險處理過程，以達成選擇適切之資訊安全風險處理選項、決定所有必須實作之控制措施、比較已決定之控制措施",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "control_5.24",
+          "control_5.25",
+          "control_5.27"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "control_5.24",
+          "control_5.25",
+          "control_5.27"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案之觀念完全符合 Context，所有建議均能精確追溯至 Context 中的 ISO 27001 條文且無引用錯誤。"
+      }
+    },
+    {
+      "id": "q37",
+      "question": "業務持續計畫（BCP）和 ISO 27001 的關係是什麼？ICT 備妥性要求是什麼？",
+      "retrieved_ids": [
+        "control_5.30",
+        "clause_9.2.2",
+        "clause_10.1",
+        "clause_6.1.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清業務持續計畫（BCP）與 ISO 27001 的關係，以及 ICT 備妥性具體的要求。\n\n📖 **依據條文與控制項說明**\nISO 27001 要求組織必須規劃、實作、維護及測試 ICT 備妥性以達成營運持續目標 [control_5.30]。\n組織在規劃資訊安全管理系統時，應考量風險及機會，決定因應之行動，以確保系統能達成預期成果並預防非所欲之影響 [cl",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.1",
+          "clause_6.1.1",
+          "clause_9.2.2",
+          "control_5.30"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.1",
+          "clause_6.1.1",
+          "clause_9.2.2",
+          "control_5.30"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有建議與引用的條文編號完全與 context 一致，且能精確追溯至對應的控制措施與條文精神，觀念正確無任何矛盾。"
+      }
+    },
+    {
+      "id": "q38",
+      "question": "如何確保組織持續符合相關法律、法規和合約要求？遵循性如何查核？",
+      "retrieved_ids": [
+        "control_5.31",
+        "control_5.36",
+        "clause_5.3",
+        "clause_10.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解組織如何確保持續符合法律、法規及合約要求，以及應如何查核遵循性。\n\n📖 **依據條文與控制項說明**\n確保法律、法規及契約要求的遵循性：\n1. 應識別、書面記錄及保持更新資訊安全相關法律、法令、法規及契約之要求事項，以及組織為符合此等要求事項的作法 [control_5.31]。\n2. 應定期審查組織資訊安全政策、主題特定政策、規則及標準之遵循性 [cont",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.2",
+          "clause_5.3",
+          "control_5.31",
+          "control_5.36"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.2",
+          "clause_5.3",
+          "control_5.31",
+          "control_5.36"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有觀念與建議均完全符合 Context 條文，且引用的條文編號及語義對應皆準確無誤。"
+      }
+    },
+    {
+      "id": "q39",
+      "question": "允許員工遠端工作或居家辦公時，需要實施哪些額外的資訊安全控制？",
+      "retrieved_ids": [
+        "control_6.7",
+        "clause_6.1.3",
+        "control_8.1",
+        "control_5.27"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本次諮詢要求在員工遠端工作或居家辦公時應實施哪些額外的資訊安全控制，重點在於如何保護組織場所外處理的資訊。\n\n📖 **依據條文與控制項說明**\n核心條文：\n*   應實作安全措施，當人員遠端工作時，保護於組織場所外存取、處理或儲存之資訊 [control_6.7]。\n*   組織應定義並應用資訊安全風險處理過程，以達成選擇適切之資訊安全風險處理選項、決定所有必須實作之控制",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "clause_8.1",
+          "control_5.27",
+          "control_6.7"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "control_5.27",
+          "control_6.7"
+        ],
+        "cited_out_of_context": [
+          "clause_8.1"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念完全正確、引用的條文編號皆在檢索範圍內，且所有建議與缺口分析均能確實追溯至 Context 的條文要求。"
+      }
+    },
+    {
+      "id": "q40",
+      "question": "如何建立機房和辦公室的實體安全管控？門禁系統和周界保護有哪些要求？",
+      "retrieved_ids": [
+        "clause_4.3",
+        "clause_4.4",
+        "control_7.1",
+        "control_8.26"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求建立機房和辦公室的實體安全管控，特別是門禁系統與周界保護的要求。\n\n📖 **依據條文與控制項說明**\n實體安全管控的核心要求在於定義並使用安全周界，以保護收容資訊及其他相關聯資產之區域 [control_7.1]。組織必須依據本標準的要求事項，建立、實作、維持及持續改善資訊安全管理系統，包括所需過程及其互動 [clause_4.4]。\n\n📌 相關考量\n在實體安全",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_4.4",
+          "clause_7.1"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_4.4"
+        ],
+        "cited_out_of_context": [
+          "clause_7.1"
+        ],
+        "citation_score": 0.5,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有建議均可明確追溯至檢索條文中的 control_7.1 與 clause_4.4，且能誠實指出當前檢索資料不包含門禁系統等具體技術細節的限制，無任何矛盾與無根據發揮。"
+      }
+    },
+    {
+      "id": "q41",
+      "question": "如何防範惡意軟體（病毒、勒索軟體）？防惡意軟體控制措施的最低要求是什麼？",
+      "retrieved_ids": [
+        "control_8.7",
+        "clause_8.1",
+        "clause_7.5.3",
+        "clause_10.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解防範惡意軟體（病毒、勒索軟體）所需的最低控制措施，應基於 ISO 27001 的要求進行說明。\n\n📖 **依據條文與控制項說明**\n核心要求：組織應實作防範惡意軟體之措施，並由適切的使用者認知支援之 [control_8.7]。\n規劃與控制：組織應規劃、實作及控制符合要求事項所需之過程，並建立過程之準則，以確保安全措施得以執行 [clause_8.1]。\n文",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_10.2",
+          "clause_7.5.3",
+          "clause_8.1",
+          "control_8.7"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_10.2",
+          "clause_7.5.3",
+          "clause_8.1",
+          "control_8.7"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案的所有建議與引用的 ISO 27001 條文編號皆與 context 內容高度一致，邏輯推論完全可追溯且觀念正確。"
+      }
+    },
+    {
+      "id": "q42",
+      "question": "技術脆弱性（漏洞）管理的流程是什麼？修補程式應在多久內套用？",
+      "retrieved_ids": [
+        "control_8.8",
+        "control_8.24",
+        "clause_0.2",
+        "control_8.18"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解組織應如何進行技術脆弱性管理流程，以及修補程式應採取的時限。\n\n📖 **依據條文與控制項說明**\n1. 應取得關於使用中之資訊系統的技術脆弱性資訊，並應評估組織對此等脆弱性之暴露，且應採取適切措施 [control_8.8]。\n2. 應限制並嚴密控制可能篡越系統及應用程式之控制措施的公用程式之使用 [control_8.18]。\n\n📌 相關考量\n技術脆弱性管",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_8.18",
+          "control_8.8"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_8.18",
+          "control_8.8"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案之觀念、邏輯追溯與引用條文皆與 Context 完全一致，並準確識別出 Context 中未提及之流程細節與時限缺口。"
+      }
+    },
+    {
+      "id": "q43",
+      "question": "系統日誌（log）應記錄哪些事件？日誌需要保存多久？如何防止被竄改？",
+      "retrieved_ids": [
+        "control_8.27",
+        "control_8.15",
+        "control_8.26",
+        "control_8.34"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清系統日誌應記錄的事件範圍、保存期限以及防止日誌被竄改的措施。\n\n📖 **依據條文與控制項說明**\n核心條文：\n系統日誌應包含活動、異常、錯誤及其他相關事件的紀錄，並必須產生、儲存、保護及分析 [control_8.15]。\n工程原則要求建立、書面記錄及維護資訊系統的安全原則，並套用於所有資訊系統開發活動 [control_8.27]。\n\n📌 相關考量\n日誌的",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_8.15",
+          "control_8.26",
+          "control_8.27"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_8.15",
+          "control_8.26",
+          "control_8.27"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案所有建議與分析均緊扣檢索到的條文精神，準確識別出控制項要求與文件缺口，無任何不實宣稱。"
+      }
+    },
+    {
+      "id": "q44",
+      "question": "網路安全控制措施有哪些要求？網路區隔的原則是什麼？",
+      "retrieved_ids": [
+        "clause_6.1.3",
+        "control_8.21",
+        "control_8.20",
+        "control_8.22"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本諮詢要求釐清網路安全控制措施的要求，以及網路區隔的原則。\n\n📖 **依據條文與控制項說明**\n**網路安全控制措施的要求：**\n組織應識別、實作及監視網路服務之安全機制、服務等級及服務要求事項 [control_8.21]。\n組織應受保全、管理及控制網路與網路裝置，以保護系統及應用程式中之資訊 [control_8.20]。\n\n**網路區隔的原則：**\n應區隔組織網路中",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "control_8.20",
+          "control_8.21",
+          "control_8.22"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "control_8.20",
+          "control_8.21",
+          "control_8.22"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全忠實於檢索到的條文內容，觀念正確、所有建議與稽核證據均能明確追溯至 context 條文，且無引用錯誤。"
+      }
+    },
+    {
+      "id": "q45",
+      "question": "密碼技術（加密）應如何選用和實施？金鑰的生命週期如何管理？",
+      "retrieved_ids": [
+        "control_8.24",
+        "control_8.8",
+        "control_8.25",
+        "control_5.16"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求針對密碼技術（加密）的選用實施規範及金鑰生命週期管理方法。\n\n📖 **依據條文與控制項說明**\n1. 密碼技術應定義並實作有效使用密碼技術之規則，其中包含加密金鑰管理 [control_8.24]。\n2. 組織應建立並施行安全開發軟體及系統之規則 [control_8.25]。\n3. 組織應取得關於使用中資訊系統之技術脆弱性資訊，評估對此等脆弱性的暴露，並採取適",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_5.16",
+          "control_8.24",
+          "control_8.25",
+          "control_8.8"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.16",
+          "control_8.24",
+          "control_8.25",
+          "control_8.8"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "所有建議與相關考量皆能完全對應並追溯至 Context 中的 ISO 27001 條文要求，且無任何與 Context 矛盾或無根據的延伸聲明。"
+      }
+    },
+    {
+      "id": "q46",
+      "question": "軟體開發過程中如何落實資訊安全？安全開發生命週期（SDLC）有哪些關鍵控制？",
+      "retrieved_ids": [
+        "control_8.25",
+        "clause_6.1.3",
+        "control_8.29",
+        "clause_6.1.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解在軟體開發生命週期中如何落實資訊安全，關鍵控制措施應聚焦於風險處理、安全測試流程以及建立安全開發規則。\n\n📖 **依據條文與控制項說明**\n1. 安全開發規則的建立：組織應建立並施行安全開發軟體及系統之規則 [control_8.25]。\n2. 風險處理過程的定義：組織應定義並應用資訊安全風險處理過程，以達成選擇適切之資訊安全風險處理選項、決定所有必須實作之",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "control_8.25",
+          "control_8.29"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "control_8.25",
+          "control_8.29"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案中所引用的條文與控制措施均完全在檢索到的 context 中，且給出的稽核證據建議亦完全基於條文內容合理推導，無任何矛盾或無法追溯之處。"
+      }
+    },
+    {
+      "id": "q47",
+      "question": "IT 系統的變更應如何管理？緊急變更在 ISO 27001 框架下有什麼特殊規範？",
+      "retrieved_ids": [
+        "control_8.32",
+        "clause_4.3",
+        "clause_0.2",
+        "clause_4.4"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解資訊系統變更的管理方式，以及在 ISO 27001 框架下緊急變更應遵循的特殊規範。\n\n📖 **依據條文與控制項說明**\n\n*   **核心條文：變更管理程序**\n    資訊處理設施及資訊系統之變更，應遵循變更管理程序 [control_8.32]。\n*   **核心條文：資訊安全管理系統的範圍決定**\n    組織應決定資訊安全管理系統之邊界及適用性，以",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_4.3",
+          "clause_4.4",
+          "control_8.32"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_4.3",
+          "clause_4.4",
+          "control_8.32"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念、建議與引用條文皆完全符合檢索到的 Context，且針對未涵蓋的緊急變更細節已誠實說明，無任何矛盾或無法追溯之處。"
+      }
+    },
+    {
+      "id": "q48",
+      "question": "組態管理對資訊安全有哪些重要性？基準組態（Baseline）應如何建立和維護？",
+      "retrieved_ids": [
+        "control_8.9",
+        "control_5.24",
+        "clause_4.3",
+        "clause_4.4"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本次諮詢要求說明組態管理的重要性，以及如何建立和維護基準組態（Baseline）。\n\n📖 **依據條文與控制項說明**\n組態管理的重要性在於應建立、書面記錄、實作、監視並審查硬體、軟體、服務及網路之組態(包括安全組態) [control_8.9]。\n組態管理的要求是組織必須對其資訊安全管理系統進行持續的技術控制 [clause 4.4]。\n組織應建立、實作、維持及持續改善",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_8.9"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_8.9"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 0.7,
+        "traceability_score": 0.5,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 0.69,
+        "unfaithful_claims": [
+          "組態管理的要求是組織必須對其資訊安全管理系統進行持續的技術控制 [clause 4.4]",
+          "在規劃資訊安全事故時，必須考慮到現有的技術配置狀態，以確保事故管理過程的有效性 [control 5.24]"
+        ],
+        "reasoning": "主要扣分原因在於顧問答案將 clause_4.4（ISMS 建立與改善）與 control_5.24（事故管理）強行與組態管理進行無 context 依據的關聯與過度詮釋，屬於超出 context 的自由發揮。"
+      }
+    },
+    {
+      "id": "q49",
+      "question": "如何確認員工實際遵守資訊安全政策？管理階層在遵循性查核中扮演什麼角色？",
+      "retrieved_ids": [
+        "control_5.36",
+        "control_5.1",
+        "control_5.24",
+        "clause_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求確認員工遵守資訊安全政策的方法，以及管理階層在遵循性查核中應扮演的角色。\n\n📖 **依據條文與控制項說明**\n核心條文：\n*   資訊安全政策及主題特定政策應予以定義、由管理階層核可、發布、傳達予相關人員及相關關注方，且其係知悉，並依規劃期間及發生重大變更時審查 [control_5.1]。\n*   組織應定期審查組織資訊安全政策、主題特定政策、規則及標準之遵循",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_5.1",
+          "clause_6.2",
+          "control_5.24",
+          "control_5.36"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.2",
+          "control_5.24",
+          "control_5.36"
+        ],
+        "cited_out_of_context": [
+          "clause_5.1"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念與建議完全符合檢索到的 Context，所有引用的條文編號皆正確無誤，且每項建議均能清楚追溯至條文要求。"
+      }
+    },
+    {
+      "id": "q50",
+      "question": "ISO 27001 要求對 ISMS 進行獨立審查嗎？外部稽核與內部稽核有什麼不同？",
+      "retrieved_ids": [
+        "clause_9.2.2",
+        "control_5.35",
+        "clause_9.3.2",
+        "clause_9.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清 ISO 27001 對資訊安全管理系統 (ISMS) 的審查要求，以及內部稽核與獨立審查之間的區別。\n\n📖 **依據條文與控制項說明**\n*   **獨立審查的要求：** 組織應依規劃之期間或當發生重大變更時，由獨立審查組織對管理資訊安全的作法及其實作（包括人員、過程及技術）進行審查 [control_5.35]。\n*   **內部稽核的規劃與實作：** ",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_9.2.2",
+          "clause_9.3.2",
+          "control_5.35"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_9.2.2",
+          "clause_9.3.2",
+          "control_5.35"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有宣稱與建議均能完全追溯至檢索到的 Context 條文，引用的條文編號完全準確，且無任何與 Context 矛盾之處。"
+      }
+    },
+    {
+      "id": "q51",
+      "question": "身為 CISO，如何向董事會說明 ISMS 導入成效？需要準備哪些量化指標？",
+      "retrieved_ids": [
+        "control_5.24",
+        "clause_4.2",
+        "clause_6.2",
+        "clause_9.1"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n董事會需要了解 ISMS 如何透過量化的績效評估，證明資訊安全管理系統的規劃、執行及有效性。\n\n📖 **依據條文與控制項說明**\n向董事會說明成效應聚焦於以下三個核心要素：\n1. 事故管理準備度：組織必須定義、建立並溝通資訊安全事故管理過程、角色及責任，並規劃資訊安全事故的應對措施 [control_5.24]。\n2. 目標達成與規劃：組織應在各相關部門及層級建立資訊安全",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.2",
+          "clause_9.1",
+          "control_5.24"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.2",
+          "clause_9.1",
+          "control_5.24"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案完全忠實於 context 條文，所有量化指標建議均能精準追溯至對應的條文與控制項要求，無矛盾或超出範疇之無根據聲明。"
+      }
+    },
+    {
+      "id": "q52",
+      "question": "第一次申請 ISO 27001 外部認證稽核前三個月，哪些準備工作最關鍵？",
+      "retrieved_ids": [
+        "clause_9.2.2",
+        "control_8.34",
+        "control_5.24",
+        "clause_9.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本次稽核前三個月最關鍵的準備工作，應聚焦於內部稽核計畫的建立與資訊安全事故的管理準備。\n\n📖 **依據條文與控制項說明**\n1. 組織應規劃、建立、實作及維持稽核計畫，包括頻率、方法、責任、規劃要求事項及報告 [clause_9.2.2]。\n2. 在建立內部稽核計畫時，組織應考量所關切過程之重要性及先前稽核的結果 [clause_9.2.2]。\n3. 組織應定義、建立並溝",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_9.2.2",
+          "control_5.24",
+          "control_8.34"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_9.2.2",
+          "control_5.24",
+          "control_8.34"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的所有建議與觀念皆與 Context 一致，皆可完全追溯且引用的條文編號皆正確無誤。"
+      }
+    },
+    {
+      "id": "q53",
+      "question": "通過 ISO 27001 認證必須準備哪些文件？哪些是強制性的書面資訊？",
+      "retrieved_ids": [
+        "clause_7.5.3",
+        "control_5.24",
+        "clause_6.1.3",
+        "clause_7.5"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解 ISO 27001 認證所需準備的文件，以及哪些資訊是強制性的書面資訊。\n\n📖 **依據條文與控制項說明**\nISO 27001 要求組織必須對資訊安全管理系統及本標準要求之文件化資訊進行控制，以確保其在需要時可用且適用 [clause_7.5.3]。\n組織應闡明控制文件化資訊的活動，包括派送、存取、檢索及使用、儲存及保存（含可讀性保存），以及變更之控制（",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "clause_7.5.3"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "clause_7.5.3"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "答案的所有觀念與建議均與 Context 一致且可追溯，引用的條文編號亦完全正確。"
+      }
+    },
+    {
+      "id": "q54",
+      "question": "資安事故發生並處理完畢後，哪些 ISO 27001 條文要求我們更新文件或重新評估風險？",
+      "retrieved_ids": [
+        "clause_6.1.3",
+        "clause_6.1.2",
+        "clause_8.3",
+        "clause_8.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求在資安事故處理完畢後，依據 ISO 27001 要求應更新文件或重新評估風險的相關規範。\n\n📖 **依據條文與控制項說明**\n組織應保存關於資訊安全風險處理過程之文件化資訊 [clause_6.1.3]。\n組織應實作資訊安全風險處理計畫 [clause_8.3]。\n組織應保存資訊安全風險處理結果之文件化資訊 [clause_8.3]。\n組織應依規劃之期間，或當提",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "clause_8.2",
+          "clause_8.3"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "clause_8.2",
+          "clause_8.3"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案完全忠實於 Context。所引用的條文編號均在 Context 中，且邏輯上成功將資安事故處理後的情境與條文中關於重大變更重新評估風險（8.2）以及保存風險評鑑與處理紀錄（8.2, 8.3, 6.1.3）的要求緊密連結，無矛盾之處。"
+      }
+    },
+    {
+      "id": "q55",
+      "question": "新員工入職流程中，哪些 ISO 27001 控制項需要確認已完成？",
+      "retrieved_ids": [
+        "control_6.1",
+        "control_6.3",
+        "control_5.18",
+        "control_6.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求確認新員工入職流程中必須完成的 ISO 27001 控制項，以確保資訊安全責任在聘用階段即確立。\n\n📖 **依據條文與控制項說明**\n核心條文：\n*   對所有成為員工之候選者，應於其加入組織前，進行背景查證調查，且持續進行，同時將適用的法律、法規及倫理納入考量，並宜相稱於營運要求事項，其將存取之資訊的分類分級及所察覺之風險 [control_6.1]。\n*  ",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1",
+          "clause_6.2",
+          "clause_6.3",
+          "control_5.18"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.18"
+        ],
+        "cited_out_of_context": [
+          "clause_6.1",
+          "clause_6.2",
+          "clause_6.3"
+        ],
+        "citation_score": 0.25,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案中的所有建議均與 Context 條文完全一致，引用的條文編號正確，且無任何超出條文範疇或無法追溯的聲明。"
+      }
+    },
+    {
+      "id": "q56",
+      "question": "公司打算導入新的 SaaS 工具，事前應評估哪些 ISO 27001 控制項？",
+      "retrieved_ids": [
+        "control_5.20",
+        "control_5.23",
+        "control_5.19",
+        "control_8.9"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n本次諮詢旨在評估在導入新的 SaaS 工具時應優先檢視哪些 ISO 27001 控制項，以確保供應商的安全要求與雲端服務的資訊安全。\n\n📖 **依據條文與控制項說明**\n核心條文：\n*   應依供應者關係之型式,建立相關的資訊安全要求事項,並與各供應者議定 [control_5.20]。\n*   應定義並實作過程及程序,管理與供應者產品或服務之使用相關聯的資訊安全風險 [",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "control_5.19",
+          "control_5.20",
+          "control_5.23",
+          "control_8.9"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "control_5.19",
+          "control_5.20",
+          "control_5.23",
+          "control_8.9"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案觀念完全符合 Context，所有建議與考量皆能精確追溯至檢索到的條文編號且無任何矛盾。"
+      }
+    },
+    {
+      "id": "q57",
+      "question": "如何保護辦公室內的紙本文件與可移除式儲存媒體的安全？",
+      "retrieved_ids": [
+        "control_7.7",
+        "clause_7.5.3",
+        "control_7.10",
+        "control_7.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解如何透過實體控制措施保護辦公室內的紙本文件與可移除式儲存媒體的安全。\n\n📖 **依據條文與控制項說明**\n*   應定義對紙本及可移除式儲存媒體之桌面淨空規則，以及對資訊處理設施的螢幕淨空規則，並適切實施之 [control_7.7]。\n*   應設計辦公室、房間及設施之實體安全並實作之 [control_7.3]。\n*   儲存媒體應依組織之分類分級方案及",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_7.3",
+          "clause_7.5.3",
+          "control_7.10",
+          "control_7.7"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_7.5.3",
+          "control_7.10",
+          "control_7.7"
+        ],
+        "cited_out_of_context": [
+          "clause_7.3"
+        ],
+        "citation_score": 0.75,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案中的所有觀念、建議與引用條文均與檢索到的 ISO 27001 條文內容完全一致且可精確追溯。"
+      }
+    },
+    {
+      "id": "q58",
+      "question": "員工發現可疑的資安事件應如何通報？通報流程和負責窗口是什麼？",
+      "retrieved_ids": [
+        "control_6.8",
+        "control_5.25",
+        "clause_6.2",
+        "clause_6.1.3"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求了解員工發現可疑資安事件應如何通報，以及相關的通報流程和負責窗口。\n\n📖 **依據條文與控制項說明**\n*   組織應提供機制，供人員透過適切之管道，及時通報所觀察到或可疑的資訊安全事件 [control_6.8]。\n*   組織應評鑑資訊安全事件，並判定是否將其歸類為資訊安全事故 [control_5.25]。\n*   組織應定義並應用資訊安全風險處理過程，以",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.3",
+          "clause_6.2",
+          "control_5.25",
+          "control_6.8"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.3",
+          "clause_6.2",
+          "control_5.25",
+          "control_6.8"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 0.7,
+        "traceability_score": 0.5,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 0.69,
+        "unfaithful_claims": [
+          "在風險處理過程中，需明確定義負責人員及完成時間，以確保規劃的有效性 [clause_6.2]",
+          "確認資訊安全目標的規劃中是否已明確定義了「負責人員」及「完成時間」，以證明風險處理計畫的執行性。"
+        ],
+        "reasoning": "顧問將「資訊安全目標」與「風險處理計畫」的概念混淆，且錯誤地將其與「資安事件通報流程與負責窗口」進行連結，導致部分建議邏輯無法合理追溯。"
+      }
+    },
+    {
+      "id": "q59",
+      "question": "開發、測試和正式（生產）環境為什麼需要區隔？測試時使用真實資料有什麼風險？",
+      "retrieved_ids": [
+        "control_8.31",
+        "control_8.29",
+        "clause_6.1.3",
+        "clause_6.1.2"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求釐清開發、測試與生產環境區隔的必要性，以及使用真實資料進行測試可能帶來的風險。\n\n📖 **依據條文與控制項說明**\n*   開發環境、測試環境與生產環境應進行區隔並保全 [control_8.31]。\n*   組織應定義並實作安全測試過程於開發生命週期中 [control_8.29]。\n*   組織必須定義並應用資訊安全風險處理過程，以選擇適當的風險處理選項，並",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "control_8.29",
+          "control_8.31"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "control_8.29",
+          "control_8.31"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問的答案完全基於檢索到的條文 Context 進行回覆，所有建議皆可追溯，引用條文完全準確，且無與 Context 矛盾或無根據的幻覺聲明。"
+      }
+    },
+    {
+      "id": "q60",
+      "question": "如何管理 ICT 供應鏈（含開源元件）的資訊安全風險？",
+      "retrieved_ids": [
+        "clause_6.1.3",
+        "clause_6.1.2",
+        "clause_8.3",
+        "control_5.21"
+      ],
+      "answer_preview": "🎯 **諮詢問題分析**\n使用者要求如何針對資訊科技供應鏈（包含開源元件）進行資訊安全風險的管理。此要求聚焦於風險識別、評估及處理的流程與文件化要求。\n\n📖 **依據條文與控制項說明**\n1. 組織應定義並應用資訊安全風險處理過程，以達成選擇適切之資訊安全風險處理選項及決定所有必須實作之控制措施 [clause_6.1.3]。\n2. 組織應識別資訊安全管理系統範圍內與喪失資訊之機密性、完整性及可用",
+      "citation_faithfulness": {
+        "cited_ids": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.3",
+          "control_5.21"
+        ],
+        "cited_hallucinated_raw": [],
+        "cited_in_retrieved": [
+          "clause_6.1.2",
+          "clause_6.1.3",
+          "clause_8.3",
+          "control_5.21"
+        ],
+        "cited_out_of_context": [],
+        "citation_score": 1.0,
+        "no_citations_found": false
+      },
+      "content_faithfulness": {
+        "concept_score": 1.0,
+        "traceability_score": 1.0,
+        "citation_accuracy_score": 1.0,
+        "faithfulness_score": 1.0,
+        "unfaithful_claims": [],
+        "reasoning": "顧問答案的觀念正確、邏輯皆可追溯至檢索條文，引用的條文編號完全在 context 中，且針對開源元件的檢索限制做出了合理的免責說明。"
+      }
+    }
+  ]
+}

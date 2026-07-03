@@ -1,0 +1,640 @@
+{
+  "source": "/Users/lanss/projects/2_Practice/5-Day AI Agents Intensive Course with Google(2026)/iso27001-advisor/data/pdca_graph.json",
+  "edges": [
+    {
+      "from": "clause_10.1",
+      "to": "clause_9.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_10.1",
+      "to": "control_5.36",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_6.1",
+      "to": "clause_6.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_6.1",
+      "to": "clause_8.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_6.1",
+      "to": "clause_8.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_8.2",
+      "to": "clause_8.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.1",
+      "to": "clause_9.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.1",
+      "to": "clause_9.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.2",
+      "to": "clause_9.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "clause_9.2",
+      "to": "control_5.35",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.1",
+      "to": "control_5.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.1",
+      "to": "control_5.36",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.1",
+      "to": "control_5.4",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.10",
+      "to": "control_5.12",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.10",
+      "to": "control_5.9",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.11",
+      "to": "control_5.9",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_5.13",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_5.14",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_5.9",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_7.7",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_8.10",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.12",
+      "to": "control_8.11",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.13",
+      "to": "control_5.14",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.13",
+      "to": "control_8.11",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_6.6",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_6.7",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_8.12",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_8.20",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.14",
+      "to": "control_8.24",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.16",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.17",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.18",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_5.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_8.1",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.15",
+      "to": "control_8.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.16",
+      "to": "control_5.17",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.16",
+      "to": "control_5.18",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.16",
+      "to": "control_8.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.17",
+      "to": "control_8.5",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.18",
+      "to": "control_5.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.18",
+      "to": "control_6.5",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.18",
+      "to": "control_8.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.20",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.21",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.22",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.19",
+      "to": "control_5.23",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.2",
+      "to": "control_5.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.2",
+      "to": "control_5.4",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.20",
+      "to": "control_5.21",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.20",
+      "to": "control_5.22",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.21",
+      "to": "control_5.22",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.22",
+      "to": "control_5.23",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_5.25",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_5.26",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_5.7",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.24",
+      "to": "control_6.8",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.25",
+      "to": "control_5.26",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.25",
+      "to": "control_5.27",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.25",
+      "to": "control_6.8",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.26",
+      "to": "control_5.27",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.26",
+      "to": "control_5.28",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.27",
+      "to": "control_5.28",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.28",
+      "to": "control_8.15",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.29",
+      "to": "control_5.30",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.29",
+      "to": "control_8.13",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.30",
+      "to": "control_7.11",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.30",
+      "to": "control_8.13",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_5.32",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_5.33",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_5.34",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.31",
+      "to": "control_8.24",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.32",
+      "to": "control_5.33",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.33",
+      "to": "control_5.34",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.34",
+      "to": "control_8.11",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.35",
+      "to": "control_5.36",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.37",
+      "to": "control_8.19",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.37",
+      "to": "control_8.32",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.37",
+      "to": "control_8.9",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.4",
+      "to": "control_6.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.7",
+      "to": "control_8.8",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_5.9",
+      "to": "control_7.10",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.1",
+      "to": "control_6.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.1",
+      "to": "control_6.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.2",
+      "to": "control_6.5",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.2",
+      "to": "control_6.6",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.3",
+      "to": "control_6.4",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.3",
+      "to": "control_6.8",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.7",
+      "to": "control_8.1",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_6.7",
+      "to": "control_8.20",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.1",
+      "to": "control_7.2",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.1",
+      "to": "control_7.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.1",
+      "to": "control_7.4",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.10",
+      "to": "control_7.14",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.11",
+      "to": "control_8.6",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.14",
+      "to": "control_8.10",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.2",
+      "to": "control_7.4",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.2",
+      "to": "control_7.7",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_7.4",
+      "to": "control_8.15",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.1",
+      "to": "control_8.7",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.10",
+      "to": "control_8.11",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.12",
+      "to": "control_8.15",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.12",
+      "to": "control_8.16",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.13",
+      "to": "control_8.6",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.15",
+      "to": "control_8.16",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.19",
+      "to": "control_8.8",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.19",
+      "to": "control_8.9",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.2",
+      "to": "control_8.3",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.2",
+      "to": "control_8.4",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.2",
+      "to": "control_8.5",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.20",
+      "to": "control_8.21",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.20",
+      "to": "control_8.22",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.21",
+      "to": "control_8.22",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.22",
+      "to": "control_8.23",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.22",
+      "to": "control_8.26",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.23",
+      "to": "control_8.26",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.24",
+      "to": "control_8.25",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.25",
+      "to": "control_8.26",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.25",
+      "to": "control_8.27",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.26",
+      "to": "control_8.27",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.26",
+      "to": "control_8.28",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.27",
+      "to": "control_8.28",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.27",
+      "to": "control_8.29",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.28",
+      "to": "control_8.29",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.3",
+      "to": "control_8.4",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.32",
+      "to": "control_8.9",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.4",
+      "to": "control_8.5",
+      "source": "pdca_graph"
+    },
+    {
+      "from": "control_8.7",
+      "to": "control_8.8",
+      "source": "pdca_graph"
+    }
+  ]
+}

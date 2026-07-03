@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 27001 Advisor Agent — 智能合規顧問</title>
+    <!-- SVG 盾牌高質感 Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+    <!-- 引入高質感 Google 字型 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --sidebar-bg: rgba(17, 24, 39, 0.6);
+            --chat-bg: rgba(22, 28, 45, 0.4);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.35);
+            --accent: #8b5cf6;
+            --accent-glow: rgba(139, 92, 246, 0.35);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-card: rgba(255, 255, 255, 0.03);
+            --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+        }
+
+        /* 骨架結構 */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* 側邊設定面板 */
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid var(--glass-border);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            z-index: 10;
+            flex-shrink: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .brand-icon {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px var(--primary-glow));
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #d1d5db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            color: #d1d5db;
+        }
+
+        .form-control, select {
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+
+        /* 雙態開關按鈕 */
+        .toggle-container {
+            display: flex;
+            background: rgba(31, 41, 55, 0.5);
+            border-radius: 8px;
+            padding: 2px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
+        }
+
+        /* 主要對話區域 */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--chat-bg);
+            backdrop-filter: blur(12px);
+            position: relative;
+        }
+
+        .chat-header {
+            height: 70px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .engine-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10b981;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* 訊息氣泡 */
+        .message {
+            max-width: 85%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            align-self: flex-end;
+        }
+
+        .message.assistant {
+            align-self: flex-start;
+        }
+
+        .bubble {
+            padding: 1.2rem;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .message.user .bubble {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .message.assistant .bubble {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-bottom-left-radius: 4px;
+            color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Markdown 與顧問回答排版 */
+        .bubble h3, .bubble strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .bubble ul {
+            margin-left: 1.2rem;
+            margin-top: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .bubble li {
+            margin-bottom: 0.3rem;
+        }
+
+        .bubble h3 {
+            margin-top: 0.8rem;
+            margin-bottom: 0.4rem;
+            font-size: 1.05rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.2rem;
+        }
+
+        /* 引用條文小卡片 */
+        .reference-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .reference-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .ref-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .ref-card {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #93c5fd;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.2s;
+        }
+
+        .ref-card:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+        }
+
+        /* 輸入區域 */
+        .chat-input-area {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-control {
+            width: 100%;
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.9rem 1.2rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            padding-right: 3rem;
+            transition: all 0.3s;
+        }
+
+        .input-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+        }
+
+        .send-btn {
+            position: absolute;
+            right: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+
+        .send-btn:disabled {
+            background: #4b5563;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 右側細節抽屜 Drawer */
+        .detail-drawer {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 380px;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--glass-border);
+            z-index: 20;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+
+        .detail-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drawer-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .drawer-close:hover {
+            color: #ffffff;
+        }
+
+        .drawer-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .meta-tag {
+            align-self: flex-start;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: #c084fc;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .drawer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .drawer-section h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .drawer-section p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e5e7eb;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        /* Loading 動畫 (骨架屏) */
+        .loading-bubbles {
+            display: flex;
+            gap: 0.4rem;
+            padding: 0.4rem 0.2rem;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+            animation: wave 1.2s infinite ease-in-out;
+        }
+
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        /* 推薦下一步卡片 */
+        .rec-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+        .rec-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .rec-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .rec-card {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 10px;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .rec-card:hover {
+            background: rgba(139, 92, 246, 0.18);
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateX(3px);
+        }
+        .rec-card-q {
+            font-size: 0.85rem;
+            color: #e5e7eb;
+            line-height: 1.4;
+        }
+        .rec-card-meta {
+            font-size: 0.72rem;
+            color: #a78bfa;
+            margin-top: 0.2rem;
+        }
+
+        /* 捲軸美化 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Markdown 表格 */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+            margin: 0.6rem 0;
+            border-radius: 8px;
+        }
+        .bubble table {
+            border-collapse: collapse;
+            min-width: 360px;
+            width: 100%;
+            font-size: 0.82rem;
+        }
+        .bubble table th,
+        .bubble table td {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.3rem 0.65rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .bubble table th {
+            background: rgba(59,130,246,0.12);
+            font-weight: 600;
+            color: #93c5fd;
+        }
+        .bubble table tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* LV3 下載按鈕 */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 8px;
+            border: 1px solid rgba(139,92,246,0.4);
+            background: rgba(139,92,246,0.08);
+            color: #c084fc;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .download-btn:hover {
+            background: rgba(139,92,246,0.2);
+            border-color: rgba(139,92,246,0.6);
+        }
+
+        /* 行動端與響應式 */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 側邊設定面板 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-shield-halved brand-icon"></i>
+                <h1 class="brand-title">ISO 27001 Advisor</h1>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>推理後端</h3>
+                <div class="toggle-container">
+                    <button class="toggle-btn active" id="btn-ollama" onclick="setBackend(false)">Ollama</button>
+                    <button class="toggle-btn" id="btn-gemini" onclick="setBackend(true)">Gemini</button>
+                </div>
+                <div class="toggle-container" style="margin-top: 0.45rem;">
+                    <button class="toggle-btn active" id="btn-strict-offline" onclick="setStrictOffline()" style="font-size:0.75rem;">Strict Offline On</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section" id="ollama-settings">
+                <h3>Ollama 設定</h3>
+                <div class="form-group">
+                    <label for="ollama-host">API 主機位址</label>
+                    <input type="text" id="ollama-host" class="form-control" value="http://localhost:11434" onchange="loadOllamaModels()">
+                </div>
+                <div class="form-group">
+                    <label for="ollama-model">大模型名稱</label>
+                    <select id="ollama-model" class="form-control">
+                        <option value="gemma4:e2b-mlx">gemma4:e2b-mlx (載入中...)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sidebar-section" id="gemini-settings" style="display: none;">
+                <h3>Gemini 設定</h3>
+                <div class="form-group">
+                    <label for="gemini-model">大模型名稱</label>
+                    <select id="gemini-model" class="form-control">
+                        <option value="gemini-2.5-pro">Gemini 2.5 Pro (載入中...)</option>
+                    </select>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">
+                    * 請確保環境變數 <code>GEMINI_API_KEY</code> 已設定。
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>檢索設定</h3>
+                <div class="form-group">
+                    <label for="top-k">檢索條文數量 (Top-K)</label>
+                    <input type="number" id="top-k" class="form-control" value="4" min="1" max="10">
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>分析模式</h3>
+                <div class="toggle-container">
+                    <button class="toggle-btn active" id="btn-normal" onclick="setMode(false)">快速顧問</button>
+                    <button class="toggle-btn" id="btn-deep" onclick="setMode(true)">完整顧問</button>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem;" id="mode-hint">
+                    精簡缺口判斷，速度較快。
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>諮詢類型</h3>
+                <div class="toggle-container" style="flex-wrap: wrap; gap: 2px;">
+                    <button class="toggle-btn active" id="btn-mode-auto" onclick="setQueryMode('auto')" style="font-size:0.75rem;">自動</button>
+                    <button class="toggle-btn" id="btn-mode-qa" onclick="setQueryMode('qa')" style="font-size:0.75rem;">問答</button>
+                    <button class="toggle-btn" id="btn-mode-gap" onclick="setQueryMode('gap')" style="font-size:0.75rem;">缺口分析</button>
+                    <button class="toggle-btn" id="btn-mode-evidence" onclick="setQueryMode('evidence')" style="font-size:0.75rem;">稽核證據</button>
+                </div>
+                <div class="toggle-container" style="flex-wrap: wrap; gap: 2px; margin-top: 4px;">
+                    <button class="toggle-btn" id="btn-mode-soa" onclick="setQueryMode('soa')" style="font-size:0.75rem;">SoA 草稿</button>
+                    <button class="toggle-btn" id="btn-mode-audit-report" onclick="setQueryMode('audit-report')" style="font-size:0.75rem;">稽核準備</button>
+                    <button class="toggle-btn" id="btn-mode-audit-pack" onclick="setQueryMode('audit-pack')" style="font-size:0.75rem;">問答包</button>
+                    <button class="toggle-btn" id="btn-mode-roadmap" onclick="setQueryMode('roadmap')" style="font-size:0.75rem;">改善計畫</button>
+                </div>
+                <div style="font-size:0.72rem; color:var(--text-muted); margin-top:0.3rem;" id="mode-desc">自動根據輸入內容判斷模式。</div>
+            </div>
+
+            <div style="margin-top: auto; font-size: 0.75rem; color: var(--text-muted); text-align: center;">
+                v1.3.0 Web Chat UI
+            </div>
+        </aside>
+
+        <!-- 主要對話區域 -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div style="font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.1rem;">RAG 諮詢主視窗</div>
+                <div class="engine-status">
+                    <div class="status-dot"></div>
+                    <span id="active-backend-label">本地 Ollama (gemma4:e2b-mlx) · Strict Offline On</span>
+                </div>
+            </header>
+
+            <div class="messages-area" id="messages-area">
+                <!-- 預設歡迎訊息 -->
+                <div class="message assistant">
+                    <div class="bubble">
+                        🎯 **歡迎使用 ISO 27001 Advisor Agent 智能合規顧問系統**
+                        <br><br>
+                        您可以直接貼上公司現況、政策片段或稽核準備問題，請顧問協助判斷缺口與下一步，例如：
+                        <ul>
+                            <li>「我們公司每日備份資料庫到本地 NAS，但沒有定期還原測試，也沒有定義保存期限。請幫我判斷是否符合 ISO 27001，缺什麼？」</li>
+                            <li>「我們目前讓 IT 主管每月人工檢查帳號權限，但沒有正式權限審查紀錄，也沒有離職帳號停用 SLA。稽核時可能被挑戰哪些點？」</li>
+                            <li>「下個月要做內部稽核，範圍包含供應商管理、備份、弱點管理與事件通報。請幫我列出應準備的稽核證據與優先補強事項。」</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 輸入區域 -->
+            <footer class="chat-input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="user-input" class="input-control" placeholder="輸入合規詢問問題..." onkeydown="handleKeyDown(event)">
+                    <button class="send-btn" id="send-btn" onclick="sendMessage()">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
+                </div>
+            </footer>
+
+            <!-- 右側細節抽屜 -->
+            <div class="detail-drawer" id="detail-drawer">
+                <div class="drawer-header">
+                    <h3 id="drawer-title" style="font-family: 'Outfit', sans-serif;">條文詳情</h3>
+                    <button class="drawer-close" onclick="closeDrawer()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="drawer-content">
+                    <span class="meta-tag" id="drawer-type">CLAUSE</span>
+                    <div class="drawer-section">
+                        <h4>章節目錄</h4>
+                        <p id="drawer-section-path">4.1 組織全景</p>
+                    </div>
+                    <div class="drawer-section">
+                        <h4>條文與控制內容</h4>
+                        <p id="drawer-body">條文內容載入中...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let useGemini = false;
+        let useDeepMode = false;
+        let queryMode = 'auto';
+        let strictOffline = true;
+        let lastGapQuery = "";
+        let lastGapResult = null;
+        let conversationHistory = [];
+
+        function setQueryMode(mode) {
+            queryMode = mode;
+            ['auto','qa','gap','evidence','soa','audit-report','audit-pack','roadmap'].forEach(m => {
+                document.getElementById(`btn-mode-${m}`).classList.toggle('active', m === mode);
+            });
+            const hints = {
+                'auto':         '自動根據輸入內容判斷模式。',
+                'qa':           'ISO 27001 條文問答模式。',
+                'gap':          '貼上政策或現況描述，分析文件缺口。',
+                'evidence':     '查詢稽核時需準備的文件與證據。',
+                'soa':          '產生 SoA（適用性聲明）草稿矩陣。',
+                'audit-report': '產生稽核準備報告與 30/60/90 天改善計畫。',
+                'audit-pack':   '針對指定控制項產生稽核問答包。',
+                'roadmap':      '將缺口轉為分優先級的改善路線圖。',
+            };
+            const placeholders = {
+                'auto':         '輸入合規詢問問題...',
+                'qa':           '詢問條文，例如：A.8.13 資訊備份要求是什麼？',
+                'gap':          '貼上政策或現況，例如：我們每日備份但沒有還原測試...',
+                'evidence':     '輸入稽核範圍，例如：下個月要稽核備份與存取控制...',
+                'soa':          '描述現況，例如：我們有備份、存取控制、日誌機制，請產生 SoA 草稿...',
+                'audit-report': '描述現況與缺口，例如：備份無還原測試，請產生稽核準備報告...',
+                'audit-pack':   '輸入控制項 ID，例如：A.8.13 A.5.15 A.8.15',
+                'roadmap':      '描述缺口，例如：備份缺還原測試，存取控制缺覆核，請給 30/60/90 天計畫...',
+            };
+            document.getElementById('mode-desc').innerText = hints[mode] || '';
+            document.getElementById('user-input').placeholder = placeholders[mode] || '輸入合規詢問問題...';
+        }
+
+        function setMode(deep) {
+            useDeepMode = deep;
+            document.getElementById("btn-normal").classList.toggle("active", !deep);
+            document.getElementById("btn-deep").classList.toggle("active", deep);
+            document.getElementById("mode-hint").innerText = deep
+                ? "完整顧問報告，適合缺口審查與稽核準備。"
+                : "精簡缺口判斷，速度較快。";
+        }
+
+        function ollamaModelLabel(model) {
+            const labels = {
+                "gemma4:e2b-mlx": "gemma4:e2b-mlx｜預設推薦：快速問答 / 展示，長文件可能偏短",
+                "TwinkleAI/gemma-3-4B-T1-it:latest": "TwinkleAI/gemma-3-4B-T1-it｜推薦備選：繁中顧問語氣較穩",
+                "gemma4:e4b-it-qat": "gemma4:e4b-it-qat｜推薦備選：品質與速度折衷",
+                "gemma3:12b-16k": "gemma3:12b-16k｜高品質但慢：深度分析 / 長上下文",
+                "gemma4:12b-it-qat-16k": "gemma4:12b-it-qat-16k｜高品質但慢：長文件 / 跨範圍稽核",
+                "gemma4:12b-it-qat": "gemma4:12b-it-qat｜可用但慢：複雜顧問回答",
+                "phi4-mini:latest": "phi4-mini｜可用但不建議主力：適合 smoke test / 簡短問答",
+                "jeffh/intfloat-multilingual-e5-large-instruct:f16": "E5 multilingual｜不適合聊天：embedding / 語意快取用",
+                "nomic-embed-text:latest": "nomic-embed-text｜不適合聊天：embedding 用",
+            };
+            return labels[model] || `${model}｜未分類：可測試，但請確認繁中與 Markdown 穩定度`;
+        }
+
+        function geminiModelLabel(model) {
+            if (model.includes("2.5-pro")) {
+                return `${model}｜高品質：適合深度顧問 / 長文件，較慢且會用雲端`;
+            }
+            if (model.includes("2.5-flash")) {
+                return `${model}｜推薦雲端快速：適合一般顧問 / 展示，成本與速度較佳`;
+            }
+            if (model.includes("2.0-flash")) {
+                return `${model}｜快速：適合一般問答，品質低於 Pro`;
+            }
+            if (model.includes("1.5-pro")) {
+                return `${model}｜舊版高品質：可用但建議優先 2.5 Pro`;
+            }
+            if (model.includes("1.5-flash")) {
+                return `${model}｜舊版快速：可用但建議優先 2.5 Flash`;
+            }
+            return `${model}｜未分類 Gemini：請確認 generateContent 支援與輸出品質`;
+        }
+
+        async function loadOllamaModels() {
+            const host = document.getElementById("ollama-host").value;
+            const modelSelect = document.getElementById("ollama-model");
+            
+            try {
+                const response = await fetch(`/api/models?host=${encodeURIComponent(host)}`);
+                const data = await response.json();
+                
+                if (data.models && data.models.length > 0) {
+                    modelSelect.innerHTML = "";
+                    data.models.forEach(model => {
+                        const opt = document.createElement("option");
+                        opt.value = model;
+                        opt.innerText = ollamaModelLabel(model);
+                        opt.title = ollamaModelLabel(model);
+                        modelSelect.appendChild(opt);
+                    });
+                    // 預設選擇較小且速度較快的本地模型，避免 12B 模型造成等待時間過長。
+                    const preferredModels = [
+                        "gemma4:e2b-mlx",
+                        "TwinkleAI/gemma-3-4B-T1-it:latest",
+                        "phi4-mini:latest",
+                        "gemma4:e4b-it-qat",
+                        "gemma3:12b-16k",
+                        "gemma4:12b-it-qat-16k"
+                    ];
+                    const target = preferredModels.find(m => data.models.includes(m));
+                    if (target) {
+                        modelSelect.value = target;
+                    }
+                } else {
+                    modelSelect.innerHTML = `
+                        <option value="gemma4:e2b-mlx">gemma4:e2b-mlx｜預設推薦：快速問答 / 展示，長文件可能偏短</option>
+                        <option value="TwinkleAI/gemma-3-4B-T1-it:latest">TwinkleAI/gemma-3-4B-T1-it｜推薦備選：繁中顧問語氣較穩</option>
+                        <option value="phi4-mini:latest">phi4-mini｜可用但不建議主力：適合 smoke test / 簡短問答</option>
+                        <option value="gemma3:12b-16k">gemma3:12b-16k｜高品質但慢：深度分析 / 長上下文</option>
+                    `;
+                }
+            } catch (err) {
+                modelSelect.innerHTML = `
+                    <option value="gemma4:e2b-mlx">gemma4:e2b-mlx｜預設推薦：快速問答 / 展示，長文件可能偏短</option>
+                    <option value="TwinkleAI/gemma-3-4B-T1-it:latest">TwinkleAI/gemma-3-4B-T1-it｜推薦備選：繁中顧問語氣較穩</option>
+                `;
+            }
+            updateStatusLabel();
+        }
+
+        async function loadGeminiModels() {
+            const modelSelect = document.getElementById("gemini-model");
+            try {
+                const response = await fetch('/api/gemini-models');
+                const data = await response.json();
+                
+                if (data.models && data.models.length > 0) {
+                    modelSelect.innerHTML = "";
+                    data.models.forEach(model => {
+                        const opt = document.createElement("option");
+                        opt.value = model;
+                        opt.innerText = geminiModelLabel(model);
+                        opt.title = geminiModelLabel(model);
+                        modelSelect.appendChild(opt);
+                    });
+                    
+                    // 預設選擇 gemini-2.5-pro 或第一個
+                    const hasPro = data.models.some(m => m.includes("2.5-pro"));
+                    if (hasPro) {
+                        const target = data.models.find(m => m.includes("2.5-pro"));
+                        modelSelect.value = target;
+                    }
+                } else {
+                    modelSelect.innerHTML = `
+                        <option value="gemini-2.5-pro">gemini-2.5-pro｜高品質：適合深度顧問 / 長文件，較慢且會用雲端</option>
+                        <option value="gemini-2.5-flash">gemini-2.5-flash｜推薦雲端快速：適合一般顧問 / 展示，成本與速度較佳</option>
+                        <option value="gemini-1.5-pro">gemini-1.5-pro｜舊版高品質：可用但建議優先 2.5 Pro</option>
+                        <option value="gemini-1.5-flash">gemini-1.5-flash｜舊版快速：可用但建議優先 2.5 Flash</option>
+                    `;
+                }
+            } catch (err) {
+                modelSelect.innerHTML = `
+                    <option value="gemini-2.5-pro">gemini-2.5-pro｜高品質：適合深度顧問 / 長文件，較慢且會用雲端</option>
+                    <option value="gemini-2.5-flash">gemini-2.5-flash｜推薦雲端快速：適合一般顧問 / 展示，成本與速度較佳</option>
+                `;
+            }
+            updateStatusLabel();
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("btn-gemini").disabled = strictOffline;
+            loadOllamaModels();
+            loadGeminiModels();
+            updateStatusLabel();
+        });
+
+        function setBackend(gemini) {
+            if (strictOffline && gemini) {
+                return;
+            }
+            useGemini = gemini;
+            document.getElementById("btn-ollama").classList.toggle("active", !gemini);
+            document.getElementById("btn-gemini").classList.toggle("active", gemini);
+            document.getElementById("ollama-settings").style.display = gemini ? "none" : "flex";
+            document.getElementById("gemini-settings").style.display = gemini ? "flex" : "none";
+            
+            // 更新狀態列
+            updateStatusLabel();
+        }
+
+        function setStrictOffline() {
+            strictOffline = !strictOffline;
+            const strictBtn = document.getElementById("btn-strict-offline");
+            strictBtn.classList.toggle("active", strictOffline);
+            strictBtn.innerText = strictOffline ? "Strict Offline On" : "Strict Offline Off";
+            document.getElementById("btn-gemini").disabled = strictOffline;
+            if (strictOffline) {
+                setBackend(false);
+            }
+            updateStatusLabel();
+        }
+
+        function updateStatusLabel() {
+            const label = document.getElementById("active-backend-label");
+            if (useGemini) {
+                const model = document.getElementById("gemini-model").value;
+                label.innerText = `Gemini API (${model})${strictOffline ? " · Strict Offline On" : ""}`;
+            } else {
+                const model = document.getElementById("ollama-model").value;
+                label.innerText = `本地 Ollama (${model}) · Strict Offline ${strictOffline ? "On" : "Off"}`;
+            }
+        }
+
+        // 當模型切換時，連動更新狀態列
+        document.getElementById("gemini-model").addEventListener("change", updateStatusLabel);
+        document.getElementById("ollama-model").addEventListener("change", updateStatusLabel);
+
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+
+        function closeDrawer() {
+            document.getElementById("detail-drawer").classList.remove("open");
+        }
+
+        function openDrawer(item) {
+            document.getElementById("drawer-title").innerText = item.id.toUpperCase();
+            document.getElementById("drawer-type").innerText = item.type === "clause" ? "條文" : "附錄 A 控制措施";
+            document.getElementById("drawer-section-path").innerText = `${item.section} > ${item.subsection}`;
+            document.getElementById("drawer-body").innerText = item.content;
+            document.getElementById("detail-drawer").classList.add("open");
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // 輕量級 Markdown 渲染器，將回答美化渲染
+        function renderMarkdown(text) {
+            // 安全跳脫 HTML
+            let html = text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // 標題轉換
+            html = html.replace(/🎯 \*\*([^*]+)\*\*/g, '<h3>🎯 $1</h3>');
+            html = html.replace(/📖 \*\*([^*]+)\*\*/g, '<h3>📖 $1</h3>');
+            html = html.replace(/🛠️ \*\*([^*]+)\*\*/g, '<h3>🛠️ $1</h3>');
+            html = html.replace(/⚠️ \*\*([^*]+)\*\*/g, '<h3>⚠️ $1</h3>');
+            html = html.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+            html = html.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+            html = html.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+
+            // 粗體轉換
+            html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+            // Markdown 表格解析（先於清單與換行處理）
+            const tablePattern = /(\|.+\|\n)+/g;
+            html = html.replace(tablePattern, (tableBlock) => {
+                const rows = tableBlock.trim().split('\n');
+                if (rows.length < 2) return tableBlock;
+                // 分離 header、separator、data
+                const headerRow = rows[0];
+                const isSeparator = (r) => /^\|[\s\-:|]+\|/.test(r);
+                let headerIndex = 0;
+                let dataStart = 1;
+                if (rows.length > 1 && isSeparator(rows[1])) {
+                    headerIndex = 0;
+                    dataStart = 2;
+                }
+                const parseRow = (r) => r.split('|').map(c => c.trim()).filter((_, i, a) => i > 0 && i < a.length - 1);
+                const headers = parseRow(rows[headerIndex]);
+                const dataRows = rows.slice(dataStart).filter(r => !isSeparator(r));
+                let tbl = '<div class="table-wrapper"><table><thead><tr>';
+                headers.forEach(h => { tbl += `<th>${h}</th>`; });
+                tbl += '</tr></thead><tbody>';
+                dataRows.forEach(r => {
+                    const cells = parseRow(r);
+                    tbl += '<tr>';
+                    cells.forEach(c => { tbl += `<td>${c}</td>`; });
+                    tbl += '</tr>';
+                });
+                tbl += '</tbody></table></div>';
+                return tbl;
+            });
+
+            // 條列式清單轉換
+            const lines = html.split('\n');
+            let inList = false;
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+                if (line.startsWith('- ') || line.startsWith('* ')) {
+                    if (!inList) {
+                        lines[i] = '<ul><li>' + line.substring(2) + '</li>';
+                        inList = true;
+                    } else {
+                        lines[i] = '<li>' + line.substring(2) + '</li>';
+                    }
+                } else {
+                    if (inList) {
+                        lines[i] = '</ul>' + lines[i];
+                        inList = false;
+                    }
+                }
+            }
+            if (inList) {
+                lines[lines.length - 1] += '</ul>';
+            }
+            html = lines.join('\n');
+
+            // 換行符號轉成 <br>（跳過已包含 HTML block 的行）
+            html = html.replace(/\n/g, '<br>');
+            // 修正 block 元素前後多餘的 <br>
+            html = html.replace(/<br>(<\/(ul|table|div|h[2-6])>)/g, '$1');
+            html = html.replace(/(<(ul|div class="table-wrapper"|h[2-6])[^>]*>)<br>/g, '$1');
+            return html;
+        }
+
+        const LV3_MODES = ['soa', 'audit-report', 'audit-pack', 'roadmap'];
+        const LV3_ARTIFACT_LABELS = {
+            'soa':          '📋 SoA 草稿',
+            'audit-report': '📊 稽核準備報告',
+            'audit-pack':   '❓ 稽核問答包',
+            'roadmap':      '🗺️ 30/60/90 改善計畫',
+        };
+
+        function downloadMarkdown({ userQuery, artifactType, responseText, refsData, recsData, strictOffline, model }) {
+            const now = new Date();
+            const ts = now.toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
+            const fileTs = now.toISOString().replace(/[:.]/g, '-').slice(0, 19);
+            const artifactLabel = LV3_ARTIFACT_LABELS[artifactType] || artifactType;
+
+            let refsSection = '';
+            if (refsData && refsData.length > 0) {
+                refsSection = '\n---\n\n## 引用依據\n\n';
+                refsData.forEach(r => {
+                    const item = r.item || r;
+                    refsSection += `- [${(item.id || '').toUpperCase()}] ${item.subsection || item.title || ''}\n`;
+                });
+            }
+
+            let recsSection = '';
+            if (recsData && recsData.length > 0) {
+                recsSection = '\n---\n\n## 可追問的相關問題\n\n';
+                recsData.forEach(rec => {
+                    recsSection += `- ${rec.question}（${rec.clause_id}）\n`;
+                });
+            }
+
+            const content = `# ${artifactLabel} — ISO 27001 顧問草稿
+
+**產生時間**：${ts}
+**諮詢模式**：${artifactLabel}
+**Strict Offline**：${strictOffline ? 'On' : 'Off'}
+**模型**：${model}
+
+---
+
+## 使用者問題
+
+${userQuery}
+
+---
+
+## 顧問回覆
+
+${responseText}
+${refsSection}${recsSection}
+---
+
+> ⚠️ 本報告為 AI 輔助草稿，不構成正式 ISO 27001 稽核結論。正式文件應由組織管理階層、合格主導稽核員或法律顧問確認。
+`;
+            const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `iso27001-${artifactType}-${fileTs}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        async function sendMessage() {
+            const inputEl = document.getElementById("user-input");
+            const sendBtn = document.getElementById("send-btn");
+            const messagesArea = document.getElementById("messages-area");
+            const query = inputEl.value.trim();
+            const requestStart = performance.now();
+
+            if (!query) return;
+
+            // 本次請求追蹤狀態（用於下載 Markdown）
+            let currentArtifactType = queryMode === 'auto' ? null : queryMode;
+            let currentRefsData = [];
+            let currentRecsData = [];
+
+            // 停用輸入元件
+            inputEl.value = "";
+            inputEl.disabled = true;
+            sendBtn.disabled = true;
+
+            // 1. 渲染使用者提問氣泡
+            const userMsgEl = document.createElement("div");
+            userMsgEl.className = "message user";
+            userMsgEl.innerHTML = `<div class="bubble">${query}</div>`;
+            messagesArea.appendChild(userMsgEl);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            // 2. 建立 AI 顧問回覆容器氣泡 (先放 loading 動畫)
+            const aiMsgEl = document.createElement("div");
+            aiMsgEl.className = "message assistant";
+            aiMsgEl.innerHTML = `
+                <div class="bubble" id="pending-bubble">
+                    <div class="loading-bubbles">
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                    </div>
+                </div>
+                <div class="response-meta" id="pending-meta" style="font-size:0.72rem;color:var(--text-muted);margin-top:0.35rem;">回覆中...</div>
+                <div class="reference-section" id="pending-refs" style="display: none;">
+                    <div class="reference-title">
+                        <i class="fa-solid fa-book-open-reader"></i> 本次解答引用依據
+                    </div>
+                    <div class="ref-cards-container" id="ref-cards-container"></div>
+                </div>
+            `;
+            messagesArea.appendChild(aiMsgEl);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            // 取出設定數值
+            const host = document.getElementById("ollama-host").value;
+            const model = document.getElementById("ollama-model").value;
+            const geminiModel = document.getElementById("gemini-model").value;
+            const topK = parseInt(document.getElementById("top-k").value) || 4;
+
+            let responseText = "";
+            const bubbleEl = aiMsgEl.querySelector("#pending-bubble");
+            const metaEl = aiMsgEl.querySelector("#pending-meta");
+            const refsSection = aiMsgEl.querySelector("#pending-refs");
+            const refCardsContainer = aiMsgEl.querySelector("#ref-cards-container");
+
+            function updateResponseTime(status = "完成") {
+                const seconds = (performance.now() - requestStart) / 1000;
+                const backendLabel = useGemini
+                    ? `Gemini (${document.getElementById("gemini-model").value})`
+                    : `Ollama (${document.getElementById("ollama-model").value})`;
+                const offlineLabel = strictOffline ? 'Strict Offline On' : 'Strict Offline Off';
+                const artifactLabel = LV3_ARTIFACT_LABELS[currentArtifactType] || '';
+                const parts = [artifactLabel, backendLabel, offlineLabel, `${seconds.toFixed(1)} 秒`].filter(Boolean);
+                metaEl.innerText = `${status} · ${parts.join(' · ')}`;
+            }
+
+            try {
+                const requestBody = {
+                    query: query,
+                    model: model,
+                    host: host,
+                    gemini: useGemini,
+                    gemini_model: geminiModel,
+                    top_k: topK,
+                    deep_mode: useDeepMode,
+                    mode: queryMode,
+                    strict_offline: strictOffline,
+                    history: conversationHistory.slice(-6)
+                };
+                if (lastGapResult) {
+                    requestBody.context_query = lastGapQuery;
+                    requestBody.context_gap_result = lastGapResult;
+                }
+
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.body) {
+                    throw new Error("無法建立串流通道");
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                let buffer = "";
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const parts = buffer.split('\n\n');
+                    // 保留最後一個可能尚未完整的區段
+                    buffer = parts.pop();
+
+                    for (const part of parts) {
+                        if (part.startsWith('data: ')) {
+                            const jsonStr = part.substring(6).trim();
+                            if (!jsonStr) continue;
+
+                            const event = JSON.parse(jsonStr);
+
+                            if (event.type === 'references') {
+                                // 移除 loading，顯示空字串準備打字
+                                if (bubbleEl.querySelector(".loading-bubbles")) {
+                                    bubbleEl.innerHTML = "";
+                                }
+                                // 儲存供下載使用
+                                if (event.data && event.data.length > 0) {
+                                    currentRefsData = event.data;
+                                    refsSection.style.display = "flex";
+                                    event.data.forEach(r => {
+                                        const item = r.item || r;
+                                        const card = document.createElement("div");
+                                        card.className = "ref-card";
+                                        card.innerHTML = `<i class="fa-solid fa-bookmark"></i> [${item.id.toUpperCase()}] ${item.subsection || item.title}`;
+                                        card.addEventListener("click", () => { openDrawer(item); });
+                                        refCardsContainer.appendChild(card);
+                                    });
+                                }
+                            } else if (event.type === 'mode') {
+                                // 更新追蹤的 artifact type
+                                currentArtifactType = event.data;
+                                const allModeLabels = {
+                                    'gap':          '📊 缺口分析',
+                                    'evidence':     '📋 稽核證據',
+                                    'qa':           '💬 條文問答',
+                                    'soa':          '📋 SoA 草稿',
+                                    'audit-report': '📊 稽核準備報告',
+                                    'audit-pack':   '❓ 稽核問答包',
+                                    'roadmap':      '🗺️ 30/60/90 改善計畫',
+                                };
+                                const label = allModeLabels[event.data] || event.data;
+                                if (bubbleEl.querySelector(".loading-bubbles")) { bubbleEl.innerHTML = ""; }
+                                bubbleEl.innerHTML = `<span style="display:inline-block;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.4);color:#c084fc;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:10px;margin-bottom:0.5rem;">${label}</span><br>`;
+                            } else if (event.type === 'cache_hit') {
+                                if (bubbleEl.querySelector(".loading-bubbles")) {
+                                    bubbleEl.innerHTML = "";
+                                }
+                                const d = event.data;
+                                const badge = `<span style="display:inline-block;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.4);color:#6ee7b7;font-size:0.72rem;padding:0.15rem 0.5rem;border-radius:10px;margin-bottom:0.5rem;">⚡ 快取命中 ${d.faq_id}  相似度 ${d.similarity}</span><br>`;
+                                bubbleEl.innerHTML = badge;
+                            } else if (event.type === 'progress') {
+                                if (bubbleEl.querySelector(".loading-bubbles")) {
+                                    bubbleEl.innerHTML = "";
+                                }
+                                bubbleEl.innerHTML = `<span style="color: var(--text-muted); font-size: 0.85rem;">⚙️ ${event.data}</span>`;
+                                messagesArea.scrollTop = messagesArea.scrollHeight;
+                            } else if (event.type === 'gap_result') {
+                                lastGapResult = event.data;
+                            } else if (event.type === 'recommendations') {
+                                currentRecsData = event.data;
+                                const recSection = document.createElement("div");
+                                recSection.className = "rec-section";
+                                recSection.innerHTML = `<div class="rec-title"><i class="fa-solid fa-arrow-right-long"></i> 可追問的相關問題</div><div class="rec-cards" id="rec-cards-${Date.now()}"></div>`;
+                                aiMsgEl.appendChild(recSection);
+                                const recCards = recSection.querySelector(".rec-cards");
+                                event.data.forEach(rec => {
+                                    const card = document.createElement("div");
+                                    card.className = "rec-card";
+                                    card.innerHTML = `<div class="rec-card-q">${rec.question}</div><div class="rec-card-meta">${rec.clause_id} · ${rec.reason}</div>`;
+                                    card.addEventListener("click", () => {
+                                        document.getElementById("user-input").value = rec.question;
+                                        document.getElementById("user-input").focus();
+                                    });
+                                    recCards.appendChild(card);
+                                });
+                                messagesArea.scrollTop = messagesArea.scrollHeight;
+                            } else if (event.type === 'chunk') {
+                                // 移除 loading
+                                if (bubbleEl.querySelector(".loading-bubbles")) {
+                                    bubbleEl.innerHTML = "";
+                                }
+                                responseText += event.data;
+                                bubbleEl.innerHTML = renderMarkdown(responseText);
+                                messagesArea.scrollTop = messagesArea.scrollHeight;
+                            } else if (event.type === 'error') {
+                                if (bubbleEl.querySelector(".loading-bubbles")) {
+                                    bubbleEl.innerHTML = "";
+                                }
+                                bubbleEl.innerHTML = `<div style="color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> ${event.data}</div>`;
+                                updateResponseTime("錯誤");
+                            } else if (event.type === 'done') {
+                                // 優先使用 done event 帶回的 metadata；否則 fallback 到追蹤狀態
+                                const dm = event;
+                                if (dm.mode) currentArtifactType = dm.mode;
+                                if (currentArtifactType === 'gap' && lastGapResult) {
+                                    lastGapQuery = query;
+                                }
+                                conversationHistory.push({ role: "user", content: query, mode: queryMode });
+                                conversationHistory.push({
+                                    role: "assistant",
+                                    content: responseText.slice(0, 800),
+                                    mode: currentArtifactType || queryMode,
+                                });
+
+                                // 更新 metadata 列（若 done event 有完整資訊則重新組裝）
+                                if (dm.mode) {
+                                    const elapsed = typeof dm.elapsed_seconds === 'number'
+                                        ? `${dm.elapsed_seconds.toFixed(1)} 秒`
+                                        : `${((performance.now() - requestStart) / 1000).toFixed(1)} 秒`;
+                                    const artifactLabel = LV3_ARTIFACT_LABELS[dm.mode] || '';
+                                    const backendLabel = dm.backend === 'gemini'
+                                        ? `Gemini (${dm.model || ''})`
+                                        : `Ollama (${dm.model || ''})`;
+                                    const offlineLabel = (dm.strict_offline != null ? dm.strict_offline : strictOffline)
+                                        ? 'Strict Offline On' : 'Strict Offline Off';
+                                    const parts = [artifactLabel, backendLabel, offlineLabel, elapsed].filter(Boolean);
+                                    metaEl.innerText = `完成 · ${parts.join(' · ')}`;
+                                } else {
+                                    updateResponseTime("完成");
+                                }
+
+                                // LV3 模式：顯示下載按鈕
+                                if (LV3_MODES.includes(currentArtifactType)) {
+                                    // 下載用 metadata 優先取 done event，否則 fallback
+                                    const dlModel = dm.model
+                                        || (useGemini
+                                            ? document.getElementById("gemini-model").value
+                                            : document.getElementById("ollama-model").value);
+                                    const dlStrictOffline = dm.strict_offline != null
+                                        ? dm.strict_offline : strictOffline;
+
+                                    const dlBtn = document.createElement('button');
+                                    dlBtn.className = 'download-btn';
+                                    dlBtn.innerHTML = '<i class="fa-solid fa-file-arrow-down"></i> 下載 Markdown';
+                                    dlBtn.addEventListener('click', () => {
+                                        downloadMarkdown({
+                                            userQuery: query,
+                                            artifactType: currentArtifactType,
+                                            responseText,
+                                            refsData: currentRefsData,
+                                            recsData: currentRecsData,
+                                            strictOffline: dlStrictOffline,
+                                            model: dlModel,
+                                        });
+                                    });
+                                    aiMsgEl.appendChild(dlBtn);
+                                    messagesArea.scrollTop = messagesArea.scrollHeight;
+                                }
+                            }
+                        }
+                    }
+                }
+                updateResponseTime("完成");
+            } catch (err) {
+                if (bubbleEl.querySelector(".loading-bubbles")) {
+                    bubbleEl.innerHTML = "";
+                }
+                bubbleEl.innerHTML = `<div style="color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> 連線發生錯誤：${err.message}</div>`;
+                updateResponseTime("錯誤");
+            } finally {
+                // 恢復輸入狀態
+                inputEl.disabled = false;
+                sendBtn.disabled = false;
+                inputEl.focus();
+            }
+        }
+    </script>
+</body>
+</html>

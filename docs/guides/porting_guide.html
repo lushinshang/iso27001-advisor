@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>專屬 AI 顧問 — 系統移植新手指南</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --surface2: #1c2128;
+  --border: #30363d; --text: #e6edf3; --muted: #8b949e;
+  --blue: #58a6ff; --green: #3fb950; --yellow: #d29922;
+  --red: #f85149; --purple: #bc8cff; --orange: #ffa657;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; line-height: 1.7; }
+
+/* ── Layout ── */
+.layout { display: flex; min-height: 100vh; }
+nav { width: 220px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 0; }
+nav .logo { padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+nav .logo h1 { font-size: 13px; font-weight: 700; color: var(--blue); line-height: 1.4; }
+nav .logo p { font-size: 11px; color: var(--muted); margin-top: 4px; }
+nav a { display: block; padding: 6px 20px; font-size: 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; transition: color .15s, border-color .15s; }
+nav a:hover, nav a.active { color: var(--text); border-left-color: var(--blue); background: rgba(88,166,255,.06); }
+nav .nav-section { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; padding: 12px 20px 4px; }
+main { flex: 1; min-width: 0; padding: 40px 48px; max-width: 860px; }
+
+/* ── Typography ── */
+h2 { font-size: 20px; font-weight: 700; margin: 48px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+h2:first-of-type { margin-top: 0; }
+h3 { font-size: 15px; font-weight: 700; color: var(--blue); margin: 28px 0 10px; }
+h4 { font-size: 13px; font-weight: 700; color: var(--orange); margin: 16px 0 8px; }
+p { color: var(--muted); margin: 8px 0; }
+code { background: var(--surface2); color: var(--orange); padding: 1px 6px; border-radius: 4px; font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 12px; }
+pre { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; font-family: 'Cascadia Code', monospace; font-size: 12px; line-height: 1.6; overflow-x: auto; margin: 10px 0; }
+pre .c { color: #8b949e; }
+pre .s { color: #3fb950; }
+pre .k { color: #ff7b72; }
+pre .n { color: #ffa657; }
+a { color: var(--blue); }
+ul, ol { margin: 8px 0 8px 20px; color: var(--muted); }
+li { margin: 4px 0; }
+strong { color: var(--text); }
+
+/* ── Components ── */
+.step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.step-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0; }
+.step-num.blue  { background: #1a2744; color: var(--blue); border: 2px solid var(--blue); }
+.step-num.green { background: #1a3028; color: var(--green); border: 2px solid var(--green); }
+.step-num.orange{ background: #3d2a10; color: var(--orange); border: 2px solid var(--orange); }
+.step-num.purple{ background: #2d1f3d; color: var(--purple); border: 2px solid var(--purple); }
+.step-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 20px 0; }
+.warn  { background: #2a1f00; border-left: 3px solid var(--yellow); padding: 10px 14px; border-radius: 0 4px 4px 0; margin: 12px 0; font-size: 13px; }
+.warn strong { color: var(--yellow); }
+.danger { background: #1f0a0a; border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 4px 4px 0; margin: 12px 0; font-size: 13px; }
+.danger strong { color: var(--red); }
+.ok    { background: #0d2114; border-left: 3px solid var(--green); padding: 10px 14px; border-radius: 0 4px 4px 0; margin: 12px 0; font-size: 13px; }
+.ok strong { color: var(--green); }
+.info  { background: #0d1f3d; border-left: 3px solid var(--blue); padding: 10px 14px; border-radius: 0 4px 4px 0; margin: 12px 0; font-size: 13px; }
+.info strong { color: var(--blue); }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+th { background: var(--surface2); color: var(--muted); font-weight: 600; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+td { padding: 8px 12px; border-bottom: 1px solid #21262d; vertical-align: top; }
+.tag { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.tag-must { background: #2a1f00; color: var(--yellow); }
+.tag-opt  { background: #1a3028; color: var(--green); }
+.tag-del  { background: #1f0a0a; color: var(--red); }
+
+.checklist { list-style: none; margin-left: 0; }
+.checklist li { padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; }
+.checklist li::before { content: "☐"; color: var(--muted); flex-shrink: 0; margin-top: 1px; }
+
+.file-tree { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; font-family: monospace; font-size: 12px; line-height: 1.8; }
+.ft-del { color: var(--red); }
+.ft-keep { color: var(--green); }
+.ft-new { color: var(--blue); }
+.ft-edit { color: var(--orange); }
+.ft-dim { color: #484f58; }
+
+footer { border-top: 1px solid var(--border); padding: 24px 48px; color: var(--muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── 側邊導覽 ── -->
+<nav>
+  <div class="logo">
+    <h1>專屬 AI 顧問<br>移植指南</h1>
+    <p>新手版 · v1.0</p>
+  </div>
+  <div class="nav-section">準備</div>
+  <a href="#overview">系統概覽</a>
+  <a href="#checklist">移植前清單</a>
+  <div class="nav-section">六個步驟</div>
+  <a href="#step1">① 複製專案</a>
+  <a href="#step2">② 清空舊資料</a>
+  <a href="#step3">③ 匯入新知識庫</a>
+  <a href="#step4">④ 換上新人設</a>
+  <a href="#step5">⑤ 更新術語加權</a>
+  <a href="#step6">⑥ 重建向量索引</a>
+  <div class="nav-section">完成</div>
+  <a href="#verify">驗證與啟動</a>
+  <a href="#faq">常見問題</a>
+</nav>
+
+<!-- ── 主要內容 ── -->
+<main>
+
+<h2 id="overview">系統概覽：哪些東西是「ISO 27001 專屬」的？</h2>
+<p>這套系統的五層架構（快取 → 搜尋 → 推理 → 推薦 → 輸出）<strong>完全可以移植</strong>。
+需要替換的只有「裡面裝的資料」和「顧問的自我介紹」，程式碼的 90% 不需要動。</p>
+
+<table>
+  <thead><tr><th>元件</th><th>檔案位置</th><th>ISO 27001 專屬？</th><th>動作</th></tr></thead>
+  <tbody>
+    <tr><td>知識庫條文</td><td><code>data/iso27001_structure.json</code></td><td>✅ 是</td><td><span class="tag tag-must">必須替換</span></td></tr>
+    <tr><td>PDCA 知識圖譜</td><td><code>data/pdca_graph.json</code></td><td>✅ 是</td><td><span class="tag tag-must">必須替換</span></td></tr>
+    <tr><td>向量索引</td><td><code>data/embeddings.npy</code></td><td>✅ 是（內容相關）</td><td><span class="tag tag-must">必須重建</span></td></tr>
+    <tr><td>條文關聯邊</td><td><code>data/knowledge_graph.json</code></td><td>✅ 是</td><td><span class="tag tag-must">必須重建</span></td></tr>
+    <tr><td>顧問人設</td><td><code>agent.py</code> 第 75、87 行</td><td>✅ 是</td><td><span class="tag tag-must">必須修改</span></td></tr>
+    <tr><td>主要顧問 Prompt</td><td><code>src/iso27001_advisor/llm/llm.py</code></td><td>✅ 是</td><td><span class="tag tag-must">必須修改</span></td></tr>
+    <tr><td>關鍵字加權</td><td><code>src/iso27001_advisor/core/search_tool.py</code></td><td>✅ 是</td><td><span class="tag tag-must">必須修改</span></td></tr>
+    <tr><td>同義詞字典</td><td><code>src/iso27001_advisor/core/search_tool.py</code></td><td>✅ 是</td><td><span class="tag tag-must">必須修改</span></td></tr>
+    <tr><td>評估題目</td><td><code>data/eval_dataset.json</code></td><td>✅ 是</td><td><span class="tag tag-must">必須替換</span></td></tr>
+    <tr><td>五層搜尋引擎</td><td><code>src/iso27001_advisor/core/search_tool.py</code></td><td>❌ 否</td><td><span class="tag tag-opt">保留不動</span></td></tr>
+    <tr><td>Web UI</td><td><code>app.py</code> + <code>index.html</code></td><td>❌ 否</td><td><span class="tag tag-opt">保留不動</span></td></tr>
+    <tr><td>評估框架</td><td><code>eval/</code></td><td>❌ 否</td><td><span class="tag tag-opt">保留不動</span></td></tr>
+    <tr><td>舊評估結果</td><td><code>data/faithfulness_results.json</code> 等</td><td>—</td><td><span class="tag tag-del">刪除</span></td></tr>
+  </tbody>
+</table>
+
+<!-- ── 移植前清單 ── -->
+<h2 id="checklist">移植前清單</h2>
+<ul class="checklist">
+  <li>已安裝 Python 3.10+，可在終端機執行 <code>python3 --version</code></li>
+  <li>已安裝 Ollama 並確認 <code>gemma4:e2b-mlx</code> 可正常運作（<code>ollama run gemma4:e2b-mlx</code>）</li>
+  <li>手邊有新標準的 PDF 原文（例如 GDPR 全文、NIST CSF、內稽規範）</li>
+  <li>已安裝 docling：<code>pip install docling</code></li>
+  <li>已安裝 sentence-transformers：<code>pip install sentence-transformers</code></li>
+  <li>大約準備 2-4 小時，大部分時間在等待 AI 處理 PDF</li>
+</ul>
+
+<!-- ══════════════════ STEP 1 ══════════════════ -->
+<div class="step-card" id="step1">
+  <div class="step-header">
+    <div class="step-num blue">1</div>
+    <div>
+      <h3 style="margin:0">複製專案到新資料夾</h3>
+      <p style="margin:4px 0 0">整包複製，不要在原本的 ISO 27001 版本上直接改。</p>
+    </div>
+  </div>
+
+  <pre><span class="c"># 在終端機執行（把 gdpr-advisor 換成你想要的名稱）</span>
+cp -r iso27001-advisor gdpr-advisor
+cd gdpr-advisor</pre>
+
+  <div class="ok">
+    <strong>✅ 建議：</strong>用新標準的縮寫命名資料夾，例如 <code>gdpr-advisor</code>、<code>nist-advisor</code>、<code>sox-advisor</code>。
+    之後兩套系統可以並存，互不影響。
+  </div>
+</div>
+
+<!-- ══════════════════ STEP 2 ══════════════════ -->
+<div class="step-card" id="step2">
+  <div class="step-header">
+    <div class="step-num blue">2</div>
+    <div>
+      <h3 style="margin:0">清空舊資料</h3>
+      <p style="margin:4px 0 0">刪除所有 ISO 27001 相關的資料檔，保留程式碼與設定。</p>
+    </div>
+  </div>
+
+  <h4>要刪除的檔案</h4>
+  <div class="file-tree">
+data/<br>
+├── <span class="ft-del">iso27001_structure.json</span>     ← 刪除（ISO 27001 條文）<br>
+├── <span class="ft-del">pdca_graph.json</span>             ← 刪除（ISO 27001 PDCA 圖譜）<br>
+├── <span class="ft-del">knowledge_graph.json</span>        ← 刪除（若存在）<br>
+├── <span class="ft-del">embeddings.npy</span>              ← 刪除（若存在）<br>
+├── <span class="ft-del">embedding_ids.json</span>          ← 刪除（若存在）<br>
+├── <span class="ft-del">eval_dataset.json</span>           ← 刪除（ISO 27001 測驗題）<br>
+├── <span class="ft-del">faithfulness_answers.json</span>   ← 刪除（舊答案快取）<br>
+├── <span class="ft-del">faithfulness_results.json</span>   ← 刪除（舊評分結果）<br>
+├── <span class="ft-del">eval_results.json</span>           ← 刪除（舊評估結果）<br>
+├── <span class="ft-keep">cht.md</span>                      ← 保留（參考用，可刪）<br>
+└── <span class="ft-keep">level2_eval_*.json</span>          ← 保留（Agent 評估框架）
+  </div>
+
+  <pre><span class="c"># 在新資料夾的根目錄執行</span>
+rm data/iso27001_structure.json data/pdca_graph.json
+rm -f data/knowledge_graph.json data/embeddings.npy data/embedding_ids.json
+rm -f data/eval_dataset.json data/faithfulness_*.json data/eval_results.json</pre>
+</div>
+
+<!-- ══════════════════ STEP 3 ══════════════════ -->
+<div class="step-card" id="step3">
+  <div class="step-header">
+    <div class="step-num orange">3</div>
+    <div>
+      <h3 style="margin:0">匯入新知識庫（最重要的步驟）</h3>
+      <p style="margin:4px 0 0">這步驟把你的 PDF 轉成系統能讀懂的結構化資料。</p>
+    </div>
+  </div>
+
+  <div class="danger">
+    <strong>⚠️ 重要限制：</strong><code>scripts/build_new_advisor.py</code> 目前有兩個已知問題需要先修正，<strong>直接跑會產生格式錯誤的資料，系統啟動就會崩潰</strong>。
+    請依照下方指示先修正再執行。
+  </div>
+
+  <h4>問題 1：輸出路徑錯誤</h4>
+  <p>原腳本輸出到 <code>../custom_data/</code>，但系統只讀取 <code>data/</code>。</p>
+  <p>用文字編輯器（記事本、VSCode 皆可）打開 <code>scripts/build_new_advisor.py</code>，找到第 19-20 行：</p>
+  <pre><span class="c"># 找到這兩行</span>
+PDF_DIR = <span class="s">"../new_pdfs"</span>
+OUTPUT_DIR = <span class="s">"../custom_data"</span>
+
+<span class="c"># 改成（PDF 放在專案根目錄的 new_pdfs/ 資料夾）</span>
+PDF_DIR = <span class="s">"new_pdfs"</span>
+OUTPUT_DIR = <span class="s">"data"</span></pre>
+
+  <h4>問題 2：輸出 JSON 格式不相容</h4>
+  <p>原腳本輸出的檔名是 <code>knowledge_base.json</code>，但系統只認識 <code>iso27001_structure.json</code>。
+  同時，欄位格式也不一樣。</p>
+  <p>繼續在同一個檔案裡，找到第 70-73 行，修改檔名並補上系統需要的欄位：</p>
+  <pre><span class="c"># 找到這段（step1_convert_pdfs 函式末尾）</span>
+all_chunks.append({<span class="s">"id"</span>: f<span class="s">"doc_{chunk_id}"</span>, <span class="s">"source"</span>: filename, <span class="s">"content"</span>: current_chunk.strip()})
+
+<span class="c"># 改成（加上 type / section / subsection / title 欄位）</span>
+all_chunks.append({
+    <span class="s">"id"</span>: f<span class="s">"doc_{chunk_id}"</span>,
+    <span class="s">"type"</span>: <span class="s">"clause"</span>,
+    <span class="s">"section"</span>: filename.replace(<span class="s">".pdf"</span>, <span class="s">""</span>),
+    <span class="s">"subsection"</span>: f<span class="s">"段落 {chunk_id}"</span>,
+    <span class="s">"title"</span>: f<span class="s">"段落 {chunk_id}"</span>,
+    <span class="s">"content"</span>: current_chunk.strip()
+})
+
+<span class="c"># 同時把輸出檔名改為系統認識的名稱（同函式最後幾行）</span>
+kb_path = os.path.join(OUTPUT_DIR, <span class="s">"iso27001_structure.json"</span>)  <span class="c"># 改這裡</span></pre>
+
+  <h4>修改完成後，執行轉換</h4>
+  <pre><span class="c"># 1. 建立放置 PDF 的資料夾</span>
+mkdir new_pdfs
+
+<span class="c"># 2. 把你的 PDF 複製進去（手動操作）</span>
+<span class="c">#    例如：gdpr_full_text.pdf、nist_csf_2.0.pdf</span>
+
+<span class="c"># 3. 執行自動轉換（會依序完成 PDF → 文字 → 向量）</span>
+python3 scripts/build_new_advisor.py</pre>
+
+  <div class="warn">
+    <strong>⏳ 時間預估：</strong>每份 PDF 約需 3-10 分鐘（依文件長度和電腦速度）。
+    畫面上會顯示「✅ 轉換完成！共切出 XXX 個段落」代表成功。
+  </div>
+
+  <h4>（可選）手動建立新領域的 PDCA 圖譜</h4>
+  <p>系統的「合規推薦」功能依賴 <code>data/pdca_graph.json</code>。如果你的新標準有類似的
+  Plan-Do-Check-Act 循環結構，可以手動仿照原本的格式建立。如果暫時不需要這個功能，
+  建立一個空檔案即可讓系統不崩潰：</p>
+  <pre>echo '{"nodes":[],"edges":[]}' > data/pdca_graph.json</pre>
+</div>
+
+<!-- ══════════════════ STEP 4 ══════════════════ -->
+<div class="step-card" id="step4">
+  <div class="step-header">
+    <div class="step-num green">4</div>
+    <div>
+      <h3 style="margin:0">換上新顧問人設</h3>
+      <p style="margin:4px 0 0">讓 AI 知道自己現在是哪個領域的顧問。需要改三個地方。</p>
+    </div>
+  </div>
+
+  <h4>① agent.py — LV2 和 LV3 Agent 人設（第 75、87 行）</h4>
+  <p>打開 <code>agent.py</code>，找到以下兩個變數，把「ISO 27001 資訊安全管理系統」改成你的新領域：</p>
+  <pre><span class="c"># 第 75 行 — LV2 一般顧問對話</span>
+LEVEL2_SYSTEM_PROMPT = <span class="s">"""你是一位 ISO 27001 資訊安全管理系統顧問..."""</span>
+<span class="c"># 改成例如：</span>
+LEVEL2_SYSTEM_PROMPT = <span class="s">"""你是一位 GDPR 個人資料保護法規顧問..."""</span>
+
+<span class="c"># 第 87 行 — LV3 稽核準備模式</span>
+LEVEL3_SYSTEM_PROMPT = <span class="s">"""你是一位 ISO 27001 資訊安全管理系統顧問..."""</span>
+<span class="c"># 改成例如：</span>
+LEVEL3_SYSTEM_PROMPT = <span class="s">"""你是一位 GDPR 個人資料保護法規顧問..."""</span></pre>
+
+  <h4>② llm.py — 主要對話 Prompt（含引用規則）</h4>
+  <p>打開 <code>src/iso27001_advisor/llm/llm.py</code>，找到 <code>get_system_prompt()</code> 函式（約第 187 行）。
+  這裡有最詳細的顧問行為規範，需要把 ISO 27001 專屬內容換成新領域的術語。</p>
+  <p>最少需要修改：</p>
+  <ul>
+    <li>第一行「你是一位專業的 ISO 27001 資訊安全管理系統 (ISMS) 顧問」→ 改成新領域</li>
+    <li>規則 8「控制項消歧規則」中的 ISO 27001 控制項 → 改成新領域的高頻混淆概念</li>
+    <li>規則 10 Markdown 格式中的「🛠️ 文件缺口」→ 可改成新領域慣用的名稱</li>
+  </ul>
+  <div class="info">
+    <strong>💡 提示：</strong>如果你不確定新領域的「高頻混淆概念」是什麼，可以先不改規則 8，
+    跑完系統後觀察答案哪裡容易出錯，再回來補充。
+  </div>
+</div>
+
+<!-- ══════════════════ STEP 5 ══════════════════ -->
+<div class="step-card" id="step5">
+  <div class="step-header">
+    <div class="step-num green">5</div>
+    <div>
+      <h3 style="margin:0">更新術語加權與同義詞</h3>
+      <p style="margin:4px 0 0">讓搜尋引擎優先找到你的新領域核心術語。</p>
+    </div>
+  </div>
+
+  <p>打開 <code>src/iso27001_advisor/core/search_tool.py</code>，修改以下三個地方：</p>
+
+  <h4>① 第 19 行：<code>_SYNONYMS</code> — 同義詞擴充字典</h4>
+  <p>當使用者輸入 A，自動把 B 也加進搜尋。</p>
+  <pre><span class="c"># ISO 27001 原本的同義詞（刪掉這些）</span>
+<span class="s">"加密"</span>: [<span class="s">"密碼技術"</span>, <span class="s">"憑證"</span>],
+<span class="s">"弱點"</span>: [<span class="s">"技術脆弱性"</span>, <span class="s">"脆弱性"</span>],
+
+<span class="c"># GDPR 範例（依你的新標準自行填入）</span>
+<span class="s">"個資"</span>: [<span class="s">"個人資料"</span>, <span class="s">"PII"</span>, <span class="s">"data subject"</span>],
+<span class="s">"資料外洩"</span>: [<span class="s">"breach"</span>, <span class="s">"洩漏事件"</span>, <span class="s">"資料事故"</span>],
+<span class="s">"刪除權"</span>: [<span class="s">"被遺忘權"</span>, <span class="s">"right to erasure"</span>],</pre>
+
+  <h4>② 第 47 行：<code>_BOOST_WORDS</code> — 核心主題詞加權</h4>
+  <p>條文中包含這些詞時，搜尋排名自動提高。</p>
+  <pre><span class="c"># ISO 27001 原本的加權詞（清空後填入新領域的核心術語）</span>
+_BOOST_WORDS = [
+    <span class="s">"資料主體"</span>, <span class="s">"同意"</span>, <span class="s">"資料控制者"</span>, <span class="s">"資料處理者"</span>,
+    <span class="s">"資料保護官"</span>, <span class="s">"跨境傳輸"</span>, <span class="s">"隱私衝擊評估"</span>,
+    <span class="s">"72 小時通報"</span>, <span class="s">"刪除"</span>, <span class="s">"更正"</span>,   <span class="c"># GDPR 範例</span>
+]</pre>
+
+  <h4>③ 第 53 行：<code>_INTENT_BOOSTS</code> — 問法意圖對應條文</h4>
+  <p>當使用者的問法符合特定關鍵字組合，直接提升相關條文的排名。這是對抗「搜尋缺口」最有效的工具。</p>
+  <pre><span class="c"># 格式：{"ids": ["條文ID"], "keywords": ["關鍵字", ...]}</span>
+_INTENT_BOOSTS = [
+    {
+        <span class="s">"ids"</span>: [<span class="s">"article_17"</span>],                    <span class="c"># GDPR 第 17 條刪除權</span>
+        <span class="s">"keywords"</span>: [<span class="s">"刪除"</span>, <span class="s">"被遺忘"</span>, <span class="s">"erasure"</span>],
+    },
+    {
+        <span class="s">"ids"</span>: [<span class="s">"article_33"</span>, <span class="s">"article_34"</span>],       <span class="c"># GDPR 事件通報</span>
+        <span class="s">"keywords"</span>: [<span class="s">"資料外洩"</span>, <span class="s">"72 小時"</span>, <span class="s">"breach notification"</span>],
+    },
+]</pre>
+
+  <div class="info">
+    <strong>💡 提示：</strong><code>_INTENT_BOOSTS</code> 的條文 ID 格式要和你在 Step 3
+    產出的 <code>iso27001_structure.json</code> 裡的 <code>id</code> 欄位一致。
+    先跑起來系統，觀察哪些問題找不到正確條文，再回來補這個清單。
+  </div>
+</div>
+
+<!-- ══════════════════ STEP 6 ══════════════════ -->
+<div class="step-card" id="step6">
+  <div class="step-header">
+    <div class="step-num purple">6</div>
+    <div>
+      <h3 style="margin:0">重建向量索引</h3>
+      <p style="margin:4px 0 0">讓 Hybrid Search 能對新的條文做語意搜尋。</p>
+    </div>
+  </div>
+
+  <pre><span class="c"># 用新的知識庫重新計算每個條文的語意向量</span>
+python3 scripts/build_embeddings.py</pre>
+
+  <p>這會在 <code>data/</code> 產生：</p>
+  <ul>
+    <li><code>data/embeddings.npy</code>（所有條文的向量矩陣）</li>
+    <li><code>data/embedding_ids.json</code>（ID 對照表）</li>
+  </ul>
+  <div class="warn">
+    <strong>⏳ 時間預估：</strong>首次執行需要下載約 120MB 的語言模型，之後每次重建約 1-2 分鐘。
+    看到「✅ 儲存：data/embeddings.npy」代表成功。
+  </div>
+</div>
+
+<!-- ══════════════════ 驗證 ══════════════════ -->
+<h2 id="verify">驗證與啟動</h2>
+
+<div class="step-card">
+  <h3 style="margin:0 0 12px">執行驗證流程</h3>
+  <pre><span class="c"># 1. 執行測試套件（確認所有程式碼正常）</span>
+python3 -m pytest -q
+
+<span class="c"># 2. 快速功能驗證（確認新知識庫能被搜尋）</span>
+python3 -c <span class="s">"
+from iso27001_advisor.core.search_tool import ISO27001Searcher
+s = ISO27001Searcher()
+print('已載入條文數：', len(s.items))
+r = s.hybrid_search('你的新領域核心問題', limit=3)
+for x in r: print(x['item']['id'], x['item']['title'])
+"</span>
+
+<span class="c"># 3. 啟動 Web UI</span>
+python3 app.py</pre>
+
+  <h4>預期結果</h4>
+  <ul>
+    <li>pytest：全部 pass（不一定 187 個，因為新領域題目不同）</li>
+    <li>搜尋測試：顯示新領域條文的 ID 和標題</li>
+    <li>Web UI：瀏覽器開啟後，右上角顯示你新的顧問名稱</li>
+  </ul>
+</div>
+
+<!-- ══════════════════ FAQ ══════════════════ -->
+<h2 id="faq">常見問題</h2>
+
+<h3>Q：執行 app.py 出現 KeyError: 'type'</h3>
+<p>Step 3 的 JSON schema 修正沒有套用到。重新打開 <code>scripts/build_new_advisor.py</code>，確認每個 chunk 都有加上 <code>type</code>、<code>section</code>、<code>subsection</code>、<code>title</code> 四個欄位，然後重新執行 <code>python3 scripts/build_new_advisor.py</code>。</p>
+
+<h3>Q：搜尋結果完全不相關</h3>
+<p>Step 5 的 <code>_SYNONYMS</code> 和 <code>_BOOST_WORDS</code> 可能還沒更新，或者 PDF 切片太大（一個段落超過 1000 字）。嘗試在 <code>build_new_advisor.py</code> 把第 57 行的 <code>1000</code> 改小到 <code>600</code>，重新產生知識庫。</p>
+
+<h3>Q：系統說「在現有條文中找不到依據」</h3>
+<p>這代表 Step 3 的資料轉換可能有問題，或是術語不匹配。先用快速驗證指令確認知識庫有正確載入，再補充 Step 5 的 <code>_INTENT_BOOSTS</code>。</p>
+
+<h3>Q：想要同時保留 ISO 27001 和新領域兩套系統</h3>
+<p>Step 1 的「整包複製」就是為此設計的。兩個資料夾各自啟動在不同 Port 即可：</p>
+<pre><span class="c"># 終端機 A（ISO 27001 版，預設 Port 5000）</span>
+cd iso27001-advisor &amp;&amp; python3 app.py
+
+<span class="c"># 終端機 B（新領域版，指定 Port 5001）</span>
+cd gdpr-advisor &amp;&amp; python3 app.py --port 5001</pre>
+
+<h3>Q：<code>build_embeddings.py</code> 找不到？</h3>
+<p>Phase 2 Hybrid Search 的腳本可能尚未建立。請參考 <a href="faithfulness_improvement_plan.html">faithfulness_improvement_plan.html</a> 的 Phase 2 Step 2-1，手動建立 <code>scripts/build_embeddings.py</code>。</p>
+
+<h3>Q：<code>data/pdca_graph.json</code> 是什麼格式？</h3>
+<p>這是合規推薦功能的來源。如果暫時不需要推薦功能，可以先用空檔案讓系統正常啟動（Step 3 末尾有指令）。等系統穩定後再研究格式，參考 <code>docs/specs/system_spec.html</code> 的架構說明。</p>
+
+</main>
+</div>
+
+<footer>
+  ISO 27001 Advisor · 系統移植新手指南 v1.0 · 2026-06-26 ·
+  <a href="system_spec.html">系統規格</a> ·
+  <a href="architecture.html">架構圖</a> ·
+  <a href="faithfulness_improvement_plan.html">改善計畫</a>
+</footer>
+
+<script>
+  // 高亮當前 section 的導覽連結
+  const sections = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('nav a');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const a = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+[
+  {
+    "id": "lv3-001",
+    "category": "soa",
+    "query": "我們公司每日備份資料庫到本地 NAS，但沒有定期還原測試，也沒有定義保存期限。請根據 ISO 27001 幫我產生 SoA 草稿。",
+    "expected_mode": "soa",
+    "expected_controls": ["control_8.13"],
+    "checks": {
+      "soa_completeness": ["control_id", "control_name", "applicability", "applicability_reason", "implementation_status", "gaps", "evidence"],
+      "no_formal_conclusion": true,
+      "implementation_status": "部分實作"
+    }
+  },
+  {
+    "id": "lv3-002",
+    "category": "soa",
+    "query": "我們目前讓 IT 主管每月人工檢查帳號權限，但沒有正式覆核紀錄，也沒有離職停用 SLA。請幫我產生 SoA 草稿。",
+    "expected_mode": "soa",
+    "expected_controls": ["control_5.15"],
+    "checks": {
+      "soa_completeness": ["control_id", "control_name", "applicability", "implementation_status", "gaps", "evidence"],
+      "no_formal_conclusion": true,
+      "implementation_status": "部分實作"
+    }
+  },
+  {
+    "id": "lv3-003",
+    "category": "soa",
+    "query": "我們系統保存登入日誌 90 天，但沒有人定期審查，也未定義保存期限政策。請根據 ISO 27001 幫我產生 SoA 草稿。",
+    "expected_mode": "soa",
+    "expected_controls": ["control_8.15"],
+    "checks": {
+      "soa_completeness": ["control_id", "control_name", "applicability", "implementation_status", "gaps", "evidence"],
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-004",
+    "category": "soa",
+    "query": "我們公司目前有備份制度、存取控制機制與日誌管理制度。請根據 ISO 27001 幫我產生 SoA 草稿，涵蓋這三個控制項。",
+    "expected_mode": "soa",
+    "expected_controls": ["control_8.13", "control_5.15", "control_8.15"],
+    "checks": {
+      "soa_completeness": ["control_id", "control_name", "applicability", "implementation_status", "gaps", "evidence"],
+      "min_controls": 3,
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-005",
+    "category": "audit-report",
+    "query": "備份：每日備份，保存 30 天，沒有還原測試。請幫我產生稽核準備報告。",
+    "expected_mode": "audit-report",
+    "expected_controls": ["control_8.13"],
+    "checks": {
+      "audit_report_completeness": ["summary", "control_matrix"],
+      "has_roadmap": true,
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-006",
+    "category": "audit-report",
+    "query": "存取控制：帳號申請需主管核准，但沒有定期覆核，沒有離職停用流程。請幫我產生稽核準備報告。",
+    "expected_mode": "audit-report",
+    "expected_controls": ["control_5.15"],
+    "checks": {
+      "audit_report_completeness": ["summary", "control_matrix"],
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-007",
+    "category": "audit-report",
+    "query": "日誌：系統保存登入紀錄 90 天，沒有人定期查看，未定義審查流程。請幫我產生稽核準備報告。",
+    "expected_mode": "audit-report",
+    "expected_controls": ["control_8.15"],
+    "checks": {
+      "audit_report_completeness": ["summary", "control_matrix"],
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-008",
+    "category": "roadmap",
+    "query": "備份缺還原測試，存取控制缺定期覆核，日誌沒人審查。請給我一個 30 / 60 / 90 天改善計畫。",
+    "expected_mode": "roadmap",
+    "expected_controls": ["control_8.13", "control_5.15", "control_8.15"],
+    "checks": {
+      "roadmap_completeness": ["days_30", "days_60", "days_90", "owners"],
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-009",
+    "category": "audit-pack",
+    "query": "請針對 A.8.13 幫我整理外部稽核可能會問的問題與應準備證據。",
+    "expected_mode": "audit-pack",
+    "expected_controls": ["control_8.13"],
+    "checks": {
+      "question_pack_completeness": ["control_id", "control_name", "questions", "answer_points", "evidence"],
+      "min_questions": 3,
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-010",
+    "category": "audit-pack",
+    "query": "請針對 A.5.15 幫我整理外部稽核可能會問的問題與應準備證據。",
+    "expected_mode": "audit-pack",
+    "expected_controls": ["control_5.15"],
+    "checks": {
+      "question_pack_completeness": ["control_id", "control_name", "questions", "answer_points", "evidence"],
+      "min_questions": 3,
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-011",
+    "category": "audit-pack",
+    "query": "請針對 A.8.15 幫我整理外部稽核可能會問的問題與應準備證據。",
+    "expected_mode": "audit-pack",
+    "expected_controls": ["control_8.15"],
+    "checks": {
+      "question_pack_completeness": ["control_id", "control_name", "questions", "answer_points", "evidence"],
+      "min_questions": 3,
+      "no_formal_conclusion": true
+    }
+  },
+  {
+    "id": "lv3-012",
+    "category": "audit-pack",
+    "query": "control_8.13 control_5.15",
+    "expected_mode": "audit-pack",
+    "expected_controls": ["control_8.13", "control_5.15"],
+    "checks": {
+      "control_id_parse": ["control_8.13", "control_5.15"]
+    },
+    "note": "純 ID 輸入，測試 _extract_control_ids_from_text 是否能解析"
+  }
+]

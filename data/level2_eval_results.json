@@ -1,0 +1,1162 @@
+{
+  "timestamp": "2026-06-26T12:00:17",
+  "total": 50,
+  "top_k": 1,
+  "gap_mode_count": 43,
+  "evidence_mode_count": 7,
+  "retrieval_hits": 43,
+  "hit_rate": 0.86,
+  "gap_questions_with_expected": 30,
+  "gap_fully_detected": 24,
+  "gap_partially_detected": 1,
+  "gap_not_detected": 5,
+  "gap_detection_recall": 0.8,
+  "gap_partial_rate": 0.0333,
+  "gap_miss_rate": 0.1667,
+  "coverage_questions_with_expected": 38,
+  "coverage_signal_hits": 33,
+  "coverage_signal_precision": 0.8684,
+  "evidence_mode_questions": 7,
+  "evidence_non_empty": 7,
+  "evidence_checklist_coverage": 1.0,
+  "per_control": {
+    "control_8.13": {
+      "total": 8,
+      "retrieval_hit": 4,
+      "gap_expected": 6,
+      "gap_hit": 3
+    },
+    "control_8.8": {
+      "total": 7,
+      "retrieval_hit": 7,
+      "gap_expected": 5,
+      "gap_hit": 5
+    },
+    "control_8.15": {
+      "total": 5,
+      "retrieval_hit": 5,
+      "gap_expected": 3,
+      "gap_hit": 3
+    },
+    "control_5.15": {
+      "total": 6,
+      "retrieval_hit": 6,
+      "gap_expected": 4,
+      "gap_hit": 4
+    },
+    "control_5.34": {
+      "total": 6,
+      "retrieval_hit": 5,
+      "gap_expected": 4,
+      "gap_hit": 3
+    },
+    "clause_6.1.2": {
+      "total": 6,
+      "retrieval_hit": 5,
+      "gap_expected": 4,
+      "gap_hit": 3
+    },
+    "clause_9.2": {
+      "total": 5,
+      "retrieval_hit": 5,
+      "gap_expected": 3,
+      "gap_hit": 3
+    },
+    "multi": {
+      "total": 7,
+      "retrieval_hit": 6,
+      "gap_expected": 1,
+      "gap_hit": 0
+    }
+  },
+  "details": [
+    {
+      "id": "lv2_q01",
+      "mode": "gap",
+      "control_area": "control_8.13",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.13"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "還原測試",
+        "備份保存期限"
+      ],
+      "detected_gaps": [
+        "還原測試",
+        "備份保存期限",
+        "備份保護（加密/異地）",
+        "失敗告警機制"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "備份"
+      ]
+    },
+    {
+      "id": "lv2_q02",
+      "mode": "gap",
+      "control_area": "control_8.13",
+      "clause_hit": false,
+      "retrieved_ids": [
+        "control_7.2"
+      ],
+      "gap_detected_all": false,
+      "expected_gaps": [
+        "備份保護（加密/異地）"
+      ],
+      "detected_gaps": [],
+      "missing_from_detection": [
+        "備份保護（加密/異地）"
+      ],
+      "coverage_signal_hit": false,
+      "expected_covered": [
+        "備份",
+        "還原"
+      ]
+    },
+    {
+      "id": "lv2_q03",
+      "mode": "gap",
+      "control_area": "control_8.13",
+      "clause_hit": false,
+      "retrieved_ids": [
+        "control_8.24"
+      ],
+      "gap_detected_all": false,
+      "expected_gaps": [
+        "失敗告警機制"
+      ],
+      "detected_gaps": [
+        "金鑰管理",
+        "憑證管理"
+      ],
+      "missing_from_detection": [
+        "失敗告警機制"
+      ],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "備份",
+        "加密",
+        "異地"
+      ]
+    },
+    {
+      "id": "lv2_q04",
+      "mode": "gap",
+      "control_area": "control_8.13",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.13"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "還原測試",
+        "備份保存期限",
+        "備份保護（加密/異地）",
+        "失敗告警機制"
+      ],
+      "detected_gaps": [
+        "還原測試",
+        "備份保存期限",
+        "備份保護（加密/異地）",
+        "失敗告警機制"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "備份"
+      ]
+    },
+    {
+      "id": "lv2_q05",
+      "mode": "gap",
+      "control_area": "control_8.13",
+      "clause_hit": false,
+      "retrieved_ids": [
+        "control_8.24"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "金鑰管理",
+        "加密政策",
+        "憑證管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "備份",
+        "加密",
+        "異地",
+        "還原",
+        "失敗"
+      ]
+    },
+    {
+      "id": "lv2_q06",
+      "mode": "evidence",
+      "control_area": "control_8.13",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.13"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "還原測試",
+        "備份保存期限",
+        "備份保護（加密/異地）",
+        "失敗告警機制"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": [],
+      "evidence_checklist_non_empty": true
+    },
+    {
+      "id": "lv2_q07",
+      "mode": "gap",
+      "control_area": "control_8.13",
+      "clause_hit": false,
+      "retrieved_ids": [
+        "control_5.15"
+      ],
+      "gap_detected_all": false,
+      "expected_gaps": [
+        "備份保護（加密/異地）"
+      ],
+      "detected_gaps": [
+        "定期存取權限覆核",
+        "最小權限原則",
+        "特權帳號管理",
+        "帳號停用程序"
+      ],
+      "missing_from_detection": [
+        "備份保護（加密/異地）"
+      ],
+      "coverage_signal_hit": false,
+      "expected_covered": [
+        "備份",
+        "還原"
+      ]
+    },
+    {
+      "id": "lv2_q08",
+      "mode": "gap",
+      "control_area": "control_8.8",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "修補期限"
+      ],
+      "detected_gaps": [
+        "修補期限",
+        "修補驗證",
+        "例外處理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "弱點掃描"
+      ]
+    },
+    {
+      "id": "lv2_q09",
+      "mode": "gap",
+      "control_area": "control_8.8",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "修補驗證"
+      ],
+      "detected_gaps": [
+        "修補驗證",
+        "例外處理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "弱點掃描",
+        "漏洞"
+      ]
+    },
+    {
+      "id": "lv2_q10",
+      "mode": "gap",
+      "control_area": "control_8.8",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "例外處理"
+      ],
+      "detected_gaps": [
+        "例外處理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": false,
+      "expected_covered": [
+        "弱點掃描",
+        "漏洞"
+      ]
+    },
+    {
+      "id": "lv2_q11",
+      "mode": "gap",
+      "control_area": "control_8.8",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "修補驗證"
+      ],
+      "detected_gaps": [
+        "修補期限",
+        "修補驗證",
+        "例外處理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "patch"
+      ]
+    },
+    {
+      "id": "lv2_q12",
+      "mode": "gap",
+      "control_area": "control_8.8",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "例外處理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "弱點掃描",
+        "漏洞"
+      ]
+    },
+    {
+      "id": "lv2_q13",
+      "mode": "evidence",
+      "control_area": "control_8.8",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "修補期限",
+        "修補驗證",
+        "例外處理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": [],
+      "evidence_checklist_non_empty": true
+    },
+    {
+      "id": "lv2_q14",
+      "mode": "gap",
+      "control_area": "control_8.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.15"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "日誌審查週期"
+      ],
+      "detected_gaps": [
+        "日誌審查週期",
+        "日誌保護完整性"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "日誌"
+      ]
+    },
+    {
+      "id": "lv2_q15",
+      "mode": "gap",
+      "control_area": "control_8.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.15"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "日誌保護完整性"
+      ],
+      "detected_gaps": [
+        "日誌保護完整性"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "日誌"
+      ]
+    },
+    {
+      "id": "lv2_q16",
+      "mode": "gap",
+      "control_area": "control_8.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.15"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "日誌保存期限"
+      ],
+      "detected_gaps": [
+        "日誌保存期限",
+        "日誌保護完整性"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "日誌"
+      ]
+    },
+    {
+      "id": "lv2_q17",
+      "mode": "gap",
+      "control_area": "control_8.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.15"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "日誌保護完整性"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "日誌"
+      ]
+    },
+    {
+      "id": "lv2_q18",
+      "mode": "evidence",
+      "control_area": "control_8.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.15"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "日誌審查週期",
+        "日誌保存期限",
+        "日誌保護完整性"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": [],
+      "evidence_checklist_non_empty": true
+    },
+    {
+      "id": "lv2_q19",
+      "mode": "gap",
+      "control_area": "control_5.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.15"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "定期存取權限覆核"
+      ],
+      "detected_gaps": [
+        "定期存取權限覆核",
+        "最小權限原則",
+        "特權帳號管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "存取控制",
+        "帳號",
+        "權限"
+      ]
+    },
+    {
+      "id": "lv2_q20",
+      "mode": "gap",
+      "control_area": "control_5.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.15"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "最小權限原則"
+      ],
+      "detected_gaps": [
+        "最小權限原則",
+        "特權帳號管理",
+        "帳號停用程序"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "存取控制",
+        "帳號",
+        "權限"
+      ]
+    },
+    {
+      "id": "lv2_q21",
+      "mode": "gap",
+      "control_area": "control_5.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.15"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "特權帳號管理"
+      ],
+      "detected_gaps": [
+        "特權帳號管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "存取控制",
+        "帳號",
+        "權限"
+      ]
+    },
+    {
+      "id": "lv2_q22",
+      "mode": "gap",
+      "control_area": "control_5.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.15"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "帳號停用程序"
+      ],
+      "detected_gaps": [
+        "特權帳號管理",
+        "帳號停用程序"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "存取控制",
+        "帳號",
+        "權限"
+      ]
+    },
+    {
+      "id": "lv2_q23",
+      "mode": "gap",
+      "control_area": "control_5.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.15"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "存取控制",
+        "帳號",
+        "權限"
+      ]
+    },
+    {
+      "id": "lv2_q24",
+      "mode": "evidence",
+      "control_area": "control_5.15",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.15"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "定期存取權限覆核",
+        "最小權限原則",
+        "特權帳號管理",
+        "帳號停用程序"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": [],
+      "evidence_checklist_non_empty": true
+    },
+    {
+      "id": "lv2_q25",
+      "mode": "gap",
+      "control_area": "control_5.34",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.34"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "資料遮罩或匿名化"
+      ],
+      "detected_gaps": [
+        "資料最小化",
+        "資料遮罩或匿名化"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "個資"
+      ]
+    },
+    {
+      "id": "lv2_q26",
+      "mode": "gap",
+      "control_area": "control_5.34",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.34"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "資料最小化"
+      ],
+      "detected_gaps": [
+        "資料最小化",
+        "同意書管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "個資"
+      ]
+    },
+    {
+      "id": "lv2_q27",
+      "mode": "gap",
+      "control_area": "control_5.34",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.34"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "同意書管理"
+      ],
+      "detected_gaps": [
+        "資料遮罩或匿名化",
+        "同意書管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "個資"
+      ]
+    },
+    {
+      "id": "lv2_q28",
+      "mode": "gap",
+      "control_area": "control_5.34",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.34"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "個資"
+      ]
+    },
+    {
+      "id": "lv2_q29",
+      "mode": "evidence",
+      "control_area": "control_5.34",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.34"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "資料最小化",
+        "資料遮罩或匿名化",
+        "同意書管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": [],
+      "evidence_checklist_non_empty": true
+    },
+    {
+      "id": "lv2_q30",
+      "mode": "gap",
+      "control_area": "clause_6.1.2",
+      "clause_hit": false,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": false,
+      "expected_gaps": [
+        "風險評鑑準則"
+      ],
+      "detected_gaps": [
+        "修補期限",
+        "修補驗證",
+        "例外處理"
+      ],
+      "missing_from_detection": [
+        "風險評鑑準則"
+      ],
+      "coverage_signal_hit": false,
+      "expected_covered": [
+        "風險評鑑"
+      ]
+    },
+    {
+      "id": "lv2_q31",
+      "mode": "gap",
+      "control_area": "clause_6.1.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_6.1.2"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "風險擁有者"
+      ],
+      "detected_gaps": [
+        "風險評鑑準則",
+        "風險擁有者"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "風險評鑑"
+      ]
+    },
+    {
+      "id": "lv2_q32",
+      "mode": "gap",
+      "control_area": "clause_6.1.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_6.1.2"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "更新頻率"
+      ],
+      "detected_gaps": [
+        "風險評鑑準則",
+        "更新頻率"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "風險評鑑"
+      ]
+    },
+    {
+      "id": "lv2_q33",
+      "mode": "gap",
+      "control_area": "clause_6.1.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_6.1.2"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "風險評鑑"
+      ]
+    },
+    {
+      "id": "lv2_q34",
+      "mode": "evidence",
+      "control_area": "clause_6.1.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_6.1.2"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "風險評鑑準則",
+        "風險擁有者",
+        "更新頻率"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": [],
+      "evidence_checklist_non_empty": true
+    },
+    {
+      "id": "lv2_q35",
+      "mode": "gap",
+      "control_area": "clause_9.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_9.2"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "稽核獨立性"
+      ],
+      "detected_gaps": [
+        "稽核獨立性",
+        "稽核結果追蹤"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "稽核"
+      ]
+    },
+    {
+      "id": "lv2_q36",
+      "mode": "gap",
+      "control_area": "clause_9.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_9.2"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "稽核結果追蹤"
+      ],
+      "detected_gaps": [
+        "稽核獨立性",
+        "稽核結果追蹤"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "稽核"
+      ]
+    },
+    {
+      "id": "lv2_q37",
+      "mode": "gap",
+      "control_area": "clause_9.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_9.2"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "稽核頻率"
+      ],
+      "detected_gaps": [
+        "稽核頻率"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "稽核"
+      ]
+    },
+    {
+      "id": "lv2_q38",
+      "mode": "gap",
+      "control_area": "clause_9.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_9.2"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "稽核"
+      ]
+    },
+    {
+      "id": "lv2_q39",
+      "mode": "evidence",
+      "control_area": "clause_9.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_9.2"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "稽核獨立性",
+        "稽核頻率",
+        "稽核結果追蹤"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": [],
+      "evidence_checklist_non_empty": true
+    },
+    {
+      "id": "lv2_q40",
+      "mode": "gap",
+      "control_area": "multi",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.24"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "事件分類分級",
+        "回應時限",
+        "事件演練"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": []
+    },
+    {
+      "id": "lv2_q41",
+      "mode": "gap",
+      "control_area": "multi",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_5.19"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "供應商稽核或評估"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": []
+    },
+    {
+      "id": "lv2_q42",
+      "mode": "gap",
+      "control_area": "multi",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.24"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "加密政策",
+        "憑證管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "加密"
+      ]
+    },
+    {
+      "id": "lv2_q43",
+      "mode": "gap",
+      "control_area": "multi",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_6.7"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": []
+    },
+    {
+      "id": "lv2_q44",
+      "mode": "gap",
+      "control_area": "multi",
+      "clause_hit": false,
+      "retrieved_ids": [
+        "control_5.34"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [
+        "資料最小化",
+        "資料遮罩或匿名化",
+        "同意書管理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": []
+    },
+    {
+      "id": "lv2_q45",
+      "mode": "gap",
+      "control_area": "multi",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_7.2"
+      ],
+      "gap_detected_all": null,
+      "expected_gaps": [],
+      "detected_gaps": [],
+      "missing_from_detection": [],
+      "coverage_signal_hit": null,
+      "expected_covered": []
+    },
+    {
+      "id": "lv2_q46",
+      "mode": "gap",
+      "control_area": "control_8.13",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.13"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "還原測試"
+      ],
+      "detected_gaps": [
+        "還原測試",
+        "備份保存期限",
+        "備份保護（加密/異地）",
+        "失敗告警機制"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "備份"
+      ]
+    },
+    {
+      "id": "lv2_q47",
+      "mode": "gap",
+      "control_area": "control_8.8",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.8"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "修補驗證"
+      ],
+      "detected_gaps": [
+        "修補驗證",
+        "例外處理"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "弱點掃描"
+      ]
+    },
+    {
+      "id": "lv2_q48",
+      "mode": "gap",
+      "control_area": "control_5.34",
+      "clause_hit": false,
+      "retrieved_ids": [
+        "control_5.19"
+      ],
+      "gap_detected_all": false,
+      "expected_gaps": [
+        "資料最小化"
+      ],
+      "detected_gaps": [
+        "供應商資安要求",
+        "供應商稽核或評估",
+        "供應商存取控制"
+      ],
+      "missing_from_detection": [
+        "資料最小化"
+      ],
+      "coverage_signal_hit": false,
+      "expected_covered": [
+        "個資"
+      ]
+    },
+    {
+      "id": "lv2_q49",
+      "mode": "gap",
+      "control_area": "clause_6.1.2",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "clause_6.1.2"
+      ],
+      "gap_detected_all": true,
+      "expected_gaps": [
+        "更新頻率"
+      ],
+      "detected_gaps": [
+        "風險評鑑準則",
+        "風險擁有者",
+        "更新頻率"
+      ],
+      "missing_from_detection": [],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "風險評鑑"
+      ]
+    },
+    {
+      "id": "lv2_q50",
+      "mode": "gap",
+      "control_area": "multi",
+      "clause_hit": true,
+      "retrieved_ids": [
+        "control_8.15"
+      ],
+      "gap_detected_all": false,
+      "expected_gaps": [
+        "還原測試",
+        "備份保存期限",
+        "定期存取權限覆核",
+        "日誌審查週期",
+        "日誌保存期限"
+      ],
+      "detected_gaps": [
+        "日誌審查週期",
+        "日誌保存期限",
+        "日誌保護完整性"
+      ],
+      "missing_from_detection": [
+        "還原測試",
+        "備份保存期限",
+        "定期存取權限覆核"
+      ],
+      "coverage_signal_hit": true,
+      "expected_covered": [
+        "備份",
+        "帳號",
+        "日誌"
+      ]
+    }
+  ]
+}

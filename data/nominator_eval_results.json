@@ -1,0 +1,24 @@
+{
+  "sample": 25,
+  "rounds": 2,
+  "results": [
+    {
+      "model": "gemma4:12b-it-qat-16k",
+      "format_valid_rate": 0.84,
+      "honesty_rate": 0.6667,
+      "survived_edges": 0,
+      "convergence_curve": [
+        0
+      ],
+      "gold_recall": 0.0,
+      "gate_report": {
+        "nominated": 60,
+        "g1_rejected": 0,
+        "g2_rejected": 20,
+        "g3_rejected": 0,
+        "g4_rejected": 40,
+        "survived": 0
+      }
+    }
+  ]
+}

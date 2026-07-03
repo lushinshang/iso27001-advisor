@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 27001 Advisor — System Spec v1.5</title>
+<style>
+:root {
+  --bg: #0b0f19;
+  --surface: rgba(17,24,39,0.7);
+  --surface2: rgba(22,28,45,0.5);
+  --border: rgba(255,255,255,0.08);
+  --text: #f3f4f6;
+  --muted: #9ca3af;
+  --blue: #3b82f6;
+  --blue-glow: rgba(59,130,246,0.25);
+  --purple: #8b5cf6;
+  --green: #10b981;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --font: 'Segoe UI', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(at 10% 20%, rgba(59,130,246,0.07) 0, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(139,92,246,0.07) 0, transparent 50%);
+}
+
+/* ── Layout ── */
+.layout { display: flex; min-height: 100vh; }
+
+nav {
+  width: 240px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  padding: 24px 0;
+}
+nav .logo {
+  padding: 0 20px 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+nav .logo h1 { font-size: 14px; font-weight: 700; color: var(--blue); letter-spacing: 0.05em; }
+nav .logo p { font-size: 11px; color: var(--muted); margin-top: 4px; }
+nav a {
+  display: block;
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+}
+nav a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+nav a.active { color: var(--blue); border-left-color: var(--blue); }
+nav .section-label {
+  padding: 16px 20px 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(156,163,175,0.5);
+}
+
+main { flex: 1; padding: 40px 48px; max-width: 960px; }
+
+/* ── Header ── */
+.page-header { margin-bottom: 40px; }
+.page-header .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600;
+}
+.badge-blue { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+.badge-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+.badge-purple { background: rgba(139,92,246,0.15); color: var(--purple); border: 1px solid rgba(139,92,246,0.3); }
+.badge-yellow { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
+.page-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.page-header h1 span { background: linear-gradient(135deg,#3b82f6,#8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.page-header p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+/* ── Sections ── */
+section { margin-bottom: 56px; scroll-margin-top: 24px; }
+h2 {
+  font-size: 18px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .icon { font-size: 20px; }
+h3 { font-size: 14px; font-weight: 600; color: var(--blue); margin: 20px 0 10px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+
+/* ── Metric cards ── */
+.metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.metric {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.metric::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+}
+.metric .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.metric .value { font-size: 28px; font-weight: 800; margin: 6px 0 2px; }
+.metric .value.perfect { color: var(--green); }
+.metric .value.good { color: var(--blue); }
+.metric .sub { font-size: 11px; color: var(--muted); }
+
+/* ── Faithfulness breakdown ── */
+.faith-bar { margin-bottom: 10px; }
+.faith-bar .row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.faith-bar .lbl { font-size: 12px; color: var(--muted); width: 160px; flex-shrink: 0; }
+.faith-bar .track { flex: 1; background: rgba(255,255,255,0.06); border-radius: 999px; height: 6px; }
+.faith-bar .fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg,#3b82f6,#8b5cf6); }
+.faith-bar .pct { font-size: 12px; font-weight: 600; color: var(--green); width: 40px; text-align: right; }
+
+/* ── Tables ── */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  text-align: left; padding: 8px 12px;
+  background: rgba(255,255,255,0.04);
+  color: var(--muted); font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+}
+td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.tbl-wrap { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+/* ── Code ── */
+pre {
+  background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px; overflow-x: auto;
+  font-size: 12px; line-height: 1.6; color: #e2e8f0;
+  font-family: 'Cascadia Code', 'Fira Code', monospace;
+}
+code { background: rgba(59,130,246,0.12); color: #93c5fd; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+
+/* ── Version timeline ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before {
+  content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(180deg, var(--blue), var(--purple), transparent);
+}
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-item::before {
+  content: ''; position: absolute; left: -21px; top: 5px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blue); border: 2px solid var(--bg);
+}
+.tl-item.latest::before { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.tl-item .ver { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 2px; }
+.tl-item.latest .ver { color: var(--green); }
+.tl-item .desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.tl-item .date { font-size: 11px; color: rgba(156,163,175,0.5); margin-bottom: 4px; }
+
+/* ── Layer stack ── */
+.layer-stack { display: flex; flex-direction: column; gap: 4px; }
+.layer {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.layer.done { background: rgba(16,185,129,0.05); border-color: rgba(16,185,129,0.2); }
+.layer.wip  { background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.2); }
+.layer .lv  { font-size: 11px; font-weight: 700; width: 42px; flex-shrink: 0; }
+.layer.done .lv { color: var(--green); }
+.layer.wip  .lv { color: var(--yellow); }
+.layer .title { font-size: 13px; font-weight: 600; }
+.layer .detail { font-size: 12px; color: var(--muted); }
+.layer .status { margin-left: auto; font-size: 11px; }
+.layer.done .status { color: var(--green); }
+.layer.wip  .status { color: var(--yellow); }
+
+/* ── New tag ── */
+.new-tag {
+  display: inline-block; padding: 1px 6px; border-radius: 4px;
+  font-size: 10px; font-weight: 700; background: rgba(16,185,129,0.2);
+  color: var(--green); margin-left: 6px; vertical-align: middle;
+}
+
+/* ── Highlight box ── */
+.highlight {
+  background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2);
+  border-left: 3px solid var(--blue);
+  border-radius: 8px; padding: 14px 16px; margin: 12px 0;
+  font-size: 13px; line-height: 1.6;
+}
+.highlight.green {
+  background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2);
+  border-left-color: var(--green);
+}
+.highlight.yellow {
+  background: rgba(245,158,11,0.06); border-color: rgba(245,158,11,0.2);
+  border-left-color: var(--yellow);
+}
+
+p { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 10px; }
+ul { padding-left: 20px; }
+li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+li strong { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="logo">
+    <h1>🛡️ ISO 27001 Advisor</h1>
+    <p>System Spec · v1.5 · 2026-06-26</p>
+  </div>
+  <div class="section-label">概覽</div>
+  <a href="#overview">系統概覽</a>
+  <a href="#layers">能力分層</a>
+  <a href="#architecture">架構設計</a>
+  <div class="section-label">規格</div>
+  <a href="#components">核心元件</a>
+  <a href="#prompt">System Prompt 設計</a>
+  <a href="#data">資料結構</a>
+  <div class="section-label">評估</div>
+  <a href="#retrieval-metrics">檢索指標</a>
+  <a href="#faithfulness">Faithfulness 評估</a>
+  <div class="section-label">歷程</div>
+  <a href="#versions">版本演進</a>
+  <a href="#roadmap">後續規劃</a>
+</nav>
+
+<!-- ── Main ── -->
+<main>
+
+<!-- Header -->
+<div class="page-header">
+  <div class="badges">
+    <span class="badge badge-green">✓ Demo-Ready</span>
+    <span class="badge badge-blue">LV3 Polish</span>
+    <span class="badge badge-blue">Spec v1.5</span>
+    <span class="badge badge-purple">187 Tests Passing</span>
+    <span class="badge badge-yellow">2026-06-26</span>
+  </div>
+  <h1><span>ISO 27001 Advisor Agent</span> — System Specification</h1>
+  <p>離線優先、RAG 架構的 ISO 27001 智能合規顧問系統。本文件為 v1.3 最新規格，涵蓋 Faithfulness 評估層、三層引用架構 System Prompt、目錄重整等本次新增內容，整合所有前版 spec（SDD / PRD / SRS / System Principles）為單一權威來源。</p>
+</div>
+
+<!-- ── 1. 系統概覽 ── -->
+<section id="overview">
+  <h2><span class="icon">🎯</span>系統概覽</h2>
+  <p>ISO 27001 Advisor Agent 是一套 <strong style="color:var(--text)">100% 本地運行</strong> 的 RAG（Retrieval-Augmented Generation）智能合規顧問系統。使用者以中文自由提問，系統從本地結構化的 ISO/IEC 27001:2022 繁體中文條文庫精準檢索，並透過 LLM 生成具備條文引用依據的顧問格式答案。</p>
+
+  <div class="card-grid" style="margin-top:16px">
+    <div class="card">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">知識庫</div>
+      <div style="font-weight:700;font-size:15px">144 條</div>
+      <div style="font-size:12px;color:var(--muted)">Clause 47 + Annex A Control 97</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">推理後端</div>
+      <div style="font-weight:700;font-size:15px">Ollama + Gemini</div>
+      <div style="font-size:12px;color:var(--muted)">本地優先，自動備援切換</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">介面</div>
+      <div style="font-weight:700;font-size:15px">CLI + Web UI</div>
+      <div style="font-size:12px;color:var(--muted)">main.py / agent.py / app.py</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">測試覆蓋</div>
+      <div style="font-weight:700;font-size:15px">187 passed</div>
+      <div style="font-size:12px;color:var(--muted)">pytest，session scope fixtures</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">預設推理模型</div>
+      <div style="font-weight:700;font-size:15px">gemma4:e2b-mlx</div>
+      <div style="font-size:12px;color:var(--muted)">Ollama 本機，Metal GPU 加速</div>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px">整體版本</div>
+      <div style="font-weight:700;font-size:15px">v3.9 / Spec v1.5</div>
+      <div style="font-size:12px;color:var(--muted)">LV3 Polish，demo-ready</div>
+    </div>
+  </div>
+
+  <h3>核心差異化</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>面向</th><th>本系統</th><th>公有雲 AI（ChatGPT 等）</th></tr></thead>
+      <tbody>
+        <tr><td>資料隱私</td><td style="color:var(--green)">100% 本地推理，零 HTTP 外送</td><td style="color:var(--muted)">輸入內容上傳雲端</td></tr>
+        <tr><td>引用準確性</td><td style="color:var(--green)">精確定位至 ISO 條文 ID</td><td style="color:var(--muted)">可能幻覺捏造條文</td></tr>
+        <tr><td>離線使用</td><td style="color:var(--green)">支援完全離線網段</td><td style="color:var(--muted)">需要網路</td></tr>
+        <tr><td>可稽核性</td><td style="color:var(--green)">每次回答附原始條文原文</td><td style="color:var(--muted)">無法溯源</td></tr>
+        <tr><td>快取命中回應</td><td style="color:var(--green)">~100ms（FAQ 語意快取）</td><td style="color:var(--muted)">依網路與 API 排隊</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── 2. 能力分層 ── -->
+<section id="layers">
+  <h2><span class="icon">🏗️</span>能力分層</h2>
+  <div class="layer-stack">
+    <div class="layer done">
+      <span class="lv">LV1</span>
+      <div><div class="title">RAG 條文問答</div><div class="detail">使用者自由提問 → 語意檢索 → LLM 顧問格式答案</div></div>
+      <span class="status">✓ 完成</span>
+    </div>
+    <div class="layer done">
+      <span class="lv">LV2</span>
+      <div><div class="title">Tool-based 顧問 Agent</div><div class="detail">agent.py，qa / gap / evidence / auto 自動路由，4 個 tools</div></div>
+      <span class="status">✓ 完成</span>
+    </div>
+    <div class="layer done">
+      <span class="lv">LV2.5</span>
+      <div><div class="title">Web Advisor</div><div class="detail">Strict Offline 模式、回覆時間顯示、structured agent logs</div></div>
+      <span class="status">✓ 完成</span>
+    </div>
+    <div class="layer done">
+      <span class="lv">LV3</span>
+      <div><div class="title">稽核準備交付物</div><div class="detail">SoA、稽核報告、問答包、30/60/90 計畫；Markdown 下載</div></div>
+      <span class="status">✓ 完成</span>
+    </div>
+    <div class="layer wip">
+      <span class="lv">LV4</span>
+      <div><div class="title">Consultant Workspace</div><div class="detail">狀態管理、責任人、期限追蹤、證據連結</div></div>
+      <span class="status">⏳ 未開始</span>
+    </div>
+    <div class="layer wip">
+      <span class="lv">LV5</span>
+      <div><div class="title">Multi-agent + Evaluation Flywheel</div><div class="detail">多 agent 協作、自動評估回饋循環</div></div>
+      <span class="status">⏳ 未開始</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. 架構設計 ── -->
+<section id="architecture">
+  <h2><span class="icon">⚙️</span>架構設計</h2>
+  <p>採用多道防線架構，FAQ 語意快取、RAG 推理、合規推薦三層相輔相成。</p>
+  <pre>使用者問句
+    │
+    ▼
+[Layer 0]  語意快取查詢（semantic_cache.py）
+    ├─ 命中（相似度 ≥ 0.92）→ 直接回傳 ~2ms，LLM 上下文 = 0
+    └─ 未命中 ↓
+[Layer 1]  混合檢索（search_tool.py）
+    │   同義詞擴充 → N-gram 比對 → Soul-Word Boosting → Top-4 條文
+    ▼
+[Layer 2]  推理引擎（main.py / agent.py）
+    ├─ 一般模式：Stuffing → System Prompt → LLM 串流
+    ├─ 深度模式：Map-Reduce（gemma4:e4b → gemma3:12b-16k）
+    └─ Agent 模式：qa / gap / evidence / auto 路由 → tools
+    ▼
+[Layer 3]  合規推薦（recommendation.py）
+    │   條文 ID → PDCA 圖譜（65 節點 / 14 主題群集）→ 2-3 推薦卡片
+    ▼
+[Layer 4]  回答 + 原文抽屜 + 推薦卡片輸出</pre>
+
+  <h3>工具模組對照</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>模組</th><th>路徑</th><th>職責</th></tr></thead>
+      <tbody>
+        <tr><td><code>search_tool.py</code></td><td>src/iso27001_advisor/core/ <span class="new-tag">v1.4</span></td><td>同義詞擴充、N-gram、Soul-Word Boosting、O(1) _id_index</td></tr>
+        <tr><td><code>semantic_cache.py</code></td><td>src/iso27001_advisor/core/</td><td>FAQ 語意快取（E5-instruct embedding）</td></tr>
+        <tr><td><code>recommendation.py</code></td><td>src/iso27001_advisor/core/</td><td>PDCA 圖譜合規推薦</td></tr>
+        <tr><td><code>llm.py</code></td><td>src/iso27001_advisor/llm/ <span class="new-tag">v1.4</span></td><td>call_ollama / call_gemini / build_prompt / get_system_prompt / map_reduce_query / load_dotenv</td></tr>
+        <tr><td><code>iso_tools.py</code></td><td>src/iso27001_advisor/tools/</td><td>LV2 工具：條文查詢</td></tr>
+        <tr><td><code>gap_analysis_tools.py</code></td><td>src/iso27001_advisor/tools/</td><td>LV2 工具：缺口分析</td></tr>
+        <tr><td><code>evidence_tools.py</code></td><td>src/iso27001_advisor/tools/</td><td>LV2 工具：稽核證據</td></tr>
+        <tr><td><code>soa_tools.py</code></td><td>src/iso27001_advisor/tools/</td><td>LV3 工具：SoA 生成</td></tr>
+        <tr><td><code>audit_report_tools.py</code></td><td>src/iso27001_advisor/tools/</td><td>LV3 工具：稽核報告</td></tr>
+        <tr><td><code>action_plan_tools.py</code></td><td>src/iso27001_advisor/tools/</td><td>LV3 工具：30/60/90 計畫</td></tr>
+        <tr><td><code>main.py</code></td><td>根目錄（CLI 入口）</td><td>CLI 入口；LLM 函式從 llm.py 匯入</td></tr>
+        <tr><td><code>agent.py</code></td><td>根目錄（CLI 入口）</td><td>LV2 工具路由 Agent CLI</td></tr>
+        <tr><td><code>app.py</code></td><td>根目錄（Web 入口）</td><td>FastAPI Web 後端</td></tr>
+        <tr><td><code>index.html</code></td><td>根目錄</td><td>Web Chat UI（深色玻璃形態）</td></tr>
+        <tr><td><code>evaluation.py</code></td><td>eval/ <span class="new-tag">v1.4</span></td><td>Hit Rate / Recall / Precision / MRR 評估</td></tr>
+        <tr><td><code>faithfulness_evaluation.py</code></td><td>eval/ <span class="new-tag">v1.3</span></td><td>Citation Faithfulness + LLM-as-Judge Content Faithfulness</td></tr>
+        <tr><td><code>level2_evaluation.py</code></td><td>eval/</td><td>LV2 Agent 評估</td></tr>
+        <tr><td><code>level3_evaluation.py</code></td><td>eval/</td><td>LV3 Agent 評估</td></tr>
+        <tr><td><code>generate_faq.py</code></td><td>scripts/ <span class="new-tag">v1.4</span></td><td>FAQ 離線批次生成（含 checkpoint）</td></tr>
+        <tr><td><code>parse_iso.py</code></td><td>scripts/</td><td>ISO 27001 原始文件解析器</td></tr>
+        <tr><td><code>data/</code></td><td>data/</td><td>iso27001_structure.json、eval 資料集、評估結果</td></tr>
+        <tr><td><code>tmp/</code></td><td>tmp/</td><td>faq_cache.json、faq_index.json（暫存，.gitignore）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── 4. 核心元件 ── -->
+<section id="components">
+  <h2><span class="icon">🔧</span>核心元件規格</h2>
+
+  <h3>search_tool.py — 混合檢索引擎</h3>
+  <div class="tbl-wrap" style="margin-bottom:16px">
+    <table>
+      <thead><tr><th>機制</th><th>說明</th><th>分值</th></tr></thead>
+      <tbody>
+        <tr><td>完整 Query 標題匹配</td><td>完整 query 出現在 title/subsection</td><td>+60</td></tr>
+        <tr><td>完整 Query 內文匹配</td><td>完整 query 出現在 content</td><td>+40</td></tr>
+        <tr><td>Soul-Word Boosting</td><td>核心資安術語（備份、遮罩、洩漏等）命中</td><td>+100</td></tr>
+        <tr><td>N-gram 標題匹配</td><td>2~4-gram 命中 title/subsection</td><td>+15 × len</td></tr>
+        <tr><td>N-gram 內文匹配</td><td>2~4-gram 命中 content</td><td>+5 × len</td></tr>
+        <tr><td>單字 Token 匹配</td><td>個別 token 命中 title / subsection / content</td><td>+5 / +4 / +0.8</td></tr>
+        <tr><td>大章節降權</td><td>ID 不含小數點（如 clause_4）乘以降權係數</td><td>× 0.1</td></tr>
+        <tr><td>O(1) ID 查找</td><td>初始化時建立 _id_index 字典，get_by_id() 直接命中</td><td>0.51ms</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>推理後端參數</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>後端</th><th>端點</th><th>溫度</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr><td>Ollama（主）</td><td>POST /api/chat（stream: true）</td><td>0.1</td><td>num_ctx=16384，num_predict=1024，金屬 GPU 加速</td></tr>
+        <tr><td>Gemini API（備）</td><td>POST /v1beta/models/…:generateContent</td><td>0.2</td><td>自動偵測 Ollama 失敗時切換，GEMINI_API_KEY 由 .env 載入</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>語意快取（semantic_cache.py）</h3>
+  <ul style="margin-top:8px">
+    <li>Embedding 模型：<code>jeffh/intfloat-multilingual-e5-large-instruct:f16</code></li>
+    <li>Query prefix：<code>Instruct: Given an ISO 27001 compliance question, retrieve the relevant control clauses\nQuery: {q}</code></li>
+    <li>命中條件：相似度 ≥ 0.92 <strong>且</strong> keywords / clause_id 出現在查詢中（雙重驗證）</li>
+    <li>降級保護：索引不存在或失敗時靜默走正常 RAG</li>
+  </ul>
+</section>
+
+<!-- ── 5. System Prompt 設計 ── -->
+<section id="prompt">
+  <h2><span class="icon">💬</span>System Prompt 設計 <span class="new-tag">v1.3 更新</span></h2>
+
+  <div class="highlight">
+    <strong>核心設計哲學：LLM 是「判斷者」，不是「轉述者」。</strong><br>
+    資深顧問的價值在於判斷什麼該說、什麼不該說，而不是把所有檢索到的條文都倒出來。
+    客戶問「決定範圍的因素」，你卻把風險處理和績效評估也講進去，客戶立刻質疑專業判斷力。
+  </div>
+
+  <h3>三層引用架構（v1.3 新增第 7 條指令）</h3>
+  <div class="tbl-wrap" style="margin-bottom:16px">
+    <table>
+      <thead><tr><th>層級</th><th>定義</th><th>處理方式</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--green);font-weight:600">核心條文</td><td>直接回答使用者問題</td><td>詳細說明，完整引用</td></tr>
+        <tr><td style="color:var(--blue);font-weight:600">延伸條文</td><td>間接相關，對理解有幫助</td><td>「📌 相關考量」子段，明確標示輔助性質</td></tr>
+        <tr><td style="color:var(--muted);font-weight:600">背景條文</td><td>語意相近但不回答問題</td><td>完全省略</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>回答格式結構</h3>
+  <pre>🎯 <strong>諮詢問題分析</strong>（1-2 句，只描述「問題要求什麼」，不引入條文）
+📖 <strong>依據條文與控制項說明</strong>（只列核心條文；延伸條文另起「📌 相關考量」子段）
+🛠️ <strong>文件缺口與稽核證據建議</strong>（最核心 2-3 點，聚焦核心條文的舉證需求）
+⚠️  <strong>免責與合規警示</strong>（1 句話，需由合格主導稽核員最終確認）</pre>
+
+  <h3>引用格式規範</h3>
+  <ul>
+    <li>主條文：<code>[4.3 決定資訊安全管理系統之範圍]</code></li>
+    <li>Annex A 控制項：<code>[A.8.13 資訊備份]</code></li>
+    <li>Citation regex 同時識別三種格式：<code>[A.X.X]</code>、<code>[X.X]</code>、<code>clause_X.X</code>/<code>control_X.X</code></li>
+  </ul>
+
+  <div class="highlight green" style="margin-top:16px">
+    <strong>效果驗證：</strong>修改後 q1（原本 0.55）提升至 1.00。擴充至 60 題後以 agy Judge 完整評估（Phase 1-3 改善後）：Citation = <strong>91.8%</strong>、Content = <strong>98.9%</strong>。
+    Phase 1（System Prompt 重構：per-claim 引用 + 消歧表 + 閉卷約束）+ Phase 2（Hybrid Search RRF）+ Phase 3（Knowledge Graph 1-hop）後 Content 大幅提升。
+    Citation 微降係因 per-claim 強制引用規則使 LLM 在不確定時保守省略標註，實際標註精準度提升。
+  </div>
+</section>
+
+<!-- ── 6. 資料結構 ── -->
+<section id="data">
+  <h2><span class="icon">🗃️</span>資料結構</h2>
+
+  <h3>目錄結構（v1.4 src layout 套件化）</h3>
+  <pre>iso27001-advisor/
+├── pyproject.toml                        # 套件定義（src layout）
+├── app.py                                # Web 入口（FastAPI）
+├── main.py                               # CLI 入口
+├── agent.py                              # LV2 Agent CLI
+├── conftest.py                           # 根目錄 pytest fixture（供 eval/tests/ 共用）
+│
+├── src/iso27001_advisor/                 # 可安裝套件（pip install -e .）
+│   ├── core/
+│   │   ├── search_tool.py               # 混合檢索引擎
+│   │   ├── semantic_cache.py            # FAQ 語意快取
+│   │   └── recommendation.py           # PDCA 合規推薦
+│   ├── llm/
+│   │   └── llm.py                       # call_ollama / call_gemini / build_prompt 等
+│   └── tools/
+│       ├── iso_tools.py / gap_analysis_tools.py / evidence_tools.py / draft_tools.py
+│       ├── soa_tools.py / audit_report_tools.py / action_plan_tools.py / export_tools.py
+│
+├── eval/                                 # 評估套件
+│   ├── evaluation.py                    # Hit Rate / Recall / Precision / MRR
+│   ├── faithfulness_evaluation.py       # Citation + LLM-as-Judge
+│   ├── level2_evaluation.py
+│   ├── level3_evaluation.py
+│   └── tests/test_evaluation.py
+│
+├── scripts/                              # 維運工具
+│   ├── generate_faq.py                  # FAQ 離線批次生成
+│   └── parse_iso.py                     # 知識庫解析器
+│
+├── tests/                                # pytest 測試套件（187 passed）
+├── data/                                 # 知識庫與評估資料（版控）
+│   ├── iso27001_structure.json          # 144 條結構化知識庫
+│   ├── eval_dataset.json                # 10 題評估資料集（含 ground truth）
+│   ├── eval_results.json / faithfulness_*.json / level*_eval_*.json / pdca_graph.json
+└── tmp/                                  # 暫存（.gitignore 排除）</pre>
+
+  <h3>iso27001_structure.json 欄位格式</h3>
+  <pre>{
+  "id":         "control_8.11",       // 唯一 ID，格式：clause_X.X 或 control_X.X
+  "type":       "control",            // "clause"（本文）| "control"（Annex A）
+  "section":    "8. 技術控制",
+  "subsection": "8.11 資料遮罩",
+  "title":      "資料遮罩",
+  "content":    "應使用資料遮蔽，依組織關於存取控制之主題特定政策..."
+}</pre>
+
+  <h3>eval_dataset.json ground truth 更新（v1.3）</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>題目</th><th>更新內容</th><th>原因</th></tr></thead>
+      <tbody>
+        <tr><td>q2（風險評鑑）</td><td>新增 <code>clause_8.2</code></td><td>6.1.2 = 規劃階段，8.2 = 執行階段，兩者共同構成完整答案</td></tr>
+        <tr><td>q10（敏感資料）</td><td>新增 <code>control_7.14</code></td><td>設備處置時的資料清除是保護敏感個資的必要控制</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── 7. 檢索指標 ── -->
+<section id="retrieval-metrics">
+  <h2><span class="icon">📊</span>檢索評估指標（top_k=4）</h2>
+
+  <div class="metric-grid">
+    <div class="metric">
+      <div class="label">Hit Rate @4</div>
+      <div class="value perfect">100%</div>
+      <div class="sub">10/10 題命中，回歸保護中</div>
+    </div>
+    <div class="metric">
+      <div class="label">Avg Recall @4</div>
+      <div class="value good">93.3%</div>
+      <div class="sub">q1(66%) / q6(66%) 部分召回</div>
+    </div>
+    <div class="metric">
+      <div class="label">Avg Precision @4 <span class="new-tag">NEW</span></div>
+      <div class="value good">42.5%</div>
+      <div class="sub">單一 ground truth 題上限 25%</div>
+    </div>
+    <div class="metric">
+      <div class="label">MRR @4</div>
+      <div class="value good">0.933</div>
+      <div class="sub">q3 首位不相關（RR=0.33）</div>
+    </div>
+    <div class="metric">
+      <div class="label">檢索耗時</div>
+      <div class="value perfect">0.51ms</div>
+      <div class="sub">O(1) _id_index，單次查找</div>
+    </div>
+    <div class="metric">
+      <div class="label">測試數</div>
+      <div class="value perfect">187</div>
+      <div class="sub">含 Precision@4 新增 6 個測試</div>
+    </div>
+  </div>
+
+  <div class="highlight yellow">
+    <strong>Precision 詮釋提醒：</strong>42.5% 不代表品質差。當 ground truth 只有 1 個條文（q3/q4/q5/q7/q8），Precision 上限是 1/4=25%。Precision 偏低原因是「ground truth 本來就少」，而非「撈了太多不相關」。需搭配 Recall 一起看。
+  </div>
+
+  <h3>指標優先順序</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>優先</th><th>指標</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Hit Rate</td><td>最重要，決定答案有沒有「基本可信度」</td></tr>
+        <tr><td>2</td><td>Recall</td><td>確保關鍵條文都被找到（漏掉的代價 &gt; 多撈的代價）</td></tr>
+        <tr><td>3</td><td>MRR</td><td>最相關條文是否排在最前面（影響 LLM 答案品質）</td></tr>
+        <tr><td>4</td><td>Faithfulness</td><td>答案品質的最終判斷</td></tr>
+        <tr><td>5</td><td>Precision</td><td>輔助指標，受 ground truth 數量上限限制</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── 8. Faithfulness 評估 ── -->
+<section id="faithfulness">
+  <h2><span class="icon">🧑‍⚖️</span>Faithfulness 評估 <span class="new-tag">NEW v1.3</span></h2>
+  <p>新增 <code>faithfulness_evaluation.py</code>，實作兩層 Faithfulness 評估，量化 LLM 答案是否忠實於 retrieved context。</p>
+
+  <div class="metric-grid" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="metric">
+      <div class="label">Citation Faithfulness</div>
+      <div class="value good">91.8%</div>
+      <div class="sub">60 題 / per-claim 強制引用後 LLM 更保守標註</div>
+    </div>
+    <div class="metric">
+      <div class="label">Content Faithfulness（LLM Judge）</div>
+      <div class="value good">98.9%</div>
+      <div class="sub">60 題 / gemma4:e2b-mlx 答案 + agy Judge（Phase 1-3 後）</div>
+    </div>
+  </div>
+
+  <h3>Layer 1：Citation Faithfulness（程式解析，deterministic）</h3>
+  <p>解析答案文字中的條文引用，檢驗是否所有引用都存在於 retrieved context 中。</p>
+  <pre># 同時識別三種引用格式
+_CITATION_PATTERN = re.compile(
+    r'\[A\.(\d+\.\d+(?:\.\d+)?)[^\]]*\]'          # [A.8.13 名稱] Annex A 格式
+    r'|(?:clause|control)_(\d+\.\d+(?:\.\d+)?)'   # clause_X.X / control_X.X 內部 ID
+    r'|\[(\d+\.\d+(?:\.\d+)?)[^\]]*\]',            # [4.3 名稱] 主條文無前綴格式（v1.3 修正）
+    re.IGNORECASE
+)</pre>
+  <div class="highlight">
+    <strong>v1.3 修正：</strong>原始 regex 只識別 <code>[A.X.X]</code> 格式，導致主條文引用（<code>[4.3 名稱]</code>）全部被歸為「無引用」，9/10 題 no_citations_found=true。修正後加入第三個 group，全數正常解析。
+  </div>
+
+  <h3>Layer 2：Content Faithfulness（LLM-as-Judge，三層評分）</h3>
+  <p>使用 LLM 評審員評估答案的事實聲明是否由 context 支撐。採用「寬鬆但可溯源」哲學。</p>
+
+  <div class="faith-bar" style="margin:16px 0">
+    <div class="row"><span class="lbl">A. 觀念正確性（70%）</span><div class="track"><div class="fill" style="width:98.9%"></div></div><span class="pct">~99%</span></div>
+    <div class="row"><span class="lbl">B. 邏輯可追溯性（20%）</span><div class="track"><div class="fill" style="width:98.5%"></div></div><span class="pct">~98%</span></div>
+    <div class="row"><span class="lbl">C. 條文準確性（10%）</span><div class="track"><div class="fill" style="width:99%"></div></div><span class="pct">~99%</span></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>層</th><th>指標</th><th>權重</th><th>扣分邏輯</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>觀念正確性</td><td style="color:var(--green);font-weight:700">70%</td><td>核心建議是否符合條文意旨；矛盾則重大扣分（-80~100%）</td></tr>
+        <tr><td>B</td><td>邏輯可追溯性</td><td style="color:var(--blue);font-weight:700">20%</td><td>每個建議能否追溯至 context 中某個條文；完全無出處 = 嚴重（-50~70%）</td></tr>
+        <tr><td>C</td><td>條文準確性</td><td style="color:var(--muted);font-weight:700">10%</td><td>條文 ID / 名稱是否精確；編號錯但觀念對 = 輕微（-10~20%）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight" style="margin-top:12px">
+    <strong>為何 B 比 C 更重要（20% vs 10%）：</strong>「觀念正確但完全無出處」比「編號錯但觀念對」更危險。
+    顧問業界：無法被稽核員追查的建議，客戶不應採納。
+  </div>
+
+  <h3>執行指令</h3>
+  <pre># 生成答案 + Citation 評估（不跑 Judge）
+python3 eval/faithfulness_evaluation.py --model gemma4:e2b-mlx --skip-content
+
+# 完整評估（Citation + Content Judge）
+python3 eval/faithfulness_evaluation.py --model gemma4:e2b-mlx
+
+# 使用已快取答案重跑評估
+python3 eval/faithfulness_evaluation.py --load-answers --gemini</pre>
+</section>
+
+<!-- ── 9. 版本演進 ── -->
+<section id="versions">
+  <h2><span class="icon">📅</span>版本演進</h2>
+  <div class="timeline">
+    <div class="tl-item latest">
+      <div class="ver">Spec v1.5 / System v3.9</div>
+      <div class="date">2026-06-26</div>
+      <div class="desc">
+        <strong>Faithfulness 三層改善（Codex CLI 執行）</strong>：<br>
+        Phase 1：System Prompt 重構（per-claim 強制引用、控制項消歧表、閉卷約束、【延伸建議】標籤）；<br>
+        Phase 2：Hybrid Search（sentence-transformers + RRF 融合，<code>scripts/build_embeddings.py</code>）；<br>
+        Phase 3：Knowledge Graph 1-hop 擴展（<code>data/knowledge_graph.json</code>，22 核心節點）；<br>
+        eval 強化：逐題 checkpoint 寫入、生成失敗非零 exit；intent boost（離職/組態/雲端）。<br>
+        <strong>Content Faithfulness 95.2% → 98.9%</strong>；Citation 91.8%；187 tests passed。<br>
+        選擇題自動偵測（<code>_is_mcq()</code> in <code>build_prompt()</code>）：偵測到 A./B./C./D. 格式時，在 user prompt 末尾注入「✅ 建議答案：X」強制指令，本地模型對末尾指令反應最可靠。
+      </div>
+    </div>
+    <div class="tl-item latest-prev">
+      <div class="ver">Spec v1.4 / System v3.8</div>
+      <div class="date">2026-06-26</div>
+      <div class="desc">
+        <strong>src layout 套件化重構</strong>：核心模組移入 <code>src/iso27001_advisor/</code>（core / llm / tools）；
+        LLM 工具函式從 main.py 抽出至 <code>llm/llm.py</code>；
+        評估套件移入 <code>eval/</code>；維運工具移入 <code>scripts/</code>；
+        新增 <code>pyproject.toml</code>（pip install -e . 支援）；
+        消除全部 14 處 sys.path.insert；
+        測試數：187 passed。
+      </div>
+    </div>
+    <div class="tl-item latest-prev">
+      <div class="ver">Spec v1.5 / System v3.7</div>
+      <div class="date">2026-06-26</div>
+      <div class="desc">
+        Faithfulness 評估層（<code>faithfulness_evaluation.py</code>）；
+        Precision@4 指標；
+        三層引用架構 System Prompt（判斷者哲學）；
+        Citation regex 修正（支援 [X.X] 主條文格式）；
+        目錄重整（data/ / tmp/）；
+        ground truth 補充（q2 + q10）；
+        Content Faithfulness：100%。
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="ver">System v3.3 ~ v3.7</div>
+      <div class="date">2026-06-25 ~ 06-26</div>
+      <div class="desc">LV3 Polish：done event 強化、Markdown 下載、Web 模型選單優化、README 總整理；預設模型改為 gemma4:e2b-mlx。</div>
+    </div>
+    <div class="tl-item">
+      <div class="ver">System v3.0 ~ v3.2</div>
+      <div class="date">2026-06-25</div>
+      <div class="desc">LV3 稽核準備交付物：SoA、稽核報告、問答包、30/60/90 計畫；soa_tools / audit_report_tools / action_plan_tools / export_tools。</div>
+    </div>
+    <div class="tl-item">
+      <div class="ver">System v2.1 ~ v2.2 / Spec v1.2</div>
+      <div class="date">2026-06-25</div>
+      <div class="desc">LV2 agent.py（4 個 tools，qa/gap/evidence/auto 路由）；Web Advisor Strict Offline；O(1) _id_index（0.51ms）；MRR@4；截斷防護 600 字元；conftest 共享 fixtures。</div>
+    </div>
+    <div class="tl-item">
+      <div class="ver">System v2.0</div>
+      <div class="date">2026-06-24</div>
+      <div class="desc">深度分析 Map-Reduce；FAQ 離線批次生成（含 checkpoint）；語意快取（E5-instruct，相似度 ≥ 0.92）；合規推薦系統（65 節點 PDCA 圖譜）；原文抽屜前端。</div>
+    </div>
+    <div class="tl-item">
+      <div class="ver">System v1.1 / Spec v1.1</div>
+      <div class="date">2026-06-24</div>
+      <div class="desc">同義詞擴充（23 組）；Soul-Word Boosting（備份、遮罩、洩漏等）；pytest 測試套件；Hit Rate 達到 100%。</div>
+    </div>
+    <div class="tl-item">
+      <div class="ver">System v1.0</div>
+      <div class="date">2026-06-24</div>
+      <div class="desc">初始版本：parse_iso.py 資料解析器；關鍵字檢索引擎；Ollama + Gemini 雙後端；N-gram 比對；大章節降權；10 題評估資料集。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 10. 後續規劃 ── -->
+<section id="roadmap">
+  <h2><span class="icon">🗺️</span>後續規劃（Backlog）</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>#</th><th>項目</th><th>說明</th><th>優先</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>LV4 Consultant Workspace</td>
+          <td>狀態管理、責任人、期限追蹤、證據連結，支援多輪合規計畫追蹤</td>
+          <td><span class="badge badge-yellow">高</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>擴充 eval_dataset.json（10→50 題）</td>
+          <td>增加測試覆蓋率，讓各指標更具統計可信度</td>
+          <td><span class="badge badge-blue">中</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>實際執行 FAQ 生成 + 語意快取</td>
+          <td>P3/P4 建置完成，等待首次執行驗證快取命中率</td>
+          <td><span class="badge badge-blue">中</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>深度模式 Faithfulness eval</td>
+          <td>為 Map-Reduce 模式建立跨條文複雜問題測試集</td>
+          <td><span class="badge badge-blue">中</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>推薦點擊追蹤</td>
+          <td>在 index.html 加 analytics，量化推薦系統的實際使用率</td>
+          <td><span class="badge badge-purple">低</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>LV5 Multi-agent + Evaluation Flywheel</td>
+          <td>多 agent 協作、自動評估回饋循環；可考慮遷移至 Google ADK</td>
+          <td><span class="badge badge-purple">低</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>已知限制</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>項目</th><th>描述</th><th>緩解措施</th></tr></thead>
+      <tbody>
+        <tr><td>eval 題目數偏少</td><td>僅 10 題，Precision 等指標受限</td><td>擴充至 50-100 題</td></tr>
+        <tr><td>Soul-Word 為規則式</td><td>需手動維護同義詞與 boost 清單</td><td>考慮半自動從標準文本提取</td></tr>
+        <tr><td>FAQ 生成耗時</td><td>144 條文 × 兩階段，可能數小時</td><td>--resume checkpoint 中斷續跑</td></tr>
+        <tr><td>Faithfulness eval 僅 10 題</td><td>Judge 結果 100% 可能受限於資料集</td><td>擴充後重新驗證</td></tr>
+        <tr><td>AI 建議免責</td><td>合規建議非正式法律意見</td><td>System Prompt 已含免責聲明</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:rgba(156,163,175,0.4);text-align:center">
+  ISO 27001 Advisor Agent · System Spec v1.5 · 2026-06-26 · AI Pair Programming Session
+</div>
+
+</main>
+</div>
+
+<script>
+// Highlight active nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

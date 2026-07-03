@@ -1,0 +1,1066 @@
+[
+  {
+    "id": "lv2_q01",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.13",
+    "description": "備份有排程，缺還原測試與保存期限",
+    "document": "我們公司的備份程序如下：每日凌晨自動備份資料庫，備份檔保存在 NAS，IT 每週檢查備份成功與否。請幫我看這樣符合 ISO 27001 嗎？缺什麼？",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [
+      "還原測試",
+      "備份保存期限"
+    ],
+    "expected_covered": [
+      "備份"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "指出缺少還原測試",
+      "列出稽核證據"
+    ]
+  },
+  {
+    "id": "lv2_q02",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.13",
+    "description": "備份有還原測試，缺加密與異地備份",
+    "document": "我們每週執行備份，並且每月進行一次還原測試，測試結果由 IT 主管簽核。備份檔存放於機房內的備份伺服器。",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [
+      "備份保護（加密/異地）"
+    ],
+    "expected_covered": [
+      "備份",
+      "還原"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "指出異地/加密缺口",
+      "認可還原測試已覆蓋"
+    ]
+  },
+  {
+    "id": "lv2_q03",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.13",
+    "description": "備份有加密，缺失敗告警",
+    "document": "我們的備份政策規定：每日凌晨 2 點執行全量備份，備份檔案採 AES-256 加密，同時複製一份至異地機房，保存期限為 90 天。",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [
+      "失敗告警機制"
+    ],
+    "expected_covered": [
+      "備份",
+      "加密",
+      "異地"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "認可加密與異地已覆蓋",
+      "指出缺少失敗告警"
+    ]
+  },
+  {
+    "id": "lv2_q04",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.13",
+    "description": "備份描述極為簡略，多項缺口",
+    "document": "我們公司有做備份。",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [
+      "還原測試",
+      "備份保存期限",
+      "備份保護（加密/異地）",
+      "失敗告警機制"
+    ],
+    "expected_covered": [
+      "備份"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "指出多項缺口",
+      "風險等級應為 high"
+    ]
+  },
+  {
+    "id": "lv2_q05",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.13",
+    "description": "近乎完整的備份程序",
+    "document": "備份管理程序：\n1. 每日凌晨 1 點執行自動備份，備份範圍含資料庫與檔案伺服器。\n2. 備份檔採 AES-256 加密，存放於本地 NAS 及異地雲端，保存期限 180 天。\n3. 每季執行一次還原測試，測試紀錄由 IT 主管審核簽署。\n4. 備份失敗時系統自動發送 email 告警至 IT 值班人員，30 分鐘內處理。",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "備份",
+      "加密",
+      "異地",
+      "還原",
+      "失敗"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "認可大部分要求已覆蓋",
+      "風險等級應為 low"
+    ]
+  },
+  {
+    "id": "lv2_q06",
+    "category": "evidence_query",
+    "mode": "evidence",
+    "control_area": "control_8.13",
+    "description": "備份稽核證據查詢",
+    "document": "備份的稽核證據要準備什麼？",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "列出還原測試紀錄",
+      "列出備份排程設定",
+      "至少 5 項證據"
+    ]
+  },
+  {
+    "id": "lv2_q07",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.13",
+    "description": "備份有紀錄但缺少存取控制",
+    "document": "我們每日備份資料庫，備份成功/失敗都有紀錄，也有做還原測試，但備份檔案目前任何人都可以存取，沒有特別設定權限。",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [
+      "備份保護（加密/異地）"
+    ],
+    "expected_covered": [
+      "備份",
+      "還原"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "指出存取控制/加密缺口"
+    ]
+  },
+  {
+    "id": "lv2_q08",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.8",
+    "description": "有弱點掃描，缺修補期限",
+    "document": "我們公司每月執行一次弱點掃描，掃描範圍涵蓋所有對外開放的伺服器，掃描報告由資安人員審查後歸檔。",
+    "expected_clause_ids": [
+      "control_8.8"
+    ],
+    "expected_gaps": [
+      "修補期限"
+    ],
+    "expected_covered": [
+      "弱點掃描"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.8",
+      "指出缺少修補期限規定"
+    ]
+  },
+  {
+    "id": "lv2_q09",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.8",
+    "description": "有修補期限，缺驗證機制",
+    "document": "脆弱性管理程序：每月執行弱點掃描，Critical 弱點 7 天內修補，High 弱點 30 天內修補，Medium 弱點 90 天內修補。",
+    "expected_clause_ids": [
+      "control_8.8"
+    ],
+    "expected_gaps": [
+      "修補驗證"
+    ],
+    "expected_covered": [
+      "弱點掃描",
+      "漏洞"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.8",
+      "認可修補期限已定義",
+      "指出缺少複掃驗證"
+    ]
+  },
+  {
+    "id": "lv2_q10",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.8",
+    "description": "有驗證，缺例外豁免流程",
+    "document": "弱點管理：每月掃描，依 CVSS 分數設定修補時限，修補完成後執行複掃確認有效。部分系統因相容性問題無法及時修補。",
+    "expected_clause_ids": [
+      "control_8.8"
+    ],
+    "expected_gaps": [
+      "例外處理"
+    ],
+    "expected_covered": [
+      "弱點掃描",
+      "漏洞"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.8",
+      "指出缺少例外/豁免申請流程"
+    ]
+  },
+  {
+    "id": "lv2_q11",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.8",
+    "description": "只有 patch 管理，缺主動弱點識別",
+    "document": "我們公司定期更新作業系統與應用程式的安全性修補程式（security patch），並留有 patch 安裝紀錄。",
+    "expected_clause_ids": [
+      "control_8.8"
+    ],
+    "expected_gaps": [
+      "修補驗證"
+    ],
+    "expected_covered": [
+      "patch"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.8",
+      "指出缺少主動弱點掃描或識別機制"
+    ]
+  },
+  {
+    "id": "lv2_q12",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.8",
+    "description": "近乎完整的弱點管理",
+    "document": "脆弱性管理規程：\n1. 每月以自動化工具執行全範圍弱點掃描（含內部與對外系統）。\n2. Critical/High 弱點分別於 7/30 天內完成修補，修補後複掃確認。\n3. 無法及時修補者須提交豁免申請，說明風險，由資安長核准，並設定到期複審。\n4. 使用 CVE 資料庫與威脅情資訂閱追蹤最新漏洞。",
+    "expected_clause_ids": [
+      "control_8.8"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "弱點掃描",
+      "漏洞"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.8",
+      "認可主要要求已覆蓋",
+      "風險等級應為 low"
+    ]
+  },
+  {
+    "id": "lv2_q13",
+    "category": "evidence_query",
+    "mode": "evidence",
+    "control_area": "control_8.8",
+    "description": "弱點管理稽核證據查詢",
+    "document": "技術脆弱性管理的稽核證據要準備哪些？",
+    "expected_clause_ids": [
+      "control_8.8"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用 A.8.8",
+      "列出弱點掃描報告",
+      "列出修補紀錄",
+      "至少 4 項證據"
+    ]
+  },
+  {
+    "id": "lv2_q14",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.15",
+    "description": "有日誌，缺定期審查",
+    "document": "我們的系統會自動記錄所有使用者的登入、登出與主要操作行為，日誌集中存放於 SIEM 系統，保存 12 個月。",
+    "expected_clause_ids": [
+      "control_8.15"
+    ],
+    "expected_gaps": [
+      "日誌審查週期"
+    ],
+    "expected_covered": [
+      "日誌"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.15",
+      "認可日誌保存已覆蓋",
+      "指出缺少定期審查"
+    ]
+  },
+  {
+    "id": "lv2_q15",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.15",
+    "description": "有審查，缺完整性保護",
+    "document": "資安人員每月審查系統日誌，重點查核異常登入與權限變更行為，審查結果留有紀錄並呈報資安主管。日誌保存 6 個月。",
+    "expected_clause_ids": [
+      "control_8.15"
+    ],
+    "expected_gaps": [
+      "日誌保護完整性"
+    ],
+    "expected_covered": [
+      "日誌"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.15",
+      "認可審查已覆蓋",
+      "指出缺少日誌完整性保護"
+    ]
+  },
+  {
+    "id": "lv2_q16",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.15",
+    "description": "日誌保存期限不足",
+    "document": "系統日誌自動保存 30 天，到期後自動刪除。每週由 IT 人員查看是否有異常。",
+    "expected_clause_ids": [
+      "control_8.15"
+    ],
+    "expected_gaps": [
+      "日誌保存期限"
+    ],
+    "expected_covered": [
+      "日誌"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.15",
+      "指出 30 天保存期限偏短",
+      "建議至少 12 個月"
+    ]
+  },
+  {
+    "id": "lv2_q17",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.15",
+    "description": "近乎完整的日誌管理",
+    "document": "日誌管理規程：所有關鍵系統啟用稽核日誌，集中傳送至 Syslog 伺服器，採雜湊驗證確保完整性，保存 13 個月。每月由資安人員審查，審查報告呈報主管。",
+    "expected_clause_ids": [
+      "control_8.15"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "日誌"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.15",
+      "認可主要要求已覆蓋",
+      "風險等級應為 low"
+    ]
+  },
+  {
+    "id": "lv2_q18",
+    "category": "evidence_query",
+    "mode": "evidence",
+    "control_area": "control_8.15",
+    "description": "日誌管理稽核證據查詢",
+    "document": "存錄（日誌）的稽核證據要準備什麼？",
+    "expected_clause_ids": [
+      "control_8.15"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用 A.8.15",
+      "列出日誌審查紀錄",
+      "列出保存設定",
+      "至少 4 項證據"
+    ]
+  },
+  {
+    "id": "lv2_q19",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.15",
+    "description": "有帳號申請流程，缺定期覆核",
+    "document": "我們的存取控制政策規定所有員工新增、異動或刪除帳號時，需填寫帳號申請單，由直屬主管核准後，交 IT 部門執行。",
+    "expected_clause_ids": [
+      "control_5.15"
+    ],
+    "expected_gaps": [
+      "定期存取權限覆核"
+    ],
+    "expected_covered": [
+      "存取控制",
+      "帳號",
+      "權限"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.15",
+      "認可申請流程已覆蓋",
+      "指出缺少定期覆核"
+    ]
+  },
+  {
+    "id": "lv2_q20",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.15",
+    "description": "有定期覆核，缺最小權限",
+    "document": "每年一月進行全公司帳號覆核，由各部門主管確認人員帳號及權限是否仍符合業務需求，覆核結果存檔備查。",
+    "expected_clause_ids": [
+      "control_5.15"
+    ],
+    "expected_gaps": [
+      "最小權限原則"
+    ],
+    "expected_covered": [
+      "存取控制",
+      "帳號",
+      "權限"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.15",
+      "認可定期覆核已覆蓋",
+      "指出缺少最小權限原則說明"
+    ]
+  },
+  {
+    "id": "lv2_q21",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.15",
+    "description": "缺特權帳號管理",
+    "document": "存取控制政策：帳號申請須主管核准，依最小權限原則授予，每年覆核一次，人員離職時停用帳號。",
+    "expected_clause_ids": [
+      "control_5.15"
+    ],
+    "expected_gaps": [
+      "特權帳號管理"
+    ],
+    "expected_covered": [
+      "存取控制",
+      "帳號",
+      "權限"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.15 或 A.8.2",
+      "指出缺少特權帳號管理"
+    ]
+  },
+  {
+    "id": "lv2_q22",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.15",
+    "description": "缺離職帳號停用程序",
+    "document": "我們有帳號申請與核准流程，採最小權限原則，每年做一次覆核。但人員異動很頻繁，沒有明確規定離職後多久要停用帳號。",
+    "expected_clause_ids": [
+      "control_5.15"
+    ],
+    "expected_gaps": [
+      "帳號停用程序"
+    ],
+    "expected_covered": [
+      "存取控制",
+      "帳號",
+      "權限"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.15",
+      "指出離職停用帳號程序缺失"
+    ]
+  },
+  {
+    "id": "lv2_q23",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.15",
+    "description": "近乎完整的存取控制",
+    "document": "存取控制管理規程：所有帳號申請需填單並由主管核准，依最小權限原則授予。特權帳號（admin）另行管理，需雙人審核且啟用 MFA。每半年執行一次存取權限覆核。人員離職當日停用帳號，30 天後刪除。",
+    "expected_clause_ids": [
+      "control_5.15"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "存取控制",
+      "帳號",
+      "權限"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.15",
+      "認可主要要求已覆蓋",
+      "風險等級應為 low"
+    ]
+  },
+  {
+    "id": "lv2_q24",
+    "category": "evidence_query",
+    "mode": "evidence",
+    "control_area": "control_5.15",
+    "description": "存取控制稽核證據查詢",
+    "document": "存取控制的稽核證據要準備哪些？",
+    "expected_clause_ids": [
+      "control_5.15"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用 A.5.15",
+      "列出帳號申請單",
+      "列出覆核紀錄",
+      "至少 4 項證據"
+    ]
+  },
+  {
+    "id": "lv2_q25",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.34",
+    "description": "有同意書，缺資料遮罩",
+    "document": "我們有個人資料保護政策，收集個資前取得當事人同意書，並留存同意書電子檔。個資存放於資料庫中，測試環境使用真實個資測試。",
+    "expected_clause_ids": [
+      "control_5.34"
+    ],
+    "expected_gaps": [
+      "資料遮罩或匿名化"
+    ],
+    "expected_covered": [
+      "個資"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.34",
+      "指出測試環境使用真實個資的缺口"
+    ]
+  },
+  {
+    "id": "lv2_q26",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.34",
+    "description": "有遮罩，缺資料最小化",
+    "document": "個資保護：收集前取得同意，測試環境資料做遮罩處理。我們蒐集客戶的姓名、電話、地址、生日、職業、興趣愛好等資訊以提供服務。",
+    "expected_clause_ids": [
+      "control_5.34"
+    ],
+    "expected_gaps": [
+      "資料最小化"
+    ],
+    "expected_covered": [
+      "個資"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.34",
+      "指出蒐集範圍可能超出業務必要"
+    ]
+  },
+  {
+    "id": "lv2_q27",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.34",
+    "description": "缺個資盤點清冊",
+    "document": "個資保護政策：所有個資蒐集均取得同意，測試環境使用假資料，蒐集範圍依業務必要。但目前未整理個資盤點清冊。",
+    "expected_clause_ids": [
+      "control_5.34"
+    ],
+    "expected_gaps": [
+      "同意書管理"
+    ],
+    "expected_covered": [
+      "個資"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.34",
+      "指出缺少個資盤點清冊或資產管理"
+    ]
+  },
+  {
+    "id": "lv2_q28",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.34",
+    "description": "近乎完整的個資保護",
+    "document": "個資管理規程：建有個資盤點清冊，說明蒐集目的、保存位置與期限。蒐集前取得書面同意，同意書集中存管。測試環境一律使用匿名化資料。蒐集欄位依最小化原則，每年審查一次。",
+    "expected_clause_ids": [
+      "control_5.34"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "個資"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.34",
+      "認可主要要求已覆蓋",
+      "風險等級應為 low"
+    ]
+  },
+  {
+    "id": "lv2_q29",
+    "category": "evidence_query",
+    "mode": "evidence",
+    "control_area": "control_5.34",
+    "description": "個資保護稽核證據查詢",
+    "document": "個人資料保護的稽核證據要準備哪些？",
+    "expected_clause_ids": [
+      "control_5.34"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用 A.5.34",
+      "列出個資盤點清冊",
+      "列出同意書",
+      "至少 4 項證據"
+    ]
+  },
+  {
+    "id": "lv2_q30",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_6.1.2",
+    "description": "有風險評鑑，缺評鑑準則",
+    "document": "我們每年進行一次資訊安全風險評鑑，識別各項資產的潛在威脅與脆弱性，評估可能的衝擊，並擬定風險處理計畫。",
+    "expected_clause_ids": [
+      "clause_6.1.2"
+    ],
+    "expected_gaps": [
+      "風險評鑑準則"
+    ],
+    "expected_covered": [
+      "風險評鑑"
+    ],
+    "human_eval_criteria": [
+      "引用 6.1.2",
+      "指出缺少量化評鑑準則（如衝擊等級定義）"
+    ]
+  },
+  {
+    "id": "lv2_q31",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_6.1.2",
+    "description": "有準則，缺風險擁有者",
+    "document": "風險評鑑方法論：採用 5x5 矩陣，衝擊等級 1-5、可能性等級 1-5，風險分數 ≥ 15 為高風險，需提報資安委員會。每年更新一次評鑑結果。",
+    "expected_clause_ids": [
+      "clause_6.1.2"
+    ],
+    "expected_gaps": [
+      "風險擁有者"
+    ],
+    "expected_covered": [
+      "風險評鑑"
+    ],
+    "human_eval_criteria": [
+      "引用 6.1.2",
+      "認可評鑑準則已覆蓋",
+      "指出缺少風險擁有者指派"
+    ]
+  },
+  {
+    "id": "lv2_q32",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_6.1.2",
+    "description": "缺臨時更新觸發條件",
+    "document": "風險評鑑每年執行一次，有完整方法論，每項風險指定擁有者核准處理方式。",
+    "expected_clause_ids": [
+      "clause_6.1.2"
+    ],
+    "expected_gaps": [
+      "更新頻率"
+    ],
+    "expected_covered": [
+      "風險評鑑"
+    ],
+    "human_eval_criteria": [
+      "引用 6.1.2",
+      "指出缺少重大變更觸發臨時評鑑的規定"
+    ]
+  },
+  {
+    "id": "lv2_q33",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_6.1.2",
+    "description": "近乎完整的風險評鑑",
+    "document": "ISMS 風險評鑑程序：\n1. 每年執行一次全面風險評鑑，新系統上線或重大變更時執行臨時評鑑。\n2. 採 5x5 矩陣，衝擊與可能性各分 5 級，並附有等級定義說明。\n3. 每項風險指定風險擁有者，由其核准處理方式（接受/降低/移轉/規避）。\n4. 風險評鑑結果提報管理審查會議。",
+    "expected_clause_ids": [
+      "clause_6.1.2"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "風險評鑑"
+    ],
+    "human_eval_criteria": [
+      "引用 6.1.2",
+      "認可主要要求已覆蓋",
+      "風險等級應為 low"
+    ]
+  },
+  {
+    "id": "lv2_q34",
+    "category": "evidence_query",
+    "mode": "evidence",
+    "control_area": "clause_6.1.2",
+    "description": "風險評鑑稽核證據查詢",
+    "document": "資訊安全風險評鑑的稽核證據要準備什麼？",
+    "expected_clause_ids": [
+      "clause_6.1.2"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用 6.1.2",
+      "列出風險評鑑報告",
+      "列出風險擁有者核准紀錄",
+      "至少 4 項證據"
+    ]
+  },
+  {
+    "id": "lv2_q35",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_9.2",
+    "description": "有稽核計畫，缺獨立性",
+    "document": "我們每年依 ISO 27001 要求執行內部稽核，稽核範圍涵蓋所有 ISMS 適用範圍，稽核由資安部門人員負責執行。",
+    "expected_clause_ids": [
+      "clause_9.2"
+    ],
+    "expected_gaps": [
+      "稽核獨立性"
+    ],
+    "expected_covered": [
+      "稽核"
+    ],
+    "human_eval_criteria": [
+      "引用 9.2",
+      "指出資安部門稽核自身業務的獨立性問題"
+    ]
+  },
+  {
+    "id": "lv2_q36",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_9.2",
+    "description": "有獨立性，缺追蹤機制",
+    "document": "年度內部稽核計畫由稽核委員會核定，稽核員不得稽核自己負責的業務，稽核報告提呈管理階層審查。",
+    "expected_clause_ids": [
+      "clause_9.2"
+    ],
+    "expected_gaps": [
+      "稽核結果追蹤"
+    ],
+    "expected_covered": [
+      "稽核"
+    ],
+    "human_eval_criteria": [
+      "引用 9.2",
+      "認可獨立性已安排",
+      "指出缺少不符合事項追蹤機制"
+    ]
+  },
+  {
+    "id": "lv2_q37",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_9.2",
+    "description": "稽核頻率不足",
+    "document": "我們每兩年執行一次 ISMS 內部稽核，由外部顧問協助確保獨立性，稽核發現事項進行矯正並追蹤。",
+    "expected_clause_ids": [
+      "clause_9.2"
+    ],
+    "expected_gaps": [
+      "稽核頻率"
+    ],
+    "expected_covered": [
+      "稽核"
+    ],
+    "human_eval_criteria": [
+      "引用 9.2",
+      "指出兩年一次的頻率可能不足，建議每年一次"
+    ]
+  },
+  {
+    "id": "lv2_q38",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_9.2",
+    "description": "近乎完整的內部稽核",
+    "document": "內部稽核規程：每年至少執行一次全範圍 ISMS 稽核，稽核計畫由管理階層核准。稽核員不得稽核本身負責業務，必要時委外確保獨立性。稽核報告列出所有發現事項，不符合事項設定改善期限，由稽核委員會追蹤至結案。",
+    "expected_clause_ids": [
+      "clause_9.2"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "稽核"
+    ],
+    "human_eval_criteria": [
+      "引用 9.2",
+      "認可主要要求已覆蓋",
+      "風險等級應為 low"
+    ]
+  },
+  {
+    "id": "lv2_q39",
+    "category": "evidence_query",
+    "mode": "evidence",
+    "control_area": "clause_9.2",
+    "description": "內部稽核稽核證據查詢",
+    "document": "內部稽核的稽核證據要準備哪些？",
+    "expected_clause_ids": [
+      "clause_9.2"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用 9.2",
+      "列出稽核計畫",
+      "列出稽核報告",
+      "至少 4 項證據"
+    ]
+  },
+  {
+    "id": "lv2_q40",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "multi",
+    "description": "事件通報有信箱，缺分級與時限",
+    "document": "我們設有資安事件通報信箱（security@company.com），員工發現異常可發信通報，由資安人員處理。",
+    "expected_clause_ids": [
+      "control_5.24",
+      "control_6.8"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用相關條文",
+      "指出缺少事件分類分級與回應時限",
+      "至少引用 A.5.24 或 A.6.8"
+    ]
+  },
+  {
+    "id": "lv2_q41",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "multi",
+    "description": "供應商有合約，缺安全要求",
+    "document": "我們與所有供應商簽有採購合約，合約中有保密條款，但未特別包含資訊安全要求。供應商可存取我們的內部系統進行維護。",
+    "expected_clause_ids": [
+      "control_5.19",
+      "control_5.20"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用相關條文",
+      "指出供應商合約缺少資訊安全要求",
+      "至少引用 A.5.19 或 A.5.20"
+    ]
+  },
+  {
+    "id": "lv2_q42",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "multi",
+    "description": "加密有使用，缺金鑰管理",
+    "document": "我們對所有資料庫中的敏感資料進行 AES-256 加密，傳輸採用 TLS 1.2 以上版本，但金鑰目前由開發人員自行保管。",
+    "expected_clause_ids": [
+      "control_8.24"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [
+      "加密"
+    ],
+    "human_eval_criteria": [
+      "引用相關條文",
+      "指出金鑰管理缺口",
+      "至少引用 A.8.24"
+    ]
+  },
+  {
+    "id": "lv2_q43",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "multi",
+    "description": "遠端工作有 VPN，缺安全規範",
+    "document": "我們公司允許員工居家辦公，使用 VPN 連接公司網路。但目前沒有針對遠端工作制定特別的資訊安全規範。",
+    "expected_clause_ids": [
+      "control_6.7"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用相關條文",
+      "指出缺少遠端工作安全規範",
+      "至少引用 A.6.7"
+    ]
+  },
+  {
+    "id": "lv2_q44",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "multi",
+    "description": "教育訓練有執行，缺資安意識評估",
+    "document": "我們每年舉辦一次全體員工資訊安全教育訓練，涵蓋個資保護、釣魚郵件辨識與密碼管理，所有員工均須參加並完成簽到。",
+    "expected_clause_ids": [
+      "control_6.3"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用相關條文",
+      "指出缺少訓練效果評估或測驗",
+      "至少引用 A.6.3"
+    ]
+  },
+  {
+    "id": "lv2_q45",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "multi",
+    "description": "實體門禁有管制，缺訪客管理",
+    "document": "我們的機房與辦公室均設有門禁系統，員工使用感應卡進出，門禁紀錄保存 90 天。訪客由接待人員帶領進入，但沒有訪客登記簿。",
+    "expected_clause_ids": [
+      "control_7.2",
+      "control_7.1"
+    ],
+    "expected_gaps": [],
+    "expected_covered": [],
+    "human_eval_criteria": [
+      "引用相關條文",
+      "指出缺少訪客登記與管理程序",
+      "至少引用 A.7.2"
+    ]
+  },
+  {
+    "id": "lv2_q46",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.13",
+    "description": "備份有紀錄但 IT 人員為唯一知道還原方法的人",
+    "document": "我們有完整的備份排程，每日備份成功率接近 100%，偶爾有失敗會由 IT 工程師小明處理。小明是唯一知道如何還原系統的人，但他的工作手冊尚未文件化。",
+    "expected_clause_ids": [
+      "control_8.13"
+    ],
+    "expected_gaps": [
+      "還原測試"
+    ],
+    "expected_covered": [
+      "備份"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13",
+      "指出關鍵人員依賴風險與程序文件化缺失"
+    ]
+  },
+  {
+    "id": "lv2_q47",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_8.8",
+    "description": "只掃描對外系統，遺漏內部系統",
+    "document": "我們每月對所有對外服務的伺服器執行弱點掃描，掃描結果由資安人員審查，高風險弱點 30 天內修補。",
+    "expected_clause_ids": [
+      "control_8.8"
+    ],
+    "expected_gaps": [
+      "修補驗證"
+    ],
+    "expected_covered": [
+      "弱點掃描"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.8",
+      "指出未掃描內部系統的範圍不足問題"
+    ]
+  },
+  {
+    "id": "lv2_q48",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "control_5.34",
+    "description": "個資處理委外，缺委外管理",
+    "document": "我們將客戶個資的分析業務委外給第三方廠商，廠商依合約保密，我們有取得客戶同意書。",
+    "expected_clause_ids": [
+      "control_5.34"
+    ],
+    "expected_gaps": [
+      "資料最小化"
+    ],
+    "expected_covered": [
+      "個資"
+    ],
+    "human_eval_criteria": [
+      "引用 A.5.34",
+      "指出委外廠商管理與個資保護要求缺口",
+      "至少引用 A.5.19 或 A.5.23"
+    ]
+  },
+  {
+    "id": "lv2_q49",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "clause_6.1.2",
+    "description": "風險評鑑只做一次未持續維護",
+    "document": "我們在三年前取得 ISO 27001 認證時做過一次完整的風險評鑑，有完整的風險清冊。但這三年來沒有更新，組織架構與系統都有不小的變動。",
+    "expected_clause_ids": [
+      "clause_6.1.2"
+    ],
+    "expected_gaps": [
+      "更新頻率"
+    ],
+    "expected_covered": [
+      "風險評鑑"
+    ],
+    "human_eval_criteria": [
+      "引用 6.1.2",
+      "明確指出風險評鑑必須定期更新，不能只做一次"
+    ]
+  },
+  {
+    "id": "lv2_q50",
+    "category": "gap_analysis",
+    "mode": "gap",
+    "control_area": "multi",
+    "description": "綜合多項控制：備份 + 存取控制 + 日誌",
+    "document": "我們公司的 IT 安全現況：\n1. 備份：每日自動備份，存在本地 NAS，保存 30 天。\n2. 存取控制：有帳號申請流程，主管核准，但沒有定期覆核。\n3. 日誌：系統自動記錄登入行為，保存 90 天，沒有人定期查看。\n請幫我評估整體合規情況。",
+    "expected_clause_ids": [
+      "control_8.13",
+      "control_5.15",
+      "control_8.15"
+    ],
+    "expected_gaps": [
+      "還原測試",
+      "備份保存期限",
+      "定期存取權限覆核",
+      "日誌審查週期",
+      "日誌保存期限"
+    ],
+    "expected_covered": [
+      "備份",
+      "帳號",
+      "日誌"
+    ],
+    "human_eval_criteria": [
+      "引用 A.8.13、A.5.15、A.8.15",
+      "逐一分析三個控制項",
+      "指出多項缺口",
+      "風險等級應為 high"
+    ]
+  }
+]
