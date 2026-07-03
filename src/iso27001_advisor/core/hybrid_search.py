@@ -60,6 +60,7 @@ class HybridSearcher:
         host=OLLAMA_HOST,
         rrf_k=60,
         kg_damp=0.5,
+        mode="full",
     ):
         self.searcher = searcher or ISO27001Searcher()
         self.emb_path = Path(emb_path) if emb_path is not None else DEFAULT_EMB_PATH
@@ -67,6 +68,7 @@ class HybridSearcher:
         self.host = host
         self.rrf_k = rrf_k
         self.kg_damp = kg_damp
+        self.mode = mode
         self._emb_index = []
         self._embed_model = EMBED_MODEL
         self._kg_neighbors = {}
@@ -163,7 +165,26 @@ class HybridSearcher:
         if limit <= 0:
             return []
 
+        # keyword 模式直接走關鍵字結果且標記 source
+        if self.mode == "keyword":
+            return [
+                {"item": result["item"], "score": result["score"], "source": "keyword"}
+                for result in self.searcher.search(query, limit=limit)
+            ]
+
         keyword_results = self.searcher.search(query, limit=20)
+
+        # keyword+KG 模式：對關鍵字結果直接做 KG 擴展，跳過向量 RRF 融合
+        if self.mode == "keyword+KG":
+            results = [
+                {"item": result["item"], "score": result["score"], "source": "keyword"}
+                for result in keyword_results
+            ]
+            if self._kg_neighbors:
+                return self._apply_kg_one_hop(results, limit)
+            return results[:limit]
+
+        # 向量融合相關模式 (keyword+RRF 與 full)
         if not self._hybrid_ready:
             return [
                 {"item": result["item"], "score": result["score"], "source": "keyword_fallback"}
@@ -183,6 +204,11 @@ class HybridSearcher:
                 continue
             results.append({"item": item, "score": score, "source": "rrf"})
 
-        if self._kg_neighbors:
+        # keyword+RRF 模式：跳過 KG 擴展
+        if self.mode == "keyword+RRF":
+            return results[:limit]
+
+        # full 模式：套用 KG 擴展
+        if self.mode == "full" and self._kg_neighbors:
             return self._apply_kg_one_hop(results, limit)
         return results[:limit]

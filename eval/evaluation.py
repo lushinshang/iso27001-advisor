@@ -41,17 +41,21 @@ def evaluate_retrieval(top_k=4, dataset_path=None, results_path=None, searcher=N
     if dataset_path is None:
         dataset_path = os.path.join(base_dir, "data", "eval_dataset.json")
     if results_path is None:
-        is_hybrid = False
         try:
             from iso27001_advisor.core.hybrid_search import HybridSearcher
             if isinstance(searcher, HybridSearcher):
-                is_hybrid = True
+                mode = getattr(searcher, "mode", "full")
+                if mode == "keyword":
+                    results_path = os.path.join(base_dir, "data", "eval_results_keyword.json")
+                elif mode == "keyword+KG":
+                    results_path = os.path.join(base_dir, "data", "eval_results_keyword_kg.json")
+                elif mode == "keyword+RRF":
+                    results_path = os.path.join(base_dir, "data", "eval_results_keyword_rrf.json")
+                else:
+                    results_path = os.path.join(base_dir, "data", "eval_results_hybrid.json")
+            else:
+                results_path = os.path.join(base_dir, "data", "eval_results.json")
         except ImportError:
-            pass
-
-        if is_hybrid:
-            results_path = os.path.join(base_dir, "data", "eval_results_hybrid.json")
-        else:
             results_path = os.path.join(base_dir, "data", "eval_results.json")
 
     if not os.path.exists(dataset_path):
@@ -155,6 +159,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="評估 ISO 27001 檢索準確度")
     parser.add_argument("top_k", type=int, nargs="?", default=4, help="檢索 top-k 數量")
     parser.add_argument("--hybrid", action="store_true", help="使用 HybridSearcher (RRF + KG)")
+    parser.add_argument(
+        "--mode",
+        choices=["keyword", "keyword+KG", "keyword+RRF", "full"],
+        default=None,
+        help="消融實驗檢索模式"
+    )
     parser.add_argument("--results-path", default=None, help="結果儲存路徑")
     args = parser.parse_args()
 
@@ -162,12 +172,19 @@ if __name__ == "__main__":
         print("❌ top-k 必須為正整數（≥ 1）", file=sys.stderr)
         sys.exit(1)
 
-    if args.hybrid:
-        from iso27001_advisor.core.hybrid_search import HybridSearcher
-        searcher = HybridSearcher()
-        print("💡 模式：使用 HybridSearcher")
+    if args.mode:
+        mode = args.mode
+    elif args.hybrid:
+        mode = "full"
     else:
+        mode = "keyword"
+
+    if mode == "keyword" and not args.mode:
         searcher = ISO27001Searcher()
         print("💡 模式：使用純關鍵字 ISO27001Searcher")
+    else:
+        from iso27001_advisor.core.hybrid_search import HybridSearcher
+        searcher = HybridSearcher(mode=mode)
+        print(f"💡 模式：使用 HybridSearcher ({mode})")
 
     evaluate_retrieval(top_k=args.top_k, searcher=searcher, results_path=args.results_path)

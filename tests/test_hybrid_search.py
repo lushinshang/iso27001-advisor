@@ -91,3 +91,46 @@ def test_hybrid_searcher_falls_back_to_keyword_when_embedding_unavailable(tmp_pa
     assert [result["item"]["id"] for result in results] == ["control_a", "control_b"]
     assert {result["source"] for result in results} == {"keyword_fallback"}
     assert searcher.is_hybrid_ready is False
+
+
+def test_hybrid_searcher_ablation_modes(tmp_path, monkeypatch):
+    emb_path = tmp_path / "embeddings.json"
+    kg_path = tmp_path / "knowledge_graph.json"
+    _write_embeddings(emb_path)
+    _write_kg(kg_path)
+    monkeypatch.setattr(
+        "iso27001_advisor.core.hybrid_search.get_embedding",
+        lambda text, model, host: [0.0, 1.0],
+    )
+
+    # 1. 測試 mode='keyword'
+    s_keyword = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path, kg_path=kg_path, mode="keyword")
+    res_keyword = s_keyword.search("query", limit=4)
+    assert [r["item"]["id"] for r in res_keyword] == ["control_a", "control_b"]
+    assert {r["source"] for r in res_keyword} == {"keyword"}
+
+    # 2. 測試 mode='keyword+KG'
+    s_keyword_kg = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path, kg_path=kg_path, mode="keyword+KG")
+    res_keyword_kg = s_keyword_kg.search("query", limit=4)
+    # control_a -> control_d 關聯
+    assert "control_d" in [r["item"]["id"] for r in res_keyword_kg]
+    assert {r["source"] for r in res_keyword_kg} == {"keyword", "kg_1hop"}
+
+    # 3. 測試 mode='keyword+RRF'
+    s_keyword_rrf = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path, kg_path=kg_path, mode="keyword+RRF")
+    res_keyword_rrf = s_keyword_rrf.search("query", limit=4)
+    # 應包含向量相似的 control_c (因為 embedding 是 [0.0, 1.0])
+    assert "control_c" in [r["item"]["id"] for r in res_keyword_rrf]
+    # 不應包含由 KG 擴展產生的 control_d
+    assert "control_d" not in [r["item"]["id"] for r in res_keyword_rrf]
+    assert {r["source"] for r in res_keyword_rrf} == {"rrf"}
+
+    # 4. 測試 mode='full'
+    s_full = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path, kg_path=kg_path, mode="full")
+    res_full = s_full.search("query", limit=4)
+    # 應包含向量相關的 control_c 與 KG 擴展的 control_d
+    ids = [r["item"]["id"] for r in res_full]
+    assert "control_c" in ids
+    assert "control_d" in ids
+    assert {r["source"] for r in res_full} == {"rrf", "kg_1hop"}
+
