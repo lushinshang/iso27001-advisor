@@ -92,10 +92,30 @@ def call_gemini(prompt, system_prompt, api_key, model="gemini-2.5-pro"):
         raise ConnectionError(f"Gemini API 呼叫時發生錯誤: {e}")
 
 
-def _is_mcq(query):
-    """偵測是否為選擇題（包含 A. B. C. D. 或 A） B） 等格式）。"""
+def _has_mcq_options(query):
+    """偵測是否含有選擇題選項（包含 A. B. C. D. 或 A） B） 等格式）。"""
     import re
     return bool(re.search(r'\bA[\.）\)]\s', query) and re.search(r'\bB[\.）\)]\s', query))
+
+
+def _mcq_mode(query):
+    """判斷選擇題型態：無選項為 None，有選項時區分單選與多選。"""
+    if not _has_mcq_options(query):
+        return None
+
+    import re
+
+    first_option = re.search(r'\bA[\.）\)]\s', query)
+    stem = query[:first_option.start()] if first_option else query
+    multi_signals = ("哪些", "複選", "多選", "所有正確")
+    if any(signal in stem for signal in multi_signals):
+        return "multi"
+    return "single"
+
+
+def _is_mcq(query):
+    """偵測是否為選擇題（維持既有 bool 對外行為）。"""
+    return _mcq_mode(query) is not None
 
 
 def _build_history_block(history: list, max_turns: int = 3) -> str:
@@ -137,8 +157,11 @@ def build_prompt(query, matched_items, max_chars_per_item=600, history=None):
     context_str = "\n".join(context_parts)
 
     mcq_hint = ""
-    if _is_mcq(query):
+    mcq_mode = _mcq_mode(query)
+    if mcq_mode == "single":
         mcq_hint = "\n\n【重要指示】此為選擇題。請在 🎯 諮詢問題分析之後、📖 依據條文之前，先輸出：\n✅ **建議答案：X**（X 為最正確的選項字母，並用一句話說明理由）\n然後逐一說明其他選項的錯誤原因（每項一句話）。"
+    elif mcq_mode == "multi":
+        mcq_hint = "\n\n【重要指示】此為多選題。請在 🎯 諮詢問題分析之後、📖 依據條文之前，先輸出：\n✅ **建議答案：X、Y**（列出**所有**正確選項，並用一句話說明理由）\n然後逐一說明每個正確選項的條文依據，並說明其餘選項不屬於正解的理由。"
 
     prompt = f"""{history_block}【使用者提問】
 {query}
@@ -209,7 +232,7 @@ def get_system_prompt():
 1. 一律使用繁體中文（台灣用語）回應，不使用簡體中文或中國大陸慣用語。
 2. 回答必須基於 Context 中所提供的條文或控制措施。
 3. 【強制引用規則】每個論述句子末尾必須標註其依據的條文 ID，格式為 [control_X.X] 或 [clause_X.X]。標註前自問：「這項要求的原文確實出現在該 ID 的條文內容中嗎？」若不確定，不得標註該 ID。
-3b. 【選擇題規則】若問題含有選項（A. B. C. D.），必須在 🎯 分析後立即輸出「✅ **建議答案：X**（理由一句話）」，再說明其他選項的錯誤原因。
+3b. 【選擇題規則】若問題含有選項（A. B. C. D.），單選題必須在 🎯 分析後立即輸出「✅ **建議答案：X**（理由一句話）」，再說明其他選項的錯誤原因；多選題必須輸出「✅ **建議答案：X、Y**（列出所有正確選項）」，逐一說明每個正確選項的條文依據，並說明其餘選項不屬於正解的理由。
 4. 提供實務性的建議。對於使用者的合規性疑問，請協助分析「文件缺口」或「需要的稽核證據」。
 5. 【重要 - 格式與長度優化】直接切入核心回答，禁止任何客套問候語（如「您好，我是...」）。
 6. 回答字數請控制在 350 字以內，以精煉的條列式呈現，確保在有限長度內完整輸出所有核心建議。

@@ -4,6 +4,7 @@ import sys
 import urllib.request
 
 from iso27001_advisor.core.search_tool import ISO27001Searcher
+from iso27001_advisor.core.mcq_search import mcq_union_search
 from iso27001_advisor.core.semantic_cache import SemanticCache
 from iso27001_advisor.llm import (
     build_prompt,
@@ -13,6 +14,14 @@ from iso27001_advisor.llm import (
     load_dotenv,
     map_reduce_query,
 )
+from iso27001_advisor.llm.llm import _is_mcq
+
+
+def _retrieve_matches(searcher, query, limit):
+    """依題型選擇一般檢索或 MCQ 選項分解檢索。"""
+    if _is_mcq(query):
+        return mcq_union_search(searcher, query, limit=limit)
+    return searcher.search(query, limit=limit)
 
 def _positive_int(value):
     """argparse type validator：確保為正整數。"""
@@ -90,7 +99,7 @@ def main():
                 print(f"  ⚠️  語意快取查詢失敗，改走 RAG：{e}", file=sys.stderr)
 
         print(f"\n🔍 正在檢索與「{q}」最相關的 ISO 27001 條文與控制措施...")
-        matched = searcher.search(q, limit=args.top_k)
+        matched = _retrieve_matches(searcher, q, args.top_k)
         
         if not matched:
             print("⚠️ 找不到與該關鍵字相關的條文。")

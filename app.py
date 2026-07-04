@@ -22,6 +22,7 @@ agent_logger.setLevel(logging.INFO)
 agent_logger.propagate = False
 
 from iso27001_advisor.core.search_tool import ISO27001Searcher
+from iso27001_advisor.core.mcq_search import mcq_union_search
 from iso27001_advisor.core.recommendation import RecommendationEngine
 from iso27001_advisor.llm import (
     build_prompt,
@@ -30,6 +31,7 @@ from iso27001_advisor.llm import (
     load_dotenv,
     map_phase,
 )
+from iso27001_advisor.llm.llm import _is_mcq
 
 # 載入環境變數
 load_dotenv()
@@ -236,6 +238,13 @@ def _ids_from_flat(items: list) -> str:
 
 def _ids_from_search_results(items: list) -> str:
     return ",".join(item.get("item", {}).get("id", "") for item in items)
+
+
+def _retrieve_matches(searcher, query, limit):
+    """依題型選擇一般檢索或 MCQ 選項分解檢索。"""
+    if _is_mcq(query):
+        return mcq_union_search(searcher, query, limit=limit)
+    return searcher.search(query, limit=limit)
 
 
 @app.post("/api/chat")
@@ -702,7 +711,7 @@ async def chat_endpoint(request: Request):
             return
 
         # 2. 檢索條文
-        matched = searcher.search(query, limit=top_k)
+        matched = _retrieve_matches(searcher, query, top_k)
         _agent_log(request_id, "tool.searcher.search", hits=len(matched), ids=_ids_from_search_results(matched))
 
         # 發送參考條文給前端
