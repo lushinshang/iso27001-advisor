@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SDD：Hybrid Search + KG 1-hop 重建計畫 — ISO 27001 Advisor</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" integrity="sha384-qX9VvWkP79m/O121ZE6sOYp0nf/pldQgtvWDbkpzi+3mUo4Wn4Ix4cFzNPay3VaB" crossorigin="anonymous" defer></script>
+<style>
+:root{
+  --bg:#f9f7f4; --text:#1a1a1a; --muted:#6b6b6b; --border:#e4ded4;
+  --accent:#0e7a5f; --accent-soft:rgba(14,122,95,0.08);
+  --warn:#b45309; --warn-soft:rgba(180,83,9,0.08);
+  --danger:#b91c1c; --danger-soft:rgba(185,28,28,0.07);
+  --card:#ffffffcc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  font-size:16.5px; line-height:1.68; letter-spacing:0;
+}
+.page{max-width:1120px;margin:0 auto;padding:0 24px}
+article{max-width:720px;margin:0 auto}
+h1{font-size:clamp(1.9rem,4vw,3.0rem);line-height:1.25;text-wrap:balance;margin:20px 0 12px}
+h2{font-size:clamp(1.35rem,2.6vw,1.7rem);line-height:1.3;text-wrap:balance;margin:56px 0 16px;padding-top:8px;border-top:2px solid var(--border)}
+h3{font-size:1.12rem;margin:32px 0 10px;color:#2d2d2d}
+p{margin:12px 0}
+ul,ol{margin:12px 0 12px 1.4em}
+li{margin:5px 0}
+strong{color:#111}
+code{background:#efe9df;border-radius:5px;padding:1px 6px;font-size:0.88em;font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#211f1c;color:#e8e2d6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:16px 0;font-size:13.5px;line-height:1.55}
+pre code{background:none;color:inherit;padding:0}
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 18px;border-radius:0 10px 10px 0;margin:16px 0;color:#333}
+.tblwrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;background:#fff}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th{background:#f0ebe2;text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid #eee8dd;vertical-align:top}
+tr:last-child td{border-bottom:none}
+.hero{padding:48px 0 8px;text-align:left}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.badge{font-size:12.5px;padding:4px 12px;border-radius:999px;border:1px solid var(--border);background:#fff;color:#444}
+.badge.green{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}
+.badge.amber{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.subtitle{color:var(--muted);font-size:15px;margin-top:8px}
+nav.toc{
+  position:sticky;top:0;z-index:100;background:rgba(249,247,244,0.93);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;
+}
+nav.toc .inner{display:flex;gap:4px;overflow-x:auto;white-space:nowrap;max-width:1120px;margin:0 auto;padding:0 24px;width:100%;scrollbar-width:none}
+nav.toc .inner::-webkit-scrollbar{display:none}
+nav.toc a{font-size:13.5px;color:#555;text-decoration:none;padding:6px 12px;border-radius:999px}
+nav.toc a:hover{background:var(--accent-soft);color:var(--accent)}
+.callout{border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:16px 0;background:var(--card)}
+.callout.ok{border-color:var(--accent);background:var(--accent-soft)}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+.callout.danger{border-color:var(--danger);background:var(--danger-soft)}
+figure.section-figure{margin:28px 0;text-align:center}
+figure.section-figure img{
+  width:100%;max-width:640px;display:block;margin:0 auto;border-radius:12px;
+  aspect-ratio:16/9;object-fit:cover;box-shadow:0 6px 24px rgba(0,0,0,0.08);cursor:zoom-in;
+}
+figure.section-figure figcaption{font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.55}
+.mermaid-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;margin:16px 0;overflow-x:auto}
+.mermaid{display:flex;justify-content:center;min-height:120px}
+.timeline-flow{background:#211f1c;color:#e8e2d6;border-radius:10px;padding:18px 20px;overflow-x:auto;font-size:13.5px;line-height:1.75;font-family:"SF Mono",Menlo,monospace;white-space:pre}
+footer{margin:64px 0 40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);text-align:center}
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(26,26,26,0.88);align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.is-open{display:flex}
+.lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,0.4)}
+.lightbox .lightbox-hint{position:absolute;top:20px;right:24px;color:rgba(255,255,255,0.75);font-size:14px}
+@media (max-width:640px){
+  body{font-size:16px}
+  figure.section-figure img{aspect-ratio:9/16;max-width:360px}
+  .hero{padding-top:28px}
+}
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="章節導覽">
+  <div class="inner">
+    <a href="#s1">背景</a>
+    <a href="#s3">架構</a>
+    <a href="#s5">規格細節</a>
+    <a href="#s6">驗收</a>
+    <a href="#s7">TDD 計畫</a>
+    <a href="#s9">v1.2 改道</a>
+    <a href="#s10">v1.3 閘門</a>
+    <a href="#s11">v4.2 收尾</a>
+  </div>
+</nav>
+
+<div class="page">
+<article>
+
+<header class="hero">
+  <h1>SDD：Hybrid Search（RRF）+ Knowledge Graph 1-hop 重建計畫</h1>
+  <div class="badges">
+    <span class="badge green">✅ v4.2 全部完成</span>
+    <span class="badge">SDD v1.4</span>
+    <span class="badge">237 tests passed</span>
+    <span class="badge amber">2026-07-04</span>
+  </div>
+  <p class="subtitle">開發方法：SDD（本文件為權威規格）＋ TDD（每 Phase 測試先行）。執行者：Codex CLI 與 Antigravity CLI，規格與驗收由 Claude 擔任。本文件保留 v1.0 → v1.4 的完整決策軌跡——包括每一次改道、勘誤與標準修訂。</p>
+</header>
+
+<section id="s1">
+<h2>1. 背景與目標</h2>
+<p>README v3.9 宣稱的 Hybrid Search（RRF）+ KG 1-hop 實作與對應檔案（<code>data/knowledge_graph.json</code>、<code>data/embeddings.npy</code>、<code>scripts/build_embeddings.py</code>）<strong>實際不存在於程式碼庫</strong>。本計畫重建該能力，並新增「程式自動把關」的 KG 建置產線，全程使用地端模型（Ollama），不依賴雲端。</p>
+
+<h3>設計決策（已拍板，不再討論）</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>決策</th><th>結論</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>提名模型</td><td>地端（gemma3:12b-16k + gemma4:e2b-mlx 雙提名器取聯集）</td><td>未來機敏語料必須地端；品質由關卡保證，模型只影響產量；現在就用目標條件驗收架構</td></tr>
+<tr><td>KG 品質把關</td><td>五道程式關卡，零人工審核</td><td>引文字串比對等確定性驗證比 LLM 裁判可靠</td></tr>
+<tr><td>融合演算法</td><td>RRF（k=60），只比排名不比分數</td><td>免除跨檢索器分數正規化問題</td></tr>
+<tr><td>離線性</td><td>建置期與執行期 100% 離線（localhost Ollama）</td><td>Strict Offline 是本專案核心約束</td></tr>
+<tr><td>提名器優劣評估</td><td>產線關卡通過率＋黃金邊召回＋期末考，決策規則預先寫死</td><td>避免看到數字後憑感覺凹</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section id="s2">
+<h2>2. 範圍</h2>
+<h3>In Scope</h3>
+<ul>
+<li>向量索引建置腳本與索引檔</li>
+<li><code>HybridSearcher</code>：關鍵字＋向量 RRF 融合＋KG 1-hop 擴展＋離線退化</li>
+<li>KG 五道關卡建置產線（雙地端提名器）</li>
+<li>提名器評測腳本（含黃金邊召回）</li>
+<li>檢索評估回歸（60 題）</li>
+</ul>
+<h3>Out of Scope</h3>
+<ul>
+<li>不修改 <code>search_tool.py</code> 既有關鍵字邏輯（HybridSearcher 是包裝層）</li>
+<li>不修改 LV2/LV3 tools、Web UI、System Prompt</li>
+<li>不做雲端模型稽核員（選配，另案）</li>
+<li>不接入 <code>app.py</code> / <code>main.py</code>（整合為後續獨立變更，本案只交付可用元件＋評估證據）</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>3. 架構</h2>
+<div class="mermaid-wrap">
+<div class="mermaid">
+flowchart TD
+    subgraph 建置期["建置期（一次性，離線）"]
+        A[iso27001_structure.json<br/>144 節點] --> B[scripts/build_embeddings.py]
+        B --> C[data/clause_embeddings.json]
+        A --> D[scripts/build_knowledge_graph.py]
+        D --> G1[關卡1 結構規則]
+        G1 --> G2[關卡2 引文字串比對]
+        G2 --> G3[關卡3 相似度地板]
+        G3 --> G4[關卡4 雙向一致]
+        G4 --> E[data/knowledge_graph.json]
+        G4 --> R[建置報表：各關卡刷掉數]
+    end
+    subgraph 執行期["執行期（每次查詢，離線）"]
+        Q[查詢] --> K[關鍵字排名<br/>ISO27001Searcher]
+        Q --> V[向量排名<br/>cosine over 144]
+        K --> F[RRF 融合 k=60]
+        V --> F
+        F --> H[KG 1-hop 擴展<br/>鄰居分數 ×0.5]
+        E -.-> H
+        H --> O[top-k 結果]
+    end
+    subgraph 驗收["驗收（關卡5 期末考）"]
+        O --> EV[eval/evaluation.py 60 題<br/>Hit Rate / Recall / MRR 不退步]
+    end
+</div>
+</div>
+<p style="font-size:13.5px;color:var(--muted)">註：本圖為 v1.0 原始設計。v1.3 起執行期加入信心閘門（見 §10.3 任務 B），v1.2 起正式 KG 改由 pdca_graph 直建（見 §9.2）。</p>
+</section>
+
+<section id="s4">
+<h2>4. 交付物清單</h2>
+<div class="tblwrap"><table>
+<thead><tr><th>檔案</th><th>類型</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td><code>src/iso27001_advisor/core/hybrid_search.py</code></td><td>新增</td><td><code>HybridSearcher</code> 類別</td></tr>
+<tr><td><code>src/iso27001_advisor/core/kg_gates.py</code></td><td>新增</td><td>五道關卡的純函數（供產線與評測共用）</td></tr>
+<tr><td><code>scripts/build_embeddings.py</code></td><td>新增</td><td>144 節點向量索引建置</td></tr>
+<tr><td><code>scripts/build_knowledge_graph.py</code></td><td>新增</td><td>KG 建置產線（提名 → 關卡 → 輸出＋報表）</td></tr>
+<tr><td><code>scripts/eval_nominator.py</code></td><td>新增</td><td>提名器 A/B 評測</td></tr>
+<tr><td><code>data/clause_embeddings.json</code></td><td>產物</td><td>向量索引（版控）</td></tr>
+<tr><td><code>data/knowledge_graph.json</code></td><td>產物</td><td>過關邊集（版控）</td></tr>
+<tr><td><code>data/kg_gold_edges.json</code></td><td>產物</td><td>黃金邊（v1.1 起改由 pdca_graph 抽取，見 §5.6）</td></tr>
+<tr><td><code>tests/test_rrf.py</code> 等 6 個測試檔</td><td>新增</td><td>見 §7 TDD 計畫</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section id="s5">
+<h2>5. 規格細節</h2>
+
+<h3>5.1 向量索引 <code>data/clause_embeddings.json</code></h3>
+<pre><code>{
+  "embed_model": "jeffh/intfloat-multilingual-e5-large-instruct:f16",
+  "built_at": "ISO8601",
+  "source_file": "data/iso27001_structure.json",
+  "dimension": 1024,
+  "items": [{"id": "control_8.13", "embedding": [0.01, "..."]}]
+}</code></pre>
+<ul>
+<li>嵌入文本：<code>{subsection}\n{title}\n{content}</code>（document 端不加 prefix，遵循 E5-instruct 規範，同 <code>semantic_cache.py</code>）</li>
+<li>查詢端加 <code>semantic_cache._QUERY_INSTRUCTION</code> 同款 instruct prefix</li>
+<li>排除父章節節點（id 不含小數點者，如 <code>clause_5</code>），與關鍵字端降權邏輯一致</li>
+</ul>
+
+<h3>5.2 <code>HybridSearcher</code>（<code>core/hybrid_search.py</code>）</h3>
+<pre><code>HybridSearcher(searcher=None, emb_path=None, kg_path=None,
+               host="http://localhost:11434", rrf_k=60, kg_damp=0.5)
+  .search(query, limit=4) -> list[{"item": dict, "score": float, "source": str}]
+  .is_hybrid_ready -> bool</code></pre>
+<p>行為規格：</p>
+<ol>
+<li>關鍵字排名：委派 <code>ISO27001Searcher.search(query, limit=20)</code>（取寬再融合）</li>
+<li>向量排名：查詢 embedding → cosine 對全索引 → 取前 20</li>
+<li>RRF：<code>score(d) = Σ 1/(rrf_k + rank_i(d))</code>，rank 從 1 起算，僅出現於該路者只累加該路</li>
+<li>KG 1-hop：融合後 top-limit 的每個節點，其 KG 鄰居以「該節點 RRF 分數 × kg_damp」併入；已在結果中者不重複、不加分；重排後截斷至 limit</li>
+<li><strong>離線退化</strong>：embedding 呼叫失敗／索引檔缺失 → 靜默退回純關鍵字結果（<code>source="keyword_fallback"</code>），<strong>不得拋出例外</strong>；KG 檔缺失 → 跳過擴展</li>
+<li><code>source</code> 欄位標記 <code>"rrf"</code> / <code>"kg_1hop"</code> / <code>"keyword_fallback"</code>，供除錯與測試斷言</li>
+</ol>
+
+<h3>5.3 KG 邊格式 <code>data/knowledge_graph.json</code></h3>
+<pre><code>{
+  "built_at": "ISO8601",
+  "nominators": ["gemma3:12b-16k", "gemma4:e2b-mlx"],
+  "gates_version": 1,
+  "gate_report": {"nominated": 0, "g1_rejected": 0, "g2_rejected": 0,
+                   "g3_rejected": 0, "g4_rejected": 0, "survived": 0},
+  "edges": [{
+    "from": "control_8.13", "to": "control_8.14",
+    "evidence_from": "原文引句", "evidence_to": "原文引句",
+    "similarity": 0.72,
+    "nominated_by": ["gemma3:12b-16k"],
+    "bidirectional": true
+  }]
+}</code></pre>
+<p>邊為無向：儲存時 <code>from &lt; to</code>（字典序）正規化去重。</p>
+
+<h3>5.4 五道關卡（<code>core/kg_gates.py</code>，全部純函數）</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>關卡</th><th>函數簽名</th><th>規則</th></tr></thead>
+<tbody>
+<tr><td>G1 結構</td><td><code>gate_structure(edge, id_index)</code></td><td>無自環；兩端 id 存在；不得為父子章節（<code>clause_5</code> vs <code>clause_5.1</code>）；圖層級套 degree cap ≤ 6（超過者保留 similarity 最高的 6 條）</td></tr>
+<tr><td>G2 引文</td><td><code>gate_evidence(edge, id_index)</code></td><td><code>evidence_from</code> 去空白後為 <code>from</code> 節點 content/title 的子字串；<code>evidence_to</code> 同理；引句長度 ≥ 6 字</td></tr>
+<tr><td>G3 相似度</td><td><code>gate_similarity(edge, emb_index, floor=0.5)</code></td><td>兩端節點向量 cosine ≥ floor（重用向量索引，不另呼叫 embedding）</td></tr>
+<tr><td>G4 雙向</td><td><code>gate_bidirectional(edge, all_nominations)</code></td><td>A 問卷提名 B <strong>且</strong> B 問卷提名 A（任一提名器達成即可）</td></tr>
+<tr><td>G5 期末考</td><td>非函數，為驗收程序</td><td>見 §6 驗收標準第 3 條</td></tr>
+</tbody>
+</table></div>
+
+<figure class="section-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="images/gates5-mobile.png">
+    <img src="images/gates5.png" alt="知識圖譜五道自動品管關卡：AI 提名候選邊依序通過 G1 結構規則、G2 引文字串比對、G3 相似度地板、G4 雙向一致、G5 期末考，品質由關卡保證">
+  </picture>
+  <figcaption>五道自動品管關卡：AI 負責提名，程式負責審核——品質下限由關卡保證，不靠模型。點圖可放大。</figcaption>
+</figure>
+
+<h3>5.5 提名器協定【v1.1 修訂：候選清單提名法】</h3>
+<blockquote>v1.0 的開放式提名（「這個節點的親戚有誰？」）經實跑證實：12B 模型單次呼叫 30 秒~3 分鐘，全量 774 次呼叫不可行，且開放式生成易提名不存在的 ID。v1.1 改為<strong>候選清單確認法</strong>：把生成任務降維成驗證任務。</blockquote>
+<ul>
+<li><strong>候選預篩</strong>：對每個節點，以向量索引算 cosine，取 top-15 相似節點為候選清單（排除自己與父子章節）。純本地計算，零 LLM 成本。</li>
+<li><strong>提名 prompt</strong>：給模型該節點原文＋15 個候選（各附 id、標題、content 前 200 字），要求只從候選中挑出真正相關者並附兩端原文引句，JSON 輸出；無相關者輸出 <code>{"related": []}</code>。</li>
+<li>效益：(a) 輸出短、呼叫快；(b) 模型不可能提名候選外的幻覺 ID（非候選 ID 直接丟棄並計入格式失敗）；(c) G4 雙向一致仍有效（cosine 對稱，互為候選通常成立）。</li>
+<li>輪數：預設 N=2（<code>--rounds</code> 可調）；JSON parse 失敗記入「格式失敗數」，該輪跳過，不重試超過 1 次；雙提名器存活邊取聯集；<code>--offline</code> 為預設且唯一模式。</li>
+</ul>
+<p><strong>建置作業規範（v1.1 新增）</strong>：按模型分批（避免 Ollama 反覆載卸 12B 模型）；全量建置背景執行＋checkpoint 續跑；正式全量前先 <code>--sample 3</code> 煙霧測試估總時長，超過 12 小時停下回報。</p>
+
+<h3>5.6 提名器評測 <code>scripts/eval_nominator.py</code></h3>
+<ul>
+<li>抽樣 <code>--sample 25</code> 個節點（固定 seed=42 保證可重現）</li>
+<li>輸出指標：格式合格率、引文誠實率（G2 通過÷提名總數）、存活邊產量、收斂輪數、黃金邊召回率</li>
+<li>黃金邊【v1.1 修訂】：<code>data/cht.md</code> 實測無「其他資訊」交叉引用（抽取 0 條），改以 <code>pdca_graph.json</code> 的 <code>related</code> 欄位為來源——本專案既有的人工整理關聯（78 節點），品質受合規推薦系統長期使用驗證。<code>next</code> 欄位（流程順序）不採用。</li>
+</ul>
+<div class="callout">
+<strong>預註冊決策規則（先寫死，看到數據前）</strong>：
+① 格式合格率 &lt; 90% → 淘汰；② 引文誠實率差距 &gt; 15 個百分點 → 選誠實者；③ 接近則選「存活產量 ÷ 收斂輪數」高者；④ 期末考 Recall 增量為一票否決。
+</div>
+</section>
+
+<section id="s6">
+<h2>6. 驗收標準（全部可程式驗證）</h2>
+<ol>
+<li><code>python3 -m pytest -q</code> 全綠（既有 200＋新增測試，0 failed）</li>
+<li>離線退化：以不可達 host 建 <code>HybridSearcher</code>，<code>search()</code> 回傳非空關鍵字結果且不拋例外</li>
+<li><strong>期末考（G5）</strong>：60 題重跑，指標相對 keyword-only 基準不退步；評估腳本支援模式開關以便對照</li>
+<li><code>build_knowledge_graph.py</code> 輸出 gate_report，每條存活邊通過全部關卡（獨立驗證函數複核）</li>
+<li><code>eval_nominator.py</code> 產出完整指標表與 JSON 結果檔</li>
+<li>全流程無任何非 localhost 網路呼叫</li>
+</ol>
+</section>
+
+<section id="s7">
+<h2>7. TDD 實作計畫（每 Phase 紅 → 綠 → 驗證）</h2>
+<blockquote>鐵律：先寫測試看它失敗（紅），再實作到通過（綠），每 Phase 結束跑全套 pytest 確認無回歸，才進下一 Phase。</blockquote>
+<div class="tblwrap"><table>
+<thead><tr><th>Phase</th><th>先寫的測試</th><th>再寫的實作</th></tr></thead>
+<tbody>
+<tr><td>0 基準</td><td>—</td><td>確認環境（ollama list 有提名模型與 e5）；記錄既有測試數</td></tr>
+<tr><td>1 RRF 純函數</td><td><code>test_rrf.py</code>：雙排名融合、單路獨佔、空輸入、k 參數</td><td><code>rrf_fuse()</code> 純函數</td></tr>
+<tr><td>2 向量索引</td><td><code>test_embedding_index.py</code>：schema、維度、父章節排除、缺檔</td><td><code>build_embeddings.py</code>＋索引載入器</td></tr>
+<tr><td>3 KG 關卡</td><td><code>test_kg_gates.py</code>：每關通過/拒絕案例各 ≥ 2</td><td><code>kg_gates.py</code></td></tr>
+<tr><td>4 產線組裝</td><td><code>test_kg_pipeline.py</code>：mock 提名器走完整產線</td><td><code>build_knowledge_graph.py</code>（提名器可注入）</td></tr>
+<tr><td>5 HybridSearcher</td><td><code>test_hybrid_search.py</code>：RRF 整合、KG 打折、離線退化</td><td><code>HybridSearcher</code> 完成</td></tr>
+<tr><td>6 提名器評測</td><td><code>test_nominator_eval.py</code>：指標純函數、mock 資料</td><td><code>eval_nominator.py</code>＋黃金邊抽取</td></tr>
+<tr><td>7 實跑建置</td><td>—</td><td>建索引 → 建 KG（真 Ollama）→ 評測報表</td></tr>
+<tr><td>8 期末考 G5</td><td>評估腳本模式開關（含小測試）</td><td>keyword vs hybrid 對照</td></tr>
+</tbody>
+</table></div>
+<div class="callout danger"><strong>失敗處理</strong>：Phase 7/8 若指標退步，<strong>不得調鬆關卡湊數</strong>；先輸出退步題目清單與 diff 分析報告，停下等人決策。</div>
+</section>
+
+<section id="s8">
+<h2>8. 風險與緩解</h2>
+<div class="tblwrap"><table>
+<thead><tr><th>風險</th><th>緩解</th><th>實際結果</th></tr></thead>
+<tbody>
+<tr><td>12B 模型 JSON 格式不穩</td><td>格式失敗計數＋單次重試；評測指標暴露嚴重度</td><td>✅ 應驗（§9.1），另抓到 parser 冤案</td></tr>
+<tr><td>RRF 稀釋 <code>_INTENT_BOOSTS</code> 精準命中</td><td>G5 期末考一票否決</td><td>✅ 應驗（§10.1），催生信心閘門</td></tr>
+<tr><td>建置耗時</td><td>checkpoint 可中斷續跑</td><td>✅ 候選清單法將單次呼叫壓至 18 秒</td></tr>
+<tr><td>黃金邊抽取不到官方交叉引用</td><td>允許種子邊替代</td><td>✅ 應驗，改用 pdca_graph（§5.6）</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section id="s9">
+<h2>9. v1.2 修訂：正式評測結果與 Phase 7 改道</h2>
+
+<h3>9.1 正式提名器評測（--sample 25，每模型 100 次呼叫）</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>模型</th><th>格式合格率</th><th>引文誠實率</th><th>存活產量</th><th>黃金邊召回</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>gemma3:12b-16k</td><td>92.0%</td><td><strong>12.73%</strong></td><td>1</td><td>0.79%</td><td>格式過關，但觸發誠實率 &lt; 50% 重新設計條件</td></tr>
+<tr><td>gemma4:e2b-mlx</td><td>48.0%</td><td>4.0%</td><td>0</td><td>0%</td><td><strong>淘汰</strong>（預註冊規則 ①）</td></tr>
+</tbody>
+</table></div>
+<p>失敗型態分析：gemma3 的 G2 失敗主因為改寫、省略號、self/other 引句對調——<strong>12B 模型「一字不差複製長句」本身不可靠</strong>，屬能力邊界而非 prompt 可修。</p>
+<div class="callout warn">
+<strong>⚠️ 勘誤（2026-07-03）</strong>：規格選型錯誤——使用者原始需求為 gemma3:12b vs <strong>gemma4:12b</strong> 的同量級對決，但 v1.0 規格誤沿用 README 預設後端標籤 <code>gemma4:e2b-mlx</code>（effective-2B 級小模型）。上表淘汰判決<strong>僅對 e2b-mlx 成立</strong>，<code>gemma4:12b-it-qat(-16k)</code> 從未受測。此錯誤不影響 §9.2 改道決策（觸發點為 gemma3:12b 自身的誠實率），但影響 §9.3 重啟名單。
+</div>
+
+<h3>9.2 決策：LLM 提名產線暫停，KG 改由 pdca_graph 直建</h3>
+<ul>
+<li><code>pdca_graph.json</code> 的 <code>related</code> 欄位為人工整理、經合規推薦系統長期使用驗證的關聯邊（127 條）。G2/G4 的設計目的是「驗證 LLM 有無唬爛」，對人工邊為範疇錯誤，<strong>不適用</strong>。</li>
+<li><strong>Phase 7 改為</strong>：<code>--from-pdca</code> 直建——展開邊對、<code>from &lt; to</code> 去重、兩端存在性檢查、套 G1＋degree cap ≤ 6、<code>source</code> 標 <code>"pdca_graph"</code>。G2/G3/G4 跳過，報表附相似度分布（僅供參考）。</li>
+<li><strong>Phase 8 照舊</strong>：pdca-KG 接上 HybridSearcher 跑 60 題期末考。</li>
+</ul>
+
+<h3>9.3 LLM 提名產線封存狀態與重啟條件</h3>
+<ul>
+<li>產線程式碼與測試<strong>保留</strong>（G1-G4、候選清單法、checkpoint、評測器），不刪除。</li>
+<li>重啟條件：期末考證明 KG 1-hop 有正貢獻，且需要 pdca 未覆蓋的邊（pdca 覆蓋 78/129 節點）。</li>
+<li>重啟候選提名器：<code>gemma4:12b-it-qat-16k</code>（同量級對決的正確人選）。</li>
+<li>重啟必要重新設計：evidence 由「自由引句」改為<strong>句子編號選擇法</strong>——候選內容以編號句子呈現，模型回傳句子索引，程式驗證索引存在。把「抄寫誠實」問題轉為「選擇有效」問題。</li>
+<li>選配診斷結果（gemma4:12b-it-qat-16k，--sample 25）：格式合格率 84%、引文誠實率 66.67%——顯著優於 gemma3 的 12.73%，證實個體差異存在，但仍有 ID 錯配與欄位對調，<strong>句子編號選擇法維持為重啟必要條件</strong>。</li>
+</ul>
+</section>
+
+<section id="s10">
+<h2>10. v1.3 修訂：期末考退步、消融實驗與信心閘門</h2>
+
+<h3>10.1 期末考結果（60 題，KG=pdca 125 邊）</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>指標</th><th>keyword-only</th><th>hybrid（RRF+KG）</th><th>差異</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>Hit Rate@4</td><td>100.0%</td><td>96.7%</td><td>-3.3%</td><td>❌ 一票否決</td></tr>
+<tr><td>Avg Recall@4</td><td>79.7%</td><td>79.0%</td><td>-0.7%</td><td>❌</td></tr>
+<tr><td>Avg Precision@4</td><td>37.1%</td><td>35.4%</td><td>-1.7%</td><td>❌</td></tr>
+<tr><td>MRR@4</td><td>0.8597</td><td>0.8917</td><td>+0.032</td><td>✅ 排序品質提升</td></tr>
+</tbody>
+</table></div>
+<p>退步題：q52（外部認證稽核）、q56（新 SaaS 導入）。根因：關鍵字規則照本評估集調校（基準滿分＝天花板），RRF 等權融合稀釋人工規則的精準命中——§8 風險表第 2 項應驗，G5 正確擋下。</p>
+<div class="callout warn"><strong>基準線勘誤</strong>：README 記載的 Recall 93.3% / MRR 0.9333 為早期 10 題基準集時代數字，60 題集真實 keyword 基準為本表數值。另 <code>eval_results.json</code> 本輪被覆寫且無 git 歷史可對證——此事直接促成專案 git init。</div>
+
+<h3>10.2 認知修正：本評估集對 hybrid 天生不公平</h3>
+<p>基準已滿分，任何融合在此集上的天花板是平手；但 MRR +0.032 顯示向量在命中題內改善排序。正確問題不是「hybrid 好不好」，而是「<strong>何時該讓向量說話</strong>」。</p>
+
+<h3>10.3 後續任務與信心閘門定案</h3>
+<p><strong>任務 A 消融實驗</strong>：四組對照隔離退步來源。<strong>任務 B 信心閘門</strong>【任務 A 後定案】：閘門罩住<strong>整個增強層</strong>（向量 RRF＋KG 擴展，全有或全無）——</p>
+<ul>
+<li>關鍵字 top-1 分數 ≥ 100（boost/intent 觸發的最小加分值，先驗固定，禁止調整）→ 高信心，回傳純 keyword 結果</li>
+<li>&lt; 100 → 低信心，走完整 full（RRF＋KG）</li>
+</ul>
+
+<figure class="section-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="images/gate-mobile.png">
+    <img src="images/gate.png" alt="信心閘門混合檢索流程：問題先交給關鍵字老師傅，top-1 分數大於等於 100 走純關鍵字，低於 100 啟動向量雷達、RRF 融合與知識圖譜擴展">
+  </picture>
+  <figcaption>信心閘門：人工調校訊號的信任等級高於統計融合——老師傅有把握時，別讓其他人插嘴。點圖可放大。</figcaption>
+</figure>
+
+<p><strong>任務 C 改寫題評估集</strong>：地端模型改寫 60 題問句（標準答案不變、禁止照抄原題連續 ≥ 6 字，程式驗證）。<strong>任務 D 雙軌期末考</strong>：原題不退步＋改寫題有提升，兩者皆達成才合併。</p>
+
+<h3>10.4 任務 A 消融實驗結果（commit 5bed1cc）</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>模式</th><th>Hit Rate@4</th><th>Recall@4</th><th>Precision@4</th><th>MRR@4</th></tr></thead>
+<tbody>
+<tr><td>keyword</td><td>100.0%</td><td>79.7%</td><td>37.1%</td><td>0.8597</td></tr>
+<tr><td>keyword+KG</td><td>98.3%（q51 ❌）</td><td>80.9%</td><td>37.5%</td><td>0.8556</td></tr>
+<tr><td>keyword+RRF</td><td>96.7%（q52/q56 ❌）</td><td>79.0%</td><td>35.4%</td><td>0.8917</td></tr>
+<tr><td>full（RRF+KG）</td><td>96.7%（q52/q56 ❌）</td><td>79.0%</td><td>35.4%</td><td>0.8917</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li>q52/q56 退步唯一根源為 RRF 等權融合稀釋 intent boost</li>
+<li>q51 僅在 keyword+KG 失敗（KG 鄰居以折扣分擠掉吊車尾正解）；於 full 模式被向量重排救回 → KG 不應單獨疊加，應與 RRF 同進退</li>
+<li><strong>勘誤</strong>：本節原始報告稱 q52 top-1 score=180.0，任務 B 實測為 <strong>88.6</strong>（無任何規則觸發）。教訓：代理回報的關鍵數字須驗算後才可作為推理前提。</li>
+</ul>
+
+<h3>10.5 任務 B 結果（commit 5052f3e）：預測未中，根因為 §10.4 錯誤數據</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>模式</th><th>Hit Rate@4</th><th>Recall@4</th><th>Precision@4</th><th>MRR@4</th></tr></thead>
+<tbody>
+<tr><td>keyword</td><td>100.0%</td><td>79.7%</td><td>37.1%</td><td>0.8597</td></tr>
+<tr><td><strong>gated</strong></td><td><strong>98.3%</strong>（q52 ❌）</td><td><strong>80.2%</strong></td><td><strong>37.5%</strong></td><td><strong>0.8764</strong></td></tr>
+<tr><td>full</td><td>96.7%</td><td>79.0%</td><td>35.4%</td><td>0.8917</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li>高信心 57 題全數命中；低信心 3 題（q43/q51/q52）戰績 2 勝 1 敗——q43 MRR 0.5→1.0、q51 MRR 0.25→1.0，q52 Recall 33%→0%（敗者原為無規則保護的邊緣險勝）</li>
+<li>q52 判讀：閘門分類<strong>正確</strong>，其退步是低信心分支的固有代價，非可修的 bug</li>
+<li>決策：不調門檻（禁止看答案改考卷）、不動題目；最終合併判定升級為<strong>專案擁有者的記錄性取捨</strong></li>
+</ul>
+
+<h3>10.6 任務 C/D 結果與最終判定（commit 92be941）</h3>
+<p>任務 C：56/60 題成功改寫（gemma4:12b-it-qat-16k，4 題 skipped 保留原題）。任務 D 雙軌期末考：</p>
+<div class="tblwrap"><table>
+<thead><tr><th>考場</th><th>模式</th><th>Hit Rate@4</th><th>Recall@4</th><th>Precision@4</th><th>MRR@4</th></tr></thead>
+<tbody>
+<tr><td>原 60 題</td><td>keyword</td><td>100.0%</td><td>79.7%</td><td>37.1%</td><td>0.8597</td></tr>
+<tr><td>原 60 題</td><td>gated</td><td>98.3%（q52）</td><td>80.2%</td><td>37.5%</td><td>0.8764</td></tr>
+<tr><td>改寫 60 題</td><td>keyword</td><td><strong>71.7%</strong></td><td>54.2%</td><td>22.9%</td><td>0.5931</td></tr>
+<tr><td>改寫 60 題</td><td>gated</td><td><strong>76.7%（+5.0）</strong></td><td>58.1%（+3.9）</td><td>24.6%（+1.7）</td><td>0.6222（+0.029）</td></tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>過擬合實測定量</strong>：關鍵字規則離開考古題考場即從 100% 跌至 71.7%（-28.3pp）</li>
+<li>gated 於改寫考場四指標全面提升，救回 q26/q39/q52——<strong>原題考場丟失的 q52，其改寫版被 gated 救回</strong>（對稱性證據）</li>
+<li>低信心題 3 → 9（boost 字眼被改寫掉），驗證閘門分流預測</li>
+<li>gated 於改寫考場仍 14 題失敗（12 題與 keyword 共同失敗）——向量抬升天花板而非奇蹟，增益誠實</li>
+</ul>
+<div class="callout ok">
+<strong>最終判定（擁有者於 2026-07-04 追認）：✅ 選項 A——合併</strong>，標準修訂為 v1.4：「原題 Hit Rate ≥ 98.3%（接受 q52 為低信心分支固有代價）＋改寫題四指標全面提升」。理由：生產查詢分布更似改寫集；原題滿分為過擬合幻影；雙資料集自此永久並列為回歸護欄。（曾列選項：B 全部封存回純 keyword；C 合併但不設預設——均未採。）
+</div>
+</section>
+
+<section id="s11">
+<h2>11. v4.2 收尾完成記錄（2026-07-04）</h2>
+
+<h3>11.1 收尾執行結果</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>任務</th><th>結果</th><th>commit</th></tr></thead>
+<tbody>
+<tr><td>gated 設為預設</td><td><code>HybridSearcher.search()</code> 預設 gated；既有測試改顯式 <code>mode="full"</code></td><td><code>8c46007</code></td></tr>
+<tr><td>雙資料集回歸護欄</td><td><code>test_gated_recall_regression.py</code>：探測式 skip（實測 Ollama 可達性再決定，不吞真 bug）</td><td><code>9bd1fef</code></td></tr>
+<tr><td>護欄捨入修復</td><td>見 §11.2</td><td><code>5449a60</code></td></tr>
+<tr><td>README 更新</td><td>雙軌指標表、過期數字作廢、目錄實檔化</td><td><code>73fbe70</code></td></tr>
+<tr><td>spec HTML 全面同步</td><td>system_spec.html → Spec v1.6、architecture.html 加閘門節點、歷史計畫加歸檔橫幅</td><td><code>54bf9dc</code></td></tr>
+</tbody>
+</table></div>
+<div class="callout ok"><strong>最終驗證：237 tests passed, 0 skipped</strong>（護欄於 Ollama 可達環境實跑通過）；README 文件指令實跑重現表格數字（gated 改寫題 76.7 / 58.1 / 24.6 / 0.6222）。</div>
+
+<h3>11.2 收尾階段的最後一個 bug：護欄捨入邊界</h3>
+<p>Codex sandbox 擋 localhost，護欄測試在其環境只能 skip、從未跑綠。真環境首跑即紅：改寫題實測 46/60 = 76.666...%，門檻卻寫成報表四捨五入後的 76.7%——<code>76.666 ≥ 76.7</code> 永久失敗，護欄天生是壞的。修法：百分比比較改為<strong>整數命中數比較</strong>（<code>hit_count &gt;= 46</code>、<code>&gt;= 59</code>），捨入問題從根本消除。</p>
+<p><strong>教訓</strong>：(1) sandbox 中 skip 的測試不算驗證過，護欄類測試必須在依賴可達的環境至少跑綠一次；(2) 邊界值永遠不用「顯示用的捨入值」——報表寫 76.7% 是給人看的，程式比較要用真實值（46/60）。</p>
+
+<h3>11.3 全程回顧：八次轉折的決策軌跡</h3>
+<div class="timeline-flow">v1.0 規劃：五道關卡、全地端、預註冊規則
+ → 煙霧測試抓到 parser 冤案（gemma4 fenced JSON，0%→100%）
+ → 正式評測觸發誠實率紅線（12.73%）→ LLM 產線封存、pdca 改道（v1.2）
+ → 期末考退步 3.3% → G5 一票否決擋下（v1.3）
+ → 消融實驗分離兩個退步根因（RRF 稀釋 / KG 插隊）
+ → 信心閘門 + 先驗預測（未中 → 揪出任務 A 報告的錯誤數字 q52=88.6 非 180）
+ → 改寫題集實測過擬合 -28.3pp → hybrid 價值定量證實（+5.0pp）
+ → 擁有者記錄性取捨 → 合併（v1.4）→ 收尾（§11.1）</div>
+<p>每個轉折都由數據觸發、每次標準修訂都有白紙黑字。本文件連同 git 歷史（<code>f292082</code> 起）構成完整的 Evaluation Flywheel 實踐記錄。</p>
+
+<h3>11.4 遺留事項</h3>
+<ul>
+<li><strong>v4.3</strong>：<code>app.py</code> / <code>main.py</code> / <code>agent.py</code> 接線至 HybridSearcher（gated）</li>
+<li><strong>LLM 提名產線重啟</strong>（選配）：gemma4:12b-it-qat-16k＋句子編號選擇法（§9.3），目標為 pdca 未覆蓋的 51 節點</li>
+<li><strong>改寫考場天花板 76.7%</strong>：gated 仍有 14 題失敗（12 題與 keyword 共同失敗），候選方向：同義詞擴充、KG 補邊、embedding 模型升級</li>
+</ul>
+</section>
+
+<footer>ISO 27001 Advisor · SDD kg_hybrid_search v1.4 · 2026-07-04 · Markdown 原始檔：docs/specs/kg_hybrid_search_sdd.md</footer>
+
+</article>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-hint">點擊或按 Esc 關閉</span>
+  <img src="" alt="">
+</div>
+
+<script>
+window.addEventListener("DOMContentLoaded", function(){
+  if (window.mermaid) { mermaid.initialize({ startOnLoad: true, theme: "neutral" }); }
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = lightbox.querySelector("img");
+  function openLightbox(img){
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("is-open");
+  }
+  function closeLightbox(){ lightbox.classList.remove("is-open"); lightboxImg.src = ""; }
+  document.querySelectorAll("figure.section-figure img").forEach(function(img){
+    img.addEventListener("click", function(){ openLightbox(img); });
+  });
+  lightbox.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLightbox(); });
+});
+</script>
+</body>
+</html>

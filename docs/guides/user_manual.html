@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使用者手冊 — ISO 27001 Advisor Agent v4.2</title>
+<style>
+:root{
+  --bg:#f9f7f4; --text:#1a1a1a; --muted:#6b6b6b; --border:#e4ded4;
+  --accent:#0e7a5f; --accent-soft:rgba(14,122,95,0.08);
+  --warn:#b45309; --warn-soft:rgba(180,83,9,0.08);
+  --card:#ffffffcc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  font-size:16.5px; line-height:1.68; letter-spacing:0;
+}
+.page{max-width:1120px;margin:0 auto;padding:0 24px}
+article{max-width:720px;margin:0 auto}
+h1{font-size:clamp(1.9rem,4vw,3.0rem);line-height:1.25;text-wrap:balance;margin:20px 0 12px}
+h2{font-size:clamp(1.35rem,2.6vw,1.7rem);line-height:1.3;text-wrap:balance;margin:56px 0 16px;padding-top:8px;border-top:2px solid var(--border)}
+h3{font-size:1.12rem;margin:30px 0 10px;color:#2d2d2d}
+p{margin:12px 0}
+ul,ol{margin:12px 0 12px 1.4em}
+li{margin:5px 0}
+strong{color:#111}
+code{background:#efe9df;border-radius:5px;padding:1px 6px;font-size:0.88em;font-family:"SF Mono",Menlo,Consolas,monospace}
+pre{background:#211f1c;color:#e8e2d6;border-radius:10px;padding:16px 18px;overflow-x:auto;margin:16px 0;font-size:13.5px;line-height:1.55}
+pre code{background:none;color:inherit;padding:0}
+blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 18px;border-radius:0 10px 10px 0;margin:16px 0;color:#333}
+.tblwrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;background:#fff}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th{background:#f0ebe2;text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid #eee8dd;vertical-align:top}
+tr:last-child td{border-bottom:none}
+.hero{padding:48px 0 8px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.badge{font-size:12.5px;padding:4px 12px;border-radius:999px;border:1px solid var(--border);background:#fff;color:#444}
+.badge.green{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}
+.subtitle{color:var(--muted);font-size:15px;margin-top:8px}
+nav.toc{
+  position:sticky;top:0;z-index:100;background:rgba(249,247,244,0.93);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;
+}
+nav.toc .inner{display:flex;gap:4px;overflow-x:auto;white-space:nowrap;max-width:1120px;margin:0 auto;padding:0 24px;width:100%;scrollbar-width:none}
+nav.toc .inner::-webkit-scrollbar{display:none}
+nav.toc a{font-size:13.5px;color:#555;text-decoration:none;padding:6px 12px;border-radius:999px}
+nav.toc a:hover{background:var(--accent-soft);color:var(--accent)}
+.callout{border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin:16px 0;background:var(--card)}
+.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+figure.section-figure{margin:28px 0;text-align:center}
+figure.section-figure img{
+  width:100%;max-width:640px;display:block;margin:0 auto;border-radius:12px;
+  aspect-ratio:16/9;object-fit:cover;box-shadow:0 6px 24px rgba(0,0,0,0.08);cursor:zoom-in;
+}
+figure.section-figure figcaption{font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.55}
+footer{margin:64px 0 40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);text-align:center}
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(26,26,26,0.88);align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.is-open{display:flex}
+.lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,0.4)}
+.lightbox .lightbox-hint{position:absolute;top:20px;right:24px;color:rgba(255,255,255,0.75);font-size:14px}
+@media (max-width:640px){
+  body{font-size:16px}
+  figure.section-figure img{aspect-ratio:9/16;max-width:360px}
+  .hero{padding-top:28px}
+}
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="章節導覽">
+  <div class="inner">
+    <a href="#s1">快速啟動</a>
+    <a href="#s2">進階參數</a>
+    <a href="#s3">處理管線</a>
+    <a href="#s4">解讀回答</a>
+    <a href="#s5">品質評估</a>
+    <a href="#s6">常見問題</a>
+  </div>
+</nav>
+
+<div class="page">
+<article>
+
+<header class="hero">
+  <h1>📘 使用者操作與使用手冊</h1>
+  <div class="badges">
+    <span class="badge green">v4.2</span>
+    <span class="badge">100% 可離線</span>
+    <span class="badge">ISO/IEC 27001:2022</span>
+  </div>
+  <p class="subtitle">歡迎使用 <strong>ISO 27001 Advisor Agent</strong>——一套 100% 可離線運行的 ISO/IEC 27001:2022 智能合規顧問系統。本手冊指引您啟動並操作系統的多種介面，解讀顧問回答，以及執行品質評估。</p>
+</header>
+
+<section id="s1">
+<h2>1. 系統啟動指南（Quick Start）</h2>
+<p>開啟終端機（Terminal），切換至專案資料夾後，依需求選擇入口：</p>
+
+<h3>方式一：Web UI（推薦，功能最完整）</h3>
+<pre><code>python3 app.py</code></pre>
+<p>系統會自動開啟瀏覽器（<code>http://127.0.0.1:8000</code>）。Web Advisor 支援：</p>
+<ul>
+<li><strong>Strict Offline 模式</strong>（預設開啟）：所有推理都在本地 Ollama 完成，不會外送任何資料</li>
+<li><strong>多輪對話</strong>：自動附帶前 3 輪對話脈絡，可連續追問</li>
+<li><strong>任務模式</strong>：一般問答／文件缺口分析／稽核證據／SoA／稽核報告／30-60-90 行動計畫</li>
+<li><strong>Markdown 下載</strong>：LV3 交付物（SoA、稽核報告等）可一鍵下載</li>
+<li><strong>原文抽屜與推薦卡片</strong>：每次回答附引用條文原文與 PDCA 合規推薦</li>
+</ul>
+
+<h3>方式二：CLI 互動 REPL 模式（適合連續追問）</h3>
+<pre><code>python3 main.py</code></pre>
+<p>啟動後在提示字元 <code>&gt;</code> 輸入問題，例如：<code>如何決定ISMS範圍？</code>。輸入 <code>exit</code> 或 <code>quit</code> 退出。</p>
+
+<h3>方式三：CLI 單次查詢（適合快速查閱）</h3>
+<pre><code>python3 main.py "最高管理階層如何展現對資安的承諾？"</code></pre>
+
+<h3>方式四：LV2 顧問 Agent（工具自動路由）</h3>
+<pre><code>python3 agent.py "備份的稽核證據要準備什麼？"</code></pre>
+<p>Agent 會自動判斷任務類型（qa / gap / evidence）並路由到對應工具；也可用 <code>--mode</code> 明確指定。</p>
+</section>
+
+<section id="s2">
+<h2>2. 進階參數調用（Advanced Parameters）</h2>
+<p>主程式 <code>main.py</code> 提供多項參數以配合您的硬體環境與模型偏好：</p>
+<div class="tblwrap"><table>
+<thead><tr><th>參數</th><th>作用</th><th>範例</th></tr></thead>
+<tbody>
+<tr><td><code>--model</code></td><td>指定本地 Ollama 模型（預設 <code>gemma3:12b-16k</code>）</td><td><code>--model gemma4:12b-it-qat-16k</code></td></tr>
+<tr><td><code>--top-k</code></td><td>每次檢索參考的 ISO 條文數量（預設 <code>4</code>）</td><td><code>--top-k 2</code></td></tr>
+<tr><td><code>--deep</code></td><td>深度分析模式（Map-Reduce），適合跨條文複雜問題</td><td><code>python3 main.py --deep "..."</code></td></tr>
+<tr><td><code>--no-cache</code></td><td>停用語意快取，強制走完整 RAG 流程</td><td><code>--no-cache</code></td></tr>
+<tr><td><code>--host</code></td><td>Ollama API 位址（預設 <code>http://localhost:11434</code>）</td><td><code>--host http://192.168.1.10:11434</code></td></tr>
+<tr><td><code>--gemini</code></td><td>強制使用雲端 Gemini API 推理（需 <code>.env</code> 設定金鑰）</td><td><code>--gemini</code></td></tr>
+<tr><td><code>--gemini-model</code></td><td>指定 Gemini 模型（預設 <code>gemini-2.5-pro</code>）</td><td><code>--gemini-model gemini-3.1-flash-lite</code></td></tr>
+</tbody>
+</table></div>
+<blockquote>💡 未指定 <code>--gemini</code> 但本地 Ollama 未啟動且已設定 <code>GEMINI_API_KEY</code> 時，系統會自動切換至 Gemini 備援。Strict Offline 需求下請勿設定金鑰即可保證零外送。</blockquote>
+</section>
+
+<section id="s3">
+<h2>3. 系統如何處理您的問題（Pipeline）</h2>
+<p>每個問題會依序經過四層處理，兼顧速度、保密與精準：</p>
+<ol>
+<li><strong>語意快取（Layer 0）</strong>：先比對 FAQ 快取，語意相似度 ≥ 0.92 直接回傳既有答案（約 2ms），不動用 LLM。</li>
+<li><strong>檢索（Layer 1）</strong>：關鍵字引擎（同義詞擴充＋核心術語加權）從 144 個條文節點中挑出 Top-4 依據。v4.2 新增<strong>信心閘門混合檢索</strong>（<code>HybridSearcher</code>，預設 gated 模式）：關鍵字規則有把握時直接採用；沒把握時啟動語意向量搜尋＋RRF 融合＋知識圖譜擴展，讓「換句話說」的問法也能命中。</li>
+<li><strong>推理（Layer 2）</strong>：條文打包進 System Prompt（三層引用架構、閉卷約束），由本地 Ollama 生成顧問格式回答。</li>
+<li><strong>合規推薦（Layer 3）</strong>：依引用條文從 PDCA 圖譜產生 2-3 張「下一步」推薦卡片。</li>
+</ol>
+
+<figure class="section-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="images/layers-mobile.png">
+    <img src="images/layers.png" alt="四層處理管線：語意快取約 2ms、信心閘門混合檢索挑出 Top-4 條文、本地 Ollama 離線推理、PDCA 圖譜合規推薦">
+  </picture>
+  <figcaption>四層處理管線：快取搶時間、檢索找依據、推理寫答案、推薦指路。點圖可放大。</figcaption>
+</figure>
+
+<div class="callout warn">⚠️ <strong>版本註記</strong>：v4.2 的信心閘門檢索已完成合併並通過雙資料集回歸護欄，<code>app.py</code> / <code>main.py</code> 入口的接線排定於 v4.3——目前三個入口仍使用純關鍵字檢索。</div>
+</section>
+
+<section id="s4">
+<h2>4. 解讀顧問解答（Interpreting Advisor Responses)</h2>
+<p>當您提出諮詢後，系統會輸出四個部分，對應專業稽核員的嚴謹回覆邏輯：</p>
+<pre><code>==================== 📖 ISO 27001 顧問解答 ====================
+🎯 [諮詢問題分析]
+說明您問題的核心本質與涉及的資安維度。
+
+📖 [依據條文與控制項說明]
+精確列出該問題依據的 ISO 27001 條款編號與標準內容。
+引用格式一律標註為例如 [A.8.13 資訊備份]，以利翻閱 CNS 標準本。
+
+🛠 [文件缺口與稽核證據建議]
+1. 文件缺口：指引您組織內必須制定哪些「書面政策、程序書或管理規範」。
+2. 稽核證據：指引您在被稽核時，要提供什麼「運行紀錄、系統設定截圖或簽核紀錄」。
+
+⚠️ [免責與合規警示] (高風險場景)
+提示此回覆不具正式認證效力，涉及高風險決策應諮詢 Lead Auditor 最終確認。
+==============================================================</code></pre>
+<h3>🔍 附註：引用條文依據清單</h3>
+<p>回答末尾會列出本次推論參考的條文 ID 與檢索得分（如：<code>- [control_8.11] 8.11 資料遮罩 (控制措施, 分數: 230.80)</code>），可透過這些 ID 在原始條文檔 <code>data/cht.md</code> 中交叉比對。</p>
+</section>
+
+<section id="s5">
+<h2>5. 執行品質評估（Quality Evaluation）</h2>
+
+<h3>檢索品質</h3>
+<pre><code># keyword 基準（60 題原評估集）
+python3 eval/evaluation.py
+
+# v4.2 信心閘門模式
+python3 eval/evaluation.py --mode gated
+
+# 改寫題考場（模擬真實使用者的多樣問法）
+python3 eval/evaluation.py --mode gated --dataset-path data/eval_dataset_paraphrase.json</code></pre>
+
+<p><strong>v4.2 雙軌實測基準</strong>（top_k=4）：</p>
+<div class="tblwrap"><table>
+<thead><tr><th>考場</th><th>模式</th><th>Hit Rate @4</th><th>Avg Recall @4</th><th>MRR @4</th></tr></thead>
+<tbody>
+<tr><td>原 60 題</td><td>keyword</td><td>100.0%</td><td>79.7%</td><td>0.8597</td></tr>
+<tr><td>原 60 題</td><td>gated</td><td>98.3%</td><td>80.2%</td><td>0.8764</td></tr>
+<tr><td>改寫 60 題</td><td>keyword</td><td>71.7%</td><td>54.2%</td><td>0.5931</td></tr>
+<tr><td>改寫 60 題</td><td>gated</td><td><strong>76.7%</strong></td><td><strong>58.1%</strong></td><td><strong>0.6222</strong></td></tr>
+</tbody>
+</table></div>
+
+<figure class="section-figure">
+  <picture>
+    <source media="(max-width: 640px)" srcset="images/dualtrack-mobile.png">
+    <img src="images/dualtrack.png" alt="雙考場成績對比：考古題考場 keyword 100% 對 gated 98.3%；換句話說考場 keyword 71.7% 對 gated 76.7%，gated 領先 5 個百分點">
+  </picture>
+  <figcaption>雙考場成績對比：考古題考場 keyword 滿分是過擬合的幻影；換句話說考場才是真實世界，gated 全面領先。點圖可放大。</figcaption>
+</figure>
+
+<p><strong>指標白話解讀</strong>：</p>
+<ol>
+<li><strong>Hit Rate @4（檢索成功率）</strong>：前 4 個檢索結果中，是否至少命中一個預期條款。這是「答案有沒有基本可信度」的底線指標。</li>
+<li><strong>Avg Recall @4（平均召回率）</strong>：預期正確條款被成功檢索出來的平均比例（部分問題有多個預期條文）。</li>
+<li><strong>MRR @4（平均倒數排名）</strong>：正確條款的排序位置。第一名得 1.0、第二名得 0.5——越接近 1.0，LLM 推理時越能聚焦關鍵條文。</li>
+<li><strong>雙考場的意義</strong>：原題集是系統調校的「考古題」；改寫題集用不同措辭問同樣問題，模擬真實使用者。gated 模式在改寫考場四項指標全面領先，代表它對「不照關鍵字表說話的人」更強健。</li>
+</ol>
+
+<h3>回答品質（Faithfulness）</h3>
+<pre><code>python3 eval/faithfulness_evaluation.py --model gemma4:e2b-mlx</code></pre>
+<p>實測水準：Citation Faithfulness <strong>91.8%</strong>、Content Faithfulness <strong>98.9%</strong>（60 題，LLM-as-Judge 三層評分）。</p>
+
+<h3>回歸護欄</h3>
+<pre><code>python3 -m pytest tests/test_gated_recall_regression.py -q</code></pre>
+<p>雙資料集護欄（原題 ≥ 59/60、改寫題 ≥ 46/60）確保未來任何檢索改動不會讓品質退步；本地 Ollama 未啟動時自動 skip。</p>
+</section>
+
+<section id="s6">
+<h2>6. 常見問題（FAQ）</h2>
+<p><strong>Q：完全離線可以用嗎？</strong><br>
+可以。預設 Strict Offline：推理（Ollama）、檢索、快取、評估全部在本地完成。不設定 <code>GEMINI_API_KEY</code> 即保證零外送。</p>
+<p><strong>Q：需要哪些本地模型？</strong><br>
+<code>ollama pull</code> 以下模型：推理用 <code>gemma4:e2b-mlx</code>（Web 預設）或 <code>gemma3:12b-16k</code>（CLI 預設）；語意快取與向量檢索用 <code>jeffh/intfloat-multilingual-e5-large-instruct:f16</code>。</p>
+<p><strong>Q：回答引用的條文編號可靠嗎？</strong><br>
+系統採「三層引用架構」System Prompt 與閉卷約束，Content Faithfulness 實測 98.9%；但 AI 建議不具正式認證效力，高風險決策請以 Lead Auditor 意見為準。</p>
+<p><strong>Q：想把系統移植到其他標準（如公司內規）？</strong><br>
+參考 <code>docs/guides/porting_guide.html</code> 與 <code>scripts/build_new_advisor.py</code>。</p>
+</section>
+
+<footer>ISO 27001 Advisor Agent · 使用者手冊 v4.2 · 2026-07-04 · Markdown 原始檔：docs/guides/user_manual.md</footer>
+
+</article>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-hint">點擊或按 Esc 關閉</span>
+  <img src="" alt="">
+</div>
+
+<script>
+window.addEventListener("DOMContentLoaded", function(){
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = lightbox.querySelector("img");
+  function openLightbox(img){
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("is-open");
+  }
+  function closeLightbox(){ lightbox.classList.remove("is-open"); lightboxImg.src = ""; }
+  document.querySelectorAll("figure.section-figure img").forEach(function(img){
+    img.addEventListener("click", function(){ openLightbox(img); });
+  });
+  lightbox.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLightbox(); });
+});
+</script>
+</body>
+</html>
