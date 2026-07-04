@@ -60,7 +60,7 @@ class HybridSearcher:
         host=OLLAMA_HOST,
         rrf_k=60,
         kg_damp=0.5,
-        mode="full",
+        mode="gated",
     ):
         self.searcher = searcher or ISO27001Searcher()
         self.emb_path = Path(emb_path) if emb_path is not None else DEFAULT_EMB_PATH

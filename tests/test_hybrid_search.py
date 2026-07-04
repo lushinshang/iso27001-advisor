@@ -53,7 +53,7 @@ def test_hybrid_searcher_combines_keyword_and_vector_rankings(tmp_path, monkeypa
         lambda text, model, host: [0.0, 1.0],
     )
 
-    searcher = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path)
+    searcher = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path, mode="full")
     results = searcher.search("query", limit=3)
 
     assert "control_c" in [result["item"]["id"] for result in results]
@@ -70,7 +70,7 @@ def test_hybrid_searcher_adds_kg_one_hop_with_dampened_score(tmp_path, monkeypat
         lambda text, model, host: [0.0, 1.0],
     )
 
-    searcher = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path, kg_path=kg_path)
+    searcher = HybridSearcher(searcher=FakeSearcher(), emb_path=emb_path, kg_path=kg_path, mode="full")
     results = searcher.search("query", limit=4)
     by_id = {result["item"]["id"]: result for result in results}
 
@@ -85,6 +85,7 @@ def test_hybrid_searcher_falls_back_to_keyword_when_embedding_unavailable(tmp_pa
         searcher=FakeSearcher(),
         emb_path=missing_path,
         host="http://127.0.0.1:9",
+        mode="full",
     )
     results = searcher.search("query", limit=2)
 
@@ -200,3 +201,25 @@ def test_hybrid_searcher_gated_mode(tmp_path, monkeypatch):
     assert {r["source"] for r in results} == {"keyword_fallback"}
 
 
+def test_hybrid_searcher_defaults_to_gated_mode(tmp_path, monkeypatch):
+    emb_path = tmp_path / "embeddings.json"
+    kg_path = tmp_path / "knowledge_graph.json"
+    _write_embeddings(emb_path)
+    _write_kg(kg_path)
+    monkeypatch.setattr(
+        "iso27001_advisor.core.hybrid_search.get_embedding",
+        lambda text, model, host: [0.0, 1.0],
+    )
+
+    fake_searcher = FlexibleSearcher()
+    fake_searcher.mock_results = [
+        {"id": "control_a", "score": 100.0},
+        {"id": "control_b", "score": 90.0},
+    ]
+    searcher = HybridSearcher(searcher=fake_searcher, emb_path=emb_path, kg_path=kg_path)
+
+    results = searcher.search("query", limit=4)
+
+    assert searcher.mode == "gated"
+    assert [r["item"]["id"] for r in results] == ["control_a", "control_b"]
+    assert {r["source"] for r in results} == {"keyword"}
