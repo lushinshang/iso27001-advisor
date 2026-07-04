@@ -2,6 +2,7 @@
 
 離線版 ISO 27001 顧問助理。目前為 **v4.4 / src layout / demo-ready**。
 
+🎬 Capstone 影片：[youtu.be/7TvK1gugw_k](https://youtu.be/7TvK1gugw_k)
 📦 GitHub：[github.com/lushinshang/iso27001-advisor](https://github.com/lushinshang/iso27001-advisor)
 
 ## 快速啟動
