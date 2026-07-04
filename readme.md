@@ -57,6 +57,7 @@ python3 agent.py
 - `data/knowledge_graph.json` 已由 pdca 關聯圖直建，含 125 條條文關聯邊。
 - `data/eval_dataset_paraphrase.json` 已建立改寫題評估集，揭露 keyword 規則對原題過擬合。
 - LLM 提名產線保留但封存；重啟條件與句子編號選擇法見 SDD §9.3。
+- **下一步（v4.3）**：`app.py` / `main.py` / `agent.py` 目前仍走純關鍵字檢索（`ISO27001Searcher`），接線至 `HybridSearcher`（gated 預設）為獨立變更。
 
 ### 設計決策記錄
 
@@ -148,10 +149,12 @@ iso27001-advisor/
 ├── tmp/                         # 暫存（.gitignore 排除）
 ├── docs/
 │   ├── specs/
-│   │   ├── system_spec.html     # 權威規格文件
-│   │   ├── architecture.html    # 系統架構 / 流程 / 使用者旅程圖
-│   │   ├── faithfulness_improvement_plan.html
-│   │   └── refactor_plan.html
+│   │   ├── system_spec.html     # 權威規格文件（Spec v1.6 / System v4.2）
+│   │   ├── architecture.html    # 系統架構 / 流程 / 使用者旅程圖（v4.2 信心閘門）
+│   │   ├── kg_hybrid_search_sdd.md  # v4.2 SDD（v1.0→v1.4 完整決策軌跡）
+│   │   ├── codex_kg_prompt.md / antigravity_kg_prompt.md / codex_merge_prompt.md  # 各階段執行代理提示詞
+│   │   ├── faithfulness_improvement_plan.html  # 已歸檔（v3.9 完成）
+│   │   └── refactor_plan.html   # 已歸檔（v1.4 src layout 完成）
 │   └── guides/
 │       ├── porting_guide.html   # 移植新領域新手指南
 │       └── user_manual.md
@@ -161,8 +164,26 @@ iso27001-advisor/
 ## 評估指令
 
 ```bash
-# 檢索評估
+# 檢索評估（keyword 基準）
 python3 eval/evaluation.py
+
+# 檢索評估：消融/閘門模式（keyword / keyword+KG / keyword+RRF / full / gated）
+python3 eval/evaluation.py --mode gated
+
+# 檢索評估：改寫題考場
+python3 eval/evaluation.py --mode gated --dataset-path data/eval_dataset_paraphrase.json
+
+# 雙資料集回歸護欄（需 Ollama，不可達時自動 skip）
+python3 -m pytest tests/test_gated_recall_regression.py -q
+
+# 向量索引重建（129 節點 → data/clause_embeddings.json）
+python3 scripts/build_embeddings.py
+
+# KG 重建（pdca 直建，125 邊）
+python3 scripts/build_knowledge_graph.py --from-pdca
+
+# 改寫題評估集重生成（gemma4:12b-it-qat-16k）
+python3 scripts/generate_paraphrase_eval.py
 
 # Faithfulness 評估（需 Ollama）
 python3 eval/faithfulness_evaluation.py --model gemma4:e2b-mlx

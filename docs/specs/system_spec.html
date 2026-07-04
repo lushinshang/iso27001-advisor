@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISO 27001 Advisor — System Spec v1.5</title>
+<title>ISO 27001 Advisor — System Spec v1.6</title>
 <style>
 :root {
   --bg: #0b0f19;
@@ -258,13 +258,13 @@ li strong { color: var(--text); }
 <div class="page-header">
   <div class="badges">
     <span class="badge badge-green">✓ Demo-Ready</span>
-    <span class="badge badge-blue">LV3 Polish</span>
-    <span class="badge badge-blue">Spec v1.5</span>
-    <span class="badge badge-purple">187 Tests Passing</span>
-    <span class="badge badge-yellow">2026-06-26</span>
+    <span class="badge badge-blue">v4.2 Gated Hybrid</span>
+    <span class="badge badge-blue">Spec v1.6</span>
+    <span class="badge badge-purple">237 Tests Passing</span>
+    <span class="badge badge-yellow">2026-07-04</span>
   </div>
   <h1><span>ISO 27001 Advisor Agent</span> — System Specification</h1>
-  <p>離線優先、RAG 架構的 ISO 27001 智能合規顧問系統。本文件為 v1.3 最新規格，涵蓋 Faithfulness 評估層、三層引用架構 System Prompt、目錄重整等本次新增內容，整合所有前版 spec（SDD / PRD / SRS / System Principles）為單一權威來源。</p>
+  <p>離線優先、RAG 架構的 ISO 27001 智能合規顧問系統。本文件為 v1.6 最新規格，涵蓋 v4.2 信心閘門混合檢索（gated hybrid）、pdca-KG 1-hop、雙資料集回歸護欄、改寫題評估集等本次新增內容，整合所有前版 spec 為單一權威來源。v4.2 詳細決策軌跡見 <code>kg_hybrid_search_sdd.md</code>（SDD v1.4）。</p>
 </div>
 
 <!-- ── 1. 系統概覽 ── -->
@@ -290,8 +290,8 @@ li strong { color: var(--text); }
     </div>
     <div class="card">
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px">測試覆蓋</div>
-      <div style="font-weight:700;font-size:15px">187 passed</div>
-      <div style="font-size:12px;color:var(--muted)">pytest，session scope fixtures</div>
+      <div style="font-weight:700;font-size:15px">237 passed</div>
+      <div style="font-size:12px;color:var(--muted)">pytest，含雙資料集 gated 回歸護欄</div>
     </div>
     <div class="card">
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px">預設推理模型</div>
@@ -300,8 +300,8 @@ li strong { color: var(--text); }
     </div>
     <div class="card">
       <div style="font-size:11px;color:var(--muted);margin-bottom:6px">整體版本</div>
-      <div style="font-weight:700;font-size:15px">v3.9 / Spec v1.5</div>
-      <div style="font-size:12px;color:var(--muted)">LV3 Polish，demo-ready</div>
+      <div style="font-weight:700;font-size:15px">v4.2 / Spec v1.6</div>
+      <div style="font-size:12px;color:var(--muted)">Gated Hybrid Search，demo-ready</div>
     </div>
   </div>
 
@@ -351,8 +351,8 @@ li strong { color: var(--text); }
     </div>
     <div class="layer wip">
       <span class="lv">LV5</span>
-      <div><div class="title">Multi-agent + Evaluation Flywheel</div><div class="detail">多 agent 協作、自動評估回饋循環</div></div>
-      <span class="status">⏳ 未開始</span>
+      <div><div class="title">Multi-agent + Evaluation Flywheel</div><div class="detail">多 agent 協作、自動評估回饋循環；檢索層已完成完整飛輪示範（v4.2：消融實驗 → 信心閘門 → 改寫題集 → 雙軌護欄）</div></div>
+      <span class="status">部分達成 ✅（檢索層）</span>
     </div>
   </div>
 </section>
@@ -367,8 +367,12 @@ li strong { color: var(--text); }
 [Layer 0]  語意快取查詢（semantic_cache.py）
     ├─ 命中（相似度 ≥ 0.92）→ 直接回傳 ~2ms，LLM 上下文 = 0
     └─ 未命中 ↓
-[Layer 1]  混合檢索（search_tool.py）
-    │   同義詞擴充 → N-gram 比對 → Soul-Word Boosting → Top-4 條文
+[Layer 1]  信心閘門混合檢索（hybrid_search.py，v4.2 預設 gated 模式）
+    │   關鍵字檢索（search_tool.py：同義詞擴充 → N-gram → Soul-Word Boosting）
+    ├─ top-1 分數 ≥ 100（規則觸發，高信心）→ 純關鍵字 Top-4
+    └─ top-1 分數 &lt; 100（低信心）→ 向量檢索（E5 embedding）
+        → RRF 融合（k=60）→ KG 1-hop 擴展（pdca-KG 125 邊，×0.5 折扣）→ Top-4
+    │   離線退化：Ollama 不可用時自動退回純關鍵字
     ▼
 [Layer 2]  推理引擎（main.py / agent.py）
     ├─ 一般模式：Stuffing → System Prompt → LLM 串流
@@ -386,6 +390,8 @@ li strong { color: var(--text); }
       <thead><tr><th>模組</th><th>路徑</th><th>職責</th></tr></thead>
       <tbody>
         <tr><td><code>search_tool.py</code></td><td>src/iso27001_advisor/core/ <span class="new-tag">v1.4</span></td><td>同義詞擴充、N-gram、Soul-Word Boosting、O(1) _id_index</td></tr>
+        <tr><td><code>hybrid_search.py</code></td><td>src/iso27001_advisor/core/ <span class="new-tag">v4.2</span></td><td>HybridSearcher：信心閘門（預設 gated）、rrf_fuse、KG 1-hop、離線退化</td></tr>
+        <tr><td><code>kg_gates.py</code></td><td>src/iso27001_advisor/core/ <span class="new-tag">v4.2</span></td><td>KG 品質關卡 G1-G4 純函數 + degree cap（LLM 提名產線用，產線現封存）</td></tr>
         <tr><td><code>semantic_cache.py</code></td><td>src/iso27001_advisor/core/</td><td>FAQ 語意快取（E5-instruct embedding）</td></tr>
         <tr><td><code>recommendation.py</code></td><td>src/iso27001_advisor/core/</td><td>PDCA 圖譜合規推薦</td></tr>
         <tr><td><code>llm.py</code></td><td>src/iso27001_advisor/llm/ <span class="new-tag">v1.4</span></td><td>call_ollama / call_gemini / build_prompt / get_system_prompt / map_reduce_query / load_dotenv</td></tr>
@@ -404,6 +410,10 @@ li strong { color: var(--text); }
         <tr><td><code>level2_evaluation.py</code></td><td>eval/</td><td>LV2 Agent 評估</td></tr>
         <tr><td><code>level3_evaluation.py</code></td><td>eval/</td><td>LV3 Agent 評估</td></tr>
         <tr><td><code>generate_faq.py</code></td><td>scripts/ <span class="new-tag">v1.4</span></td><td>FAQ 離線批次生成（含 checkpoint）</td></tr>
+        <tr><td><code>build_embeddings.py</code></td><td>scripts/ <span class="new-tag">v4.2</span></td><td>129 節點向量索引建置 → data/clause_embeddings.json</td></tr>
+        <tr><td><code>build_knowledge_graph.py</code></td><td>scripts/ <span class="new-tag">v4.2</span></td><td>KG 建置：--from-pdca 直建（正式）+ LLM 候選清單提名產線（封存）</td></tr>
+        <tr><td><code>eval_nominator.py</code></td><td>scripts/ <span class="new-tag">v4.2</span></td><td>LLM 提名器診斷評測（格式合格率/引文誠實率/黃金邊召回）</td></tr>
+        <tr><td><code>generate_paraphrase_eval.py</code></td><td>scripts/ <span class="new-tag">v4.2</span></td><td>改寫題評估集生成（gemma4:12b-it-qat-16k，≥6 字重疊過濾）</td></tr>
         <tr><td><code>parse_iso.py</code></td><td>scripts/</td><td>ISO 27001 原始文件解析器</td></tr>
         <tr><td><code>data/</code></td><td>data/</td><td>iso27001_structure.json、eval 資料集、評估結果</td></tr>
         <tr><td><code>tmp/</code></td><td>tmp/</td><td>faq_cache.json、faq_index.json（暫存，.gitignore）</td></tr>
@@ -431,6 +441,26 @@ li strong { color: var(--text); }
         <tr><td>O(1) ID 查找</td><td>初始化時建立 _id_index 字典，get_by_id() 直接命中</td><td>0.51ms</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <h3>hybrid_search.py — 信心閘門混合檢索 <span class="new-tag">NEW v4.2</span></h3>
+  <div class="tbl-wrap" style="margin-bottom:16px">
+    <table>
+      <thead><tr><th>機制</th><th>說明</th><th>參數（先驗固定）</th></tr></thead>
+      <tbody>
+        <tr><td>信心閘門（預設 gated）</td><td>keyword top-1 ≥ 門檻 → 純關鍵字；否則走 full 增強層（全有或全無）</td><td>門檻 100（boost 最小加分值）</td></tr>
+        <tr><td>向量檢索</td><td>E5-instruct query embedding → cosine 對 129 節點索引（clause_embeddings.json）</td><td>取前 20 融合</td></tr>
+        <tr><td>RRF 融合</td><td>只比排名不比分數：score = Σ 1/(k + rank)</td><td>k=60</td></tr>
+        <tr><td>KG 1-hop 擴展</td><td>融合後 top-k 節點的 pdca-KG 鄰居以折扣分併入（125 邊，人工品質）</td><td>×0.5 折扣</td></tr>
+        <tr><td>離線退化</td><td>Ollama 不可達 / 索引缺失 → 靜默退回純關鍵字，不拋例外</td><td>source 標記 fallback</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <strong>設計依據（消融實驗，SDD §10.4）：</strong>RRF 等權融合會稀釋 intent boost 的精準命中
+    （q52/q56）；KG 單獨疊加會插隊擠掉吊車尾正解（q51），但與 RRF 同行時被向量重排吸收——
+    故閘門罩住整個增強層。LLM 提名 KG 產線因 12B 模型引文抄寫不可靠（誠實率 12.73%）封存，
+    重啟條件與句子編號選擇法見 SDD §9.3。
   </div>
 
   <h3>推理後端參數</h3>
@@ -560,43 +590,33 @@ li strong { color: var(--text); }
 
 <!-- ── 7. 檢索指標 ── -->
 <section id="retrieval-metrics">
-  <h2><span class="icon">📊</span>檢索評估指標（top_k=4）</h2>
-
-  <div class="metric-grid">
-    <div class="metric">
-      <div class="label">Hit Rate @4</div>
-      <div class="value perfect">100%</div>
-      <div class="sub">10/10 題命中，回歸保護中</div>
-    </div>
-    <div class="metric">
-      <div class="label">Avg Recall @4</div>
-      <div class="value good">93.3%</div>
-      <div class="sub">q1(66%) / q6(66%) 部分召回</div>
-    </div>
-    <div class="metric">
-      <div class="label">Avg Precision @4 <span class="new-tag">NEW</span></div>
-      <div class="value good">42.5%</div>
-      <div class="sub">單一 ground truth 題上限 25%</div>
-    </div>
-    <div class="metric">
-      <div class="label">MRR @4</div>
-      <div class="value good">0.933</div>
-      <div class="sub">q3 首位不相關（RR=0.33）</div>
-    </div>
-    <div class="metric">
-      <div class="label">檢索耗時</div>
-      <div class="value perfect">0.51ms</div>
-      <div class="sub">O(1) _id_index，單次查找</div>
-    </div>
-    <div class="metric">
-      <div class="label">測試數</div>
-      <div class="value perfect">187</div>
-      <div class="sub">含 Precision@4 新增 6 個測試</div>
-    </div>
-  </div>
+  <h2><span class="icon">📊</span>檢索評估指標（top_k=4）<span class="new-tag">v4.2 雙軌實測</span></h2>
 
   <div class="highlight yellow">
-    <strong>Precision 詮釋提醒：</strong>42.5% 不代表品質差。當 ground truth 只有 1 個條文（q3/q4/q5/q7/q8），Precision 上限是 1/4=25%。Precision 偏低原因是「ground truth 本來就少」，而非「撈了太多不相關」。需搭配 Recall 一起看。
+    <strong>過期數字作廢：</strong>本節舊版的 Hit Rate 100% / Recall 93.3% / MRR 0.9333 為早期
+    <strong>10 題基準集</strong>時代數字。題庫擴至 60 題後實測 keyword 基準為下表數值；
+    v4.2 另建 60 題<strong>改寫題評估集</strong>，實測揭露關鍵字規則對原題過擬合
+    （Hit Rate 100% → 71.7%，-28.3pp）。
+  </div>
+
+  <div class="tbl-wrap" style="margin-top:16px">
+    <table>
+      <thead><tr><th>考場</th><th>模式</th><th>Hit Rate @4</th><th>Avg Recall @4</th><th>Avg Precision @4</th><th>MRR @4</th></tr></thead>
+      <tbody>
+        <tr><td>原 60 題</td><td>keyword</td><td style="color:var(--green);font-weight:700">100.0%</td><td>79.7%</td><td>37.1%</td><td>0.8597</td></tr>
+        <tr><td>原 60 題</td><td><strong>gated（預設）</strong></td><td>98.3%</td><td style="color:var(--green);font-weight:700">80.2%</td><td style="color:var(--green);font-weight:700">37.5%</td><td style="color:var(--green);font-weight:700">0.8764</td></tr>
+        <tr><td>改寫 60 題</td><td>keyword</td><td>71.7%</td><td>54.2%</td><td>22.9%</td><td>0.5931</td></tr>
+        <tr><td>改寫 60 題</td><td><strong>gated（預設）</strong></td><td style="color:var(--green);font-weight:700">76.7%（+5.0pp）</td><td style="color:var(--green);font-weight:700">58.1%</td><td style="color:var(--green);font-weight:700">24.6%</td><td style="color:var(--green);font-weight:700">0.6222</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight" style="margin-top:12px">
+    <strong>合併判定（SDD v1.4，擁有者 2026-07-04 追認）：</strong>原題接受 98.3% 下限
+    （q52 為無規則保護的低信心分支固有代價，其改寫版被 gated 救回）＋
+    改寫題四指標全面提升。<strong>雙資料集回歸護欄</strong>已進 pytest
+    （<code>test_gated_recall_regression.py</code>：整數命中數下限 59/60、46/60，
+    Ollama 不可達時 skip）。
   </div>
 
   <h3>指標優先順序</h3>
@@ -686,6 +706,29 @@ python3 eval/faithfulness_evaluation.py --load-answers --gemini</pre>
   <h2><span class="icon">📅</span>版本演進</h2>
   <div class="timeline">
     <div class="tl-item latest">
+      <div class="ver">Spec v1.6 / System v4.2</div>
+      <div class="date">2026-07-04</div>
+      <div class="desc">
+        <strong>信心閘門混合檢索合併（多代理協作：Claude 規格 / Codex CLI + Antigravity CLI 實作）</strong>：<br>
+        盤點發現 v3.9 的 Hybrid Search / KG 產物從未進版控（當時無 git）而遺失，v4.2 依
+        <code>kg_hybrid_search_sdd.md</code>（SDD v1.0→v1.4 完整決策軌跡）重建並升級；<br>
+        KG 建置五道自動關卡（G1 結構 / G2 引文字串比對 / G3 相似度地板 / G4 雙向一致 / G5 評估回歸）；
+        LLM 提名產線經正式評測封存（gemma3:12b 引文誠實率 12.73%），正式 KG 由 pdca_graph 直建（125 邊）；<br>
+        消融實驗定位 RRF 稀釋與 KG 插隊兩種退步 → <strong>信心閘門（top-1 ≥ 100）成為預設</strong>；<br>
+        改寫題評估集實測 keyword 過擬合（100% → 71.7%）；gated 於改寫考場四指標全面提升（Hit Rate +5.0pp）；<br>
+        雙資料集回歸護欄進 pytest（整數命中數下限，修復百分比捨入邊界 bug）；專案 git init（純本地）。<br>
+        <strong>237 tests passed（含護欄實跑）</strong>。
+      </div>
+    </div>
+    <div class="tl-item latest-prev">
+      <div class="ver">System v4.0 ~ v4.1</div>
+      <div class="date">2026-06-29</div>
+      <div class="desc">
+        v4.0：Roadmap Context Passthrough（gap_result SSE event，roadmap 銜接第一次缺口分析不重算）；<br>
+        v4.1：多輪對話情境感知（Sliding Window 3 輪）、否定詞偵測修正；200 tests passed。
+      </div>
+    </div>
+    <div class="tl-item latest-prev">
       <div class="ver">Spec v1.5 / System v3.9</div>
       <div class="date">2026-06-26</div>
       <div class="desc">
@@ -765,20 +808,20 @@ python3 eval/faithfulness_evaluation.py --load-answers --gemini</pre>
       <tbody>
         <tr>
           <td>1</td>
+          <td>v4.3：gated 檢索接線至入口</td>
+          <td>app.py / main.py / agent.py 目前仍走 ISO27001Searcher，需切換至 HybridSearcher（gated 預設）；SDD §2 明定為獨立變更</td>
+          <td><span class="badge badge-yellow">高</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
           <td>LV4 Consultant Workspace</td>
           <td>狀態管理、責任人、期限追蹤、證據連結，支援多輪合規計畫追蹤</td>
           <td><span class="badge badge-yellow">高</span></td>
         </tr>
         <tr>
-          <td>2</td>
-          <td>擴充 eval_dataset.json（10→50 題）</td>
-          <td>增加測試覆蓋率，讓各指標更具統計可信度</td>
-          <td><span class="badge badge-blue">中</span></td>
-        </tr>
-        <tr>
           <td>3</td>
-          <td>實際執行 FAQ 生成 + 語意快取</td>
-          <td>P3/P4 建置完成，等待首次執行驗證快取命中率</td>
+          <td>LLM 提名產線重啟（選配）</td>
+          <td>補 pdca 未覆蓋的 51 節點；前提：gemma4:12b-it-qat-16k + 句子編號選擇法（SDD §9.3）</td>
           <td><span class="badge badge-blue">中</span></td>
         </tr>
         <tr>
@@ -795,8 +838,8 @@ python3 eval/faithfulness_evaluation.py --load-answers --gemini</pre>
         </tr>
         <tr>
           <td>6</td>
-          <td>LV5 Multi-agent + Evaluation Flywheel</td>
-          <td>多 agent 協作、自動評估回饋循環；可考慮遷移至 Google ADK</td>
+          <td>LV5 Multi-agent 完整版</td>
+          <td>多 agent 協作；Evaluation Flywheel 檢索層已於 v4.2 完成示範，待擴展至生成層；可考慮遷移至 Google ADK</td>
           <td><span class="badge badge-purple">低</span></td>
         </tr>
       </tbody>
@@ -808,10 +851,10 @@ python3 eval/faithfulness_evaluation.py --load-answers --gemini</pre>
     <table>
       <thead><tr><th>項目</th><th>描述</th><th>緩解措施</th></tr></thead>
       <tbody>
-        <tr><td>eval 題目數偏少</td><td>僅 10 題，Precision 等指標受限</td><td>擴充至 50-100 題</td></tr>
-        <tr><td>Soul-Word 為規則式</td><td>需手動維護同義詞與 boost 清單</td><td>考慮半自動從標準文本提取</td></tr>
+        <tr><td>Soul-Word 為規則式</td><td>需手動維護同義詞與 boost 清單；改寫題實測其原題過擬合（-28.3pp）</td><td>v4.2 信心閘門：低信心題交由向量分支；雙資料集護欄防退步</td></tr>
+        <tr><td>改寫考場天花板 76.7%</td><td>gated 於改寫題仍 14 題失敗（12 題與 keyword 共同失敗）</td><td>檢索層既有極限；候選：擴充同義詞、KG 補邊、embedding 升級</td></tr>
+        <tr><td>入口尚未接線 gated</td><td>app.py / main.py 仍走純關鍵字檢索</td><td>v4.3 接線（Backlog #1）</td></tr>
         <tr><td>FAQ 生成耗時</td><td>144 條文 × 兩階段，可能數小時</td><td>--resume checkpoint 中斷續跑</td></tr>
-        <tr><td>Faithfulness eval 僅 10 題</td><td>Judge 結果 100% 可能受限於資料集</td><td>擴充後重新驗證</td></tr>
         <tr><td>AI 建議免責</td><td>合規建議非正式法律意見</td><td>System Prompt 已含免責聲明</td></tr>
       </tbody>
     </table>
@@ -819,7 +862,7 @@ python3 eval/faithfulness_evaluation.py --load-answers --gemini</pre>
 </section>
 
 <div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:rgba(156,163,175,0.4);text-align:center">
-  ISO 27001 Advisor Agent · System Spec v1.5 · 2026-06-26 · AI Pair Programming Session
+  ISO 27001 Advisor Agent · System Spec v1.6 · 2026-07-04 · AI Pair Programming Session
 </div>
 
 </main>
