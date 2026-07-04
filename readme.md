@@ -2,9 +2,20 @@
 
 離線版 ISO 27001 顧問助理。目前為 **v4.4 / src layout / demo-ready**。
 
+📦 GitHub：[github.com/lushinshang/iso27001-advisor](https://github.com/lushinshang/iso27001-advisor)
+
 ## 快速啟動
 
 ```bash
+# 1. Clone 並安裝（含依賴）
+git clone https://github.com/lushinshang/iso27001-advisor.git
+cd iso27001-advisor
+pip install -e .
+
+# 2. 確認本地 Ollama 已啟動（Strict Offline 推理後端）
+ollama serve
+
+# 3. 啟動系統
 # Web UI（推薦）
 python3 app.py
 
