@@ -100,7 +100,8 @@ python3 agent.py
     ▼
 [Layer 0] 語意快取（semantic_cache.py）   ~2ms 命中
     └─ 未命中 ↓
-[Layer 1] 混合檢索（search_tool.py）      Hybrid Search（關鍵字 + 向量 RRF）+ KG 1-hop
+[Layer 1] 混合檢索（hybrid_search.py）    信心閘門：keyword top-1 ≥ 100 走純關鍵字（search_tool.py），
+                                          否則 Hybrid（關鍵字 + 向量 RRF + KG 1-hop）
     ▼
 [Layer 2] 推理引擎（main.py / agent.py）  一般 / Map-Reduce / Tool-routing
     ▼
