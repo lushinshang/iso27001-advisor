@@ -26,7 +26,9 @@ def _load_dataset(path):
     return payload
 
 
-def _assert_hit_rate_floor(searcher, dataset_path, floor_percent, top_k=4):
+def _assert_hit_count_floor(searcher, dataset_path, floor_hits, top_k=4):
+    # 下限採「整數命中題數」而非百分比：v1.4 實測值為 59/60 與 46/60，
+    # 百分比比較會因捨入（46/60=76.666..% vs 報表的 76.7%）產生永久紅燈。
     dataset = _load_dataset(dataset_path)
     failures = []
     hit_count = 0
@@ -45,10 +47,9 @@ def _assert_hit_rate_floor(searcher, dataset_path, floor_percent, top_k=4):
                 "retrieved": retrieved,
             })
 
-    hit_rate = hit_count / len(dataset) * 100
-    assert hit_rate >= floor_percent, (
-        f"{dataset_path.name} gated Hit Rate@{top_k} = {hit_rate:.1f}% "
-        f"< {floor_percent:.1f}%\n失敗題目: {failures}"
+    assert hit_count >= floor_hits, (
+        f"{dataset_path.name} gated Hit@{top_k} = {hit_count}/{len(dataset)} "
+        f"< 下限 {floor_hits}/{len(dataset)}\n失敗題目: {failures}"
     )
 
 
@@ -62,10 +63,10 @@ def gated_searcher():
 
 
 def test_original_dataset_gated_hit_rate_floor(gated_searcher):
-    """原 60 題：gated Hit Rate@4 不低於 v1.4 實測下限 98.3%。"""
-    _assert_hit_rate_floor(gated_searcher, ORIGINAL_DATASET, floor_percent=98.3)
+    """原 60 題：gated 命中題數不低於 v1.4 實測下限 59/60（98.3%）。"""
+    _assert_hit_count_floor(gated_searcher, ORIGINAL_DATASET, floor_hits=59)
 
 
 def test_paraphrase_dataset_gated_hit_rate_floor(gated_searcher):
-    """改寫 60 題：gated Hit Rate@4 不低於 v1.4 實測下限 76.7%。"""
-    _assert_hit_rate_floor(gated_searcher, PARAPHRASE_DATASET, floor_percent=76.7)
+    """改寫 60 題：gated 命中題數不低於 v1.4 實測下限 46/60（76.7%）。"""
+    _assert_hit_count_floor(gated_searcher, PARAPHRASE_DATASET, floor_hits=46)
