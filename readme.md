@@ -1,6 +1,6 @@
 # ISO 27001 Advisor Agent
 
-離線版 ISO 27001 顧問助理。目前為 **v4.1 / src layout / demo-ready**。
+離線版 ISO 27001 顧問助理。目前為 **v4.2 / src layout / demo-ready**。
 
 ## 快速啟動
 
@@ -25,7 +25,7 @@ python3 agent.py
 | 主要入口 | `python3 app.py` |
 | 預設後端 | Ollama 本地推理（`gemma4:e2b-mlx`） |
 | Strict Offline | On（預設，不自動 fallback Gemini） |
-| 測試 | **200 passed**（tests/ + eval/tests/） |
+| 測試 | pytest 全綠（tests/ + eval/tests/，含雙資料集 gated 回歸護欄） |
 | LV3 評估 | ALL PASS / 7 項指標 100% |
 | 規格文件 | `docs/specs/system_spec.html` |
 
@@ -39,40 +39,49 @@ python3 agent.py
 | LV3 | ✅ | 稽核準備交付物（SoA、稽核報告、問答包、30/60/90 計畫） |
 | LV3 polish | ✅ | Demo-ready Web Advisor（Markdown 下載、badge、表格） |
 | LV4 | ⏳ | Consultant Workspace（狀態管理、責任人、期限、證據連結） |
-| LV5 | ⏳ | Multi-agent + Evaluation Flywheel |
+| LV5 | 部分達成 ✅ | Multi-agent + Evaluation Flywheel（檢索層） |
 
-## 🚧 進行中：v4.2 Hybrid Search + KG 自動把關產線（規劃完成，待實作）
+## ✅ v4.2 完成：Hybrid Search + KG 自動把關產線
 
 > 2026-07-03 盤點發現：README v3.9 宣稱的 Hybrid Search（RRF）+ KG 1-hop
 > 對應檔案（`knowledge_graph.json`、`embeddings.npy`、`build_embeddings.py`）
 > **實際不存在於程式碼庫**，`search_tool.py` 為純關鍵字檢索。
-> v4.2 目標為重建此能力，並升級為「程式自動把關」的建置產線。
+> v4.2 已重建此能力，並以雙資料集回歸護欄完成合併判定。
 
 **權威規格**：`docs/specs/kg_hybrid_search_sdd.md`（SDD + TDD 8 Phase 計畫）
 **Codex CLI 提示詞**：`docs/specs/codex_kg_prompt.md`
 
-### 設計決策記錄（2026-07-03 討論定案）
+### 最終結果摘要（2026-07-04）
+
+- `HybridSearcher` 預設採用信心閘門：keyword top-1 分數 ≥ 100 走純 keyword，否則走完整 RRF + KG。
+- `data/knowledge_graph.json` 已由 pdca 關聯圖直建，含 125 條條文關聯邊。
+- `data/eval_dataset_paraphrase.json` 已建立改寫題評估集，揭露 keyword 規則對原題過擬合。
+- LLM 提名產線保留但封存；重啟條件與句子編號選擇法見 SDD §9.3。
+
+### 設計決策記錄
 
 | 決策 | 結論 | 理由 |
 |---|---|---|
-| KG 建置品質把關 | 五道程式關卡，零人工審核 | 結構規則 → 引文字串比對（AI 編不出存在於原文的假引句）→ embedding 相似度地板 → 雙向互相提名 → 60 題評估回歸一票否決 |
-| 提名模型 | **全地端**：gemma3:12b-16k + gemma4:e2b-mlx 雙提名器取聯集 | 品質下限由關卡保證、模型只影響產量（多輪提名免費補償）；未來機敏語料必須地端，現在就在目標條件下驗收架構（回推約束） |
+| KG 建置品質把關 | 產線保留；v4.2 正式 KG 由 pdca_graph 直建 | LLM 引文抄寫可靠度不足，G2/G4 對人工整理邊不適用；以既有人工 PDCA 關聯作為正式 KG 來源 |
+| 提名模型 | LLM 提名產線封存 | gemma4:12b-it-qat-16k 診斷優於 gemma3，但仍需句子編號選擇法後才能重啟 |
 | 融合演算法 | RRF（k=60） | 只比排名不比分數，免除跨檢索器分數正規化 |
-| 提名器優劣評估 | 產線關卡通過率當評測儀：格式合格率 / 引文誠實率 / 存活邊產量 / 收斂輪數 + 黃金邊召回（cht.md 官方交叉引用）+ 期末考 | 通用 benchmark 測不出特化任務；決策規則預先寫死避免事後凹 |
+| 信心閘門 | keyword top-1 ≥ 100 走純 keyword，否則走 full（RRF + KG） | 保留高信心規則命中，讓低信心語意題交給向量與 KG；門檻預先固定，不依結果調整 |
+| 合併判定 | 選項 A：合併 | 原題 Hit Rate 接受 98.3% 下限；改寫題 gated 四指標全面提升，Hit Rate +5.0pp |
 | 資料流分級 | 建置期語料為公開 ISO 標準（🟢）；執行期 gap 分析輸入為公司文件（🔴 → Strict Offline 既有保護） | 「機敏資料不出地端、公開資料不設限」的精準政策 |
 | 離線性 | 建置期與執行期 100% 離線（localhost Ollama）；離線退化：Ollama 不可用時自動退回純關鍵字檢索 | 延續 Strict Offline 核心約束 |
 
 ## 評估指標（top_k=4）
 
-### 檢索評估
+### 檢索評估（雙資料集實測）
 
-| 指標 | 數值 |
-|---|---|
-| Hit Rate @4 | **100.0%** |
-| Avg Recall @4 | **93.3%** |
-| Avg Precision @4 | **42.5%** |
-| MRR @4 | **0.9333** |
-| 單次檢索耗時 | **0.51 ms** |
+| 考場 | 模式 | Hit Rate @4 | Avg Recall @4 | Avg Precision @4 | MRR @4 |
+|---|---|---:|---:|---:|---:|
+| 原 60 題 | keyword | **100.0%** | 79.7% | 37.1% | 0.8597 |
+| 原 60 題 | gated | 98.3% | **80.2%** | **37.5%** | **0.8764** |
+| 改寫 60 題 | keyword | 71.7% | 54.2% | 22.9% | 0.5931 |
+| 改寫 60 題 | gated | **76.7%** | **58.1%** | **24.6%** | **0.6222** |
+
+> 舊 README 的 Recall 93.3% / MRR 0.9333 為早期 10 題基準集數字，已過期作廢。
 
 ### Faithfulness 評估（LLM-as-Judge）
 
@@ -121,15 +130,19 @@ iso27001-advisor/
 ├── scripts/                     # 維運工具
 │   ├── parse_iso.py             # ISO 27001 條文解析
 │   ├── generate_faq.py          # FAQ 批次生成
-│   ├── build_embeddings.py      # ⚠️ 缺失，v4.2 重建（向量索引建立）
+│   ├── build_embeddings.py      # Hybrid Search 向量索引建立
+│   ├── build_knowledge_graph.py # KG 建置產線（pdca 直建 + 封存 LLM 提名流程）
+│   ├── eval_nominator.py        # LLM 提名器診斷評測
+│   ├── generate_paraphrase_eval.py # 改寫題評估集生成
 │   └── build_new_advisor.py     # 移植新領域用的 ETL 工具
 ├── index.html                   # Web Chat UI
 ├── data/                        # 知識庫與評估資料（版控）
 │   ├── iso27001_structure.json  # 144 個條文節點
 │   ├── pdca_graph.json          # PDCA 合規推薦圖譜
-│   ├── knowledge_graph.json     # ⚠️ 缺失，v4.2 重建（條文關聯邊，KG 1-hop）
-│   ├── clause_embeddings.json   # ⚠️ 缺失，v4.2 重建（Hybrid Search 向量索引）
+│   ├── knowledge_graph.json     # pdca-KG 條文關聯邊（125 邊，供 KG 1-hop）
+│   ├── clause_embeddings.json   # Hybrid Search 向量索引
 │   ├── eval_dataset.json        # 60 題評估題目
+│   ├── eval_dataset_paraphrase.json # 60 題改寫評估題目
 │   └── faithfulness_*.json      # 評估答案與結果快取
 ├── tmp/                         # 暫存（.gitignore 排除）
 ├── docs/
@@ -167,7 +180,7 @@ python3 -m pytest -q
 
 | 版本 | 日期 | 主要變更 |
 |---|---|---|
-| v4.2（規劃） | 2026-07-03 | Hybrid Search + KG 重建計畫定案：盤點發現 v3.9 宣稱的 hybrid/KG 檔案缺失；設計 KG 五道自動把關產線（結構規則/引文驗證/相似度地板/雙向一致/評估回歸）；決策全地端雙提名器（gemma3+gemma4 聯集）；SDD+TDD 8 Phase 計畫與 Codex CLI 提示詞完成（`docs/specs/kg_hybrid_search_sdd.md`） |
+| v4.2（完成） | 2026-07-04 | Hybrid Search + KG 收尾完成：消融實驗定位 RRF 稀釋高信心規則命中；信心閘門成為預設；pdca-KG 125 邊接入；改寫題揭露 keyword 原題過擬合（100%→71.7%）；gated 在改寫考場 Hit Rate +5.0pp 且四指標全面提升；雙資料集回歸護欄納入 pytest |
 | v1.0 | 2026-06-24 | 解析器、關鍵字檢索、Ollama+Gemini 雙後端 |
 | v1.1 | 2026-06-24 | 同義詞擴充、Soul-Word，Hit Rate 100% |
 | v1.2 | 2026-06-25 | O(1) 查找（0.51ms）、MRR@4、截斷防護 |
