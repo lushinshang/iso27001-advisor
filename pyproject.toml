@@ -6,6 +6,15 @@ build-backend = "setuptools.build_meta"
 name = "iso27001-advisor"
 version = "1.3.0"
 requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn>=0.30",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
