@@ -41,31 +41,43 @@ def evaluate_retrieval(top_k=4, dataset_path=None, results_path=None, searcher=N
     if dataset_path is None:
         dataset_path = os.path.join(base_dir, "data", "eval_dataset.json")
     if results_path is None:
+        is_paraphrase = "paraphrase" in os.path.basename(dataset_path)
+        def get_path(name):
+            if is_paraphrase:
+                base, ext = os.path.splitext(name)
+                name = f"{base}_paraphrase{ext}"
+            return os.path.join(base_dir, "data", name)
+
         try:
             from iso27001_advisor.core.hybrid_search import HybridSearcher
             if isinstance(searcher, HybridSearcher):
                 mode = getattr(searcher, "mode", "full")
                 if mode == "keyword":
-                    results_path = os.path.join(base_dir, "data", "eval_results_keyword.json")
+                    results_path = get_path("eval_results_keyword.json")
                 elif mode == "keyword+KG":
-                    results_path = os.path.join(base_dir, "data", "eval_results_keyword_kg.json")
+                    results_path = get_path("eval_results_keyword_kg.json")
                 elif mode == "keyword+RRF":
-                    results_path = os.path.join(base_dir, "data", "eval_results_keyword_rrf.json")
+                    results_path = get_path("eval_results_keyword_rrf.json")
                 elif mode == "gated":
-                    results_path = os.path.join(base_dir, "data", "eval_results_gated.json")
+                    results_path = get_path("eval_results_gated.json")
                 else:
-                    results_path = os.path.join(base_dir, "data", "eval_results_hybrid.json")
+                    results_path = get_path("eval_results_hybrid.json")
             else:
-                results_path = os.path.join(base_dir, "data", "eval_results.json")
+                results_path = get_path("eval_results.json")
         except ImportError:
-            results_path = os.path.join(base_dir, "data", "eval_results.json")
+            results_path = get_path("eval_results.json")
 
     if not os.path.exists(dataset_path):
         print(f"❌ 找不到評估數據集: {dataset_path}")
         return
 
     with open(dataset_path, "r", encoding="utf-8") as f:
-        dataset = json.load(f)
+        data = json.load(f)
+
+    if isinstance(data, dict) and "dataset" in data:
+        dataset = data["dataset"]
+    else:
+        dataset = data
 
     if searcher is None:
         searcher = ISO27001Searcher()
@@ -168,6 +180,7 @@ if __name__ == "__main__":
         help="消融實驗與信心閘門檢索模式"
     )
     parser.add_argument("--results-path", default=None, help="結果儲存路徑")
+    parser.add_argument("--dataset-path", default=None, help="評估數據集路徑")
     args = parser.parse_args()
 
     if args.top_k < 1:
@@ -189,4 +202,9 @@ if __name__ == "__main__":
         searcher = HybridSearcher(mode=mode)
         print(f"💡 模式：使用 HybridSearcher ({mode})")
 
-    evaluate_retrieval(top_k=args.top_k, searcher=searcher, results_path=args.results_path)
+    evaluate_retrieval(
+        top_k=args.top_k,
+        searcher=searcher,
+        results_path=args.results_path,
+        dataset_path=args.dataset_path,
+    )

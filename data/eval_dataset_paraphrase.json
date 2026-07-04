@@ -1,0 +1,1083 @@
+{
+  "_meta": {
+    "source": "/Users/lanss/projects/2_Practice/5-Day AI Agents Intensive Course with Google(2026)/iso27001-advisor/data/eval_dataset.json",
+    "model": "gemma4:12b-it-qat-16k",
+    "total_questions": 60,
+    "skipped_count": 4,
+    "generated_at": "2026-07-04T11:11:56"
+  },
+  "dataset": [
+    {
+      "id": "q1",
+      "category": "條文解釋",
+      "original_question": "如何決定 ISMS 的適用範圍？我們需要考量哪些因素？",
+      "question": "在界定 ISMS 實施範圍時，應考慮哪些關鍵要素？",
+      "expected_clauses": [
+        "clause_4.3",
+        "clause_4.1",
+        "clause_4.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "範圍",
+        "全景",
+        "關注方",
+        "邊界"
+      ]
+    },
+    {
+      "id": "q2",
+      "category": "風險評鑑",
+      "original_question": "ISO 27001 要求我們如何進行資訊安全風險評鑑？",
+      "question": "針對 ISO 27001 標準中關於資訊安全風險評估的規範要求，請問該標準如何指導我們執行此項程序？",
+      "expected_clauses": [
+        "clause_6.1.2",
+        "clause_8.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "評鑑準則",
+        "識別風險",
+        "分析風險",
+        "風險等級"
+      ]
+    },
+    {
+      "id": "q3",
+      "category": "領導作為",
+      "original_question": "最高管理階層應如何展現對資訊安全管理系統的領導力與承諾？",
+      "question": "管理層最上層應該透過哪些具體行動來體現他們對資安管理架構的領導地位以及投入的重視程度？",
+      "expected_clauses": [
+        "clause_5.1"
+      ],
+      "skipped": false,
+      "keywords": [
+        "最高管理階層",
+        "政策",
+        "資源",
+        "領導作為",
+        "承諾"
+      ]
+    },
+    {
+      "id": "q4",
+      "category": "控制項對應",
+      "original_question": "ISO 27001 對於威脅情資（Threat Intelligence）的收集有什麼具體要求？",
+      "question": "在 ISO 27001 標準中，針對獲取威脅情報的規範有哪些明確規定？",
+      "expected_clauses": [
+        "control_5.7"
+      ],
+      "skipped": false,
+      "keywords": [
+        "威脅情資",
+        "分析",
+        "安全威脅"
+      ]
+    },
+    {
+      "id": "q5",
+      "category": "智慧財產權",
+      "original_question": "為了保護智慧財產權，我們在 ISO 27001 框架下需要注意什麼？",
+      "question": "在遵循 ISO 27001 標準時，為了確保智慧財產權的安全性，有哪些關鍵事項必須留意？",
+      "expected_clauses": [
+        "control_5.32"
+      ],
+      "skipped": false,
+      "keywords": [
+        "智慧財產權",
+        "保護",
+        "程序"
+      ]
+    },
+    {
+      "id": "q6",
+      "category": "內部稽核",
+      "original_question": "組織需要定期進行內部稽核嗎？稽核計畫該怎麼建立？",
+      "question": "為了確保符合標準，企業應當如何規劃並執行定期的內部審查？",
+      "expected_clauses": [
+        "clause_9.2",
+        "clause_9.2.1",
+        "clause_9.2.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "內部稽核",
+        "計畫",
+        "客觀性",
+        "公平性"
+      ]
+    },
+    {
+      "id": "q7",
+      "category": "控制項對應",
+      "original_question": "對於資訊系統的備份，有什麼控制措施要求？稽核時需要提供什麼證據？",
+      "question": "在管理資訊系統備份時，應遵循哪些規範要求？於審查期間，必須提交哪些相關佐證資料？",
+      "expected_clauses": [
+        "control_8.13"
+      ],
+      "skipped": false,
+      "keywords": [
+        "備份",
+        "測試",
+        "復原"
+      ]
+    },
+    {
+      "id": "q8",
+      "category": "控制項對應",
+      "original_question": "我們該如何實施桌面淨空與螢幕淨空（Clean desk and clean screen）？",
+      "question": "針對桌面與螢幕的淨空規範，企業應採取哪些具體的執行步驟？",
+      "expected_clauses": [
+        "control_7.7"
+      ],
+      "skipped": false,
+      "keywords": [
+        "桌面淨空",
+        "螢幕淨空",
+        "紙本",
+        "儲存媒體"
+      ]
+    },
+    {
+      "id": "q9",
+      "category": "管理審查",
+      "original_question": "管理審查（Management Review）的輸入項目有哪些？",
+      "question": "在進行管理審查時，需要提供哪些項目的資訊？",
+      "expected_clauses": [
+        "clause_9.3",
+        "clause_9.3.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "管理審查",
+        "輸入",
+        "決議",
+        "趨勢"
+      ]
+    },
+    {
+      "id": "q10",
+      "category": "缺口分析",
+      "original_question": "公司要處理敏感性個資，ISO 27001 建議使用什麼控制措施來保護這些敏感資料？",
+      "question": "為了確保敏感個人資料的安全，ISO 27001 標準中規範了哪些具體的防護機制與管理手段？",
+      "expected_clauses": [
+        "control_8.11",
+        "control_8.12",
+        "control_5.34",
+        "control_7.14"
+      ],
+      "skipped": false,
+      "keywords": [
+        "資料遮罩",
+        "洩漏預防",
+        "敏感"
+      ]
+    },
+    {
+      "id": "q11",
+      "category": "條文解釋",
+      "original_question": "ISMS 建立之後，clause 4.4 要求組織持續維護和改善哪些面向？",
+      "question": "在 ISMS 架構建置完成後，根據條款 4.4 的規定，企業應針對哪些項目進行不斷的維護與優化？",
+      "expected_clauses": [
+        "clause_4.4"
+      ],
+      "skipped": false,
+      "keywords": [
+        "ISMS",
+        "建立",
+        "維護",
+        "持續改善",
+        "實作"
+      ]
+    },
+    {
+      "id": "q12",
+      "category": "政策管理",
+      "original_question": "資訊安全政策應該涵蓋哪些內容？需要由誰核准並如何傳達給員工？",
+      "question": "資訊安全政策應包含哪些核心要素？其授權機制與內部溝通管道為何？",
+      "expected_clauses": [
+        "clause_5.2",
+        "control_5.1"
+      ],
+      "skipped": false,
+      "keywords": [
+        "政策",
+        "核准",
+        "最高管理階層",
+        "溝通",
+        "傳達"
+      ]
+    },
+    {
+      "id": "q13",
+      "category": "角色責任",
+      "original_question": "組織內的資訊安全角色與責任應如何分配？誰負責指派這些職責？",
+      "question": "企業內部對於資訊安全的職責劃分該如何規劃？由哪位主管或單位負責核定這些權限？",
+      "expected_clauses": [
+        "clause_5.3",
+        "control_5.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "角色",
+        "責任",
+        "分配",
+        "授權",
+        "指派"
+      ]
+    },
+    {
+      "id": "q14",
+      "category": "風險管理",
+      "original_question": "進行風險評鑑之前，需要先建立哪些準則？這些準則如何影響後續的風險判斷？",
+      "question": "在執行風險評估時，必須預先設定哪些標準？這些規範對於之後的風險判定過程會產生什麼樣的s 影響？",
+      "expected_clauses": [
+        "clause_6.1.1",
+        "clause_6.1.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "風險準則",
+        "接受準則",
+        "評鑑準則",
+        "風險機會"
+      ]
+    },
+    {
+      "id": "q15",
+      "category": "風險管理",
+      "original_question": "SoA（適用性聲明）應該包含哪些內容？哪些情況下可以排除 Annex A 的控制措施？",
+      "question": "在制定 SoA 時，應納入哪些項目？此外，若要從附錄 A 條款中剔除特定控制措施時，有哪些相關條件？",
+      "expected_clauses": [
+        "clause_6.1.3"
+      ],
+      "skipped": false,
+      "keywords": [
+        "適用性聲明",
+        "SoA",
+        "控制措施",
+        "排除",
+        "納入"
+      ]
+    },
+    {
+      "id": "q16",
+      "category": "條文解釋",
+      "original_question": "資訊安全目標應如何設定？ISO 27001 對目標的特性有什麼要求？",
+      "question": "針對資訊安全目標的制定方式為何？此外，ISO 27001 標準中對於這些目標所要求的特質有哪些？",
+      "expected_clauses": [
+        "clause_6.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "目標",
+        "量測",
+        "監視",
+        "可量測",
+        "計畫"
+      ]
+    },
+    {
+      "id": "q17",
+      "category": "文件管理",
+      "original_question": "ISO 27001 要求哪些文件化資訊必須保存？文件版本應如何管控？",
+      "question": "根據 ISO 27001 標準，有哪些資料需要記錄並保留？此外，企業應以何種方式來管理文件的版本控制？",
+      "expected_clauses": [
+        "clause_7.5",
+        "clause_7.5.1",
+        "clause_7.5.2",
+        "clause_7.5.3"
+      ],
+      "skipped": false,
+      "keywords": [
+        "文件化資訊",
+        "版本控制",
+        "保存",
+        "管控",
+        "維護"
+      ]
+    },
+    {
+      "id": "q18",
+      "category": "人員安全",
+      "original_question": "組織應如何規劃員工的資訊安全認知與教育訓練計畫？",
+      "question": "企業在制定員工資安意識培訓與教育課程時，有哪些具體的規劃流程？",
+      "expected_clauses": [
+        "clause_7.2",
+        "clause_7.3",
+        "control_6.3"
+      ],
+      "skipped": false,
+      "keywords": [
+        "教育訓練",
+        "認知",
+        "職能",
+        "資格",
+        "意識"
+      ]
+    },
+    {
+      "id": "q19",
+      "category": "條文解釋",
+      "original_question": "ISO 27001 clause 8.1 對於運作規劃與控制有什麼要求？外包作業如何納管？",
+      "question": "針對 ISO 27001 第 8.1 條款關於營運規劃與管控的規範，其具體內容為何？此外，企業應如何將外包服務納入管理架構中？",
+      "expected_clauses": [
+        "clause_8.1"
+      ],
+      "skipped": false,
+      "keywords": [
+        "運作規劃",
+        "外包",
+        "控制",
+        "程序",
+        "準則"
+      ]
+    },
+    {
+      "id": "q20",
+      "category": "績效評估",
+      "original_question": "我們應該如何評估 ISMS 的績效？需要監視和量測哪些項目？",
+      "question": "為了衡量 ISMS 體系的有效性，我們應採用哪些指標來進行監控與數據收集？",
+      "expected_clauses": [
+        "clause_9.1"
+      ],
+      "skipped": false,
+      "keywords": [
+        "量測",
+        "監視",
+        "分析",
+        "評估",
+        "績效",
+        "指標"
+      ]
+    },
+    {
+      "id": "q21",
+      "category": "管理審查",
+      "original_question": "管理審查的輸出應包含哪些決議？這些決議如何驅動後續改善行動？",
+      "question": "在進行管理審查時，產出的結果中必須涵蓋哪些項目的決策？此外，這些決定事項將如何引導接下來的持續改進措施？",
+      "expected_clauses": [
+        "clause_9.3.1",
+        "clause_9.3.3"
+      ],
+      "skipped": false,
+      "keywords": [
+        "管理審查",
+        "輸出",
+        "決策",
+        "改善",
+        "資源"
+      ]
+    },
+    {
+      "id": "q22",
+      "category": "持續改善",
+      "original_question": "稽核發現不符合事項時，矯正措施的完整流程是什麼？如何驗證有效性？",
+      "question": "當審計過程中偵測到違規項目時，應遵循哪些步驟來執行修正行動？另外，該如何確認這些措施是否真正發揮作用？",
+      "expected_clauses": [
+        "clause_10.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "不符合事項",
+        "矯正措施",
+        "原因分析",
+        "有效性",
+        "根因"
+      ]
+    },
+    {
+      "id": "q23",
+      "category": "持續改善",
+      "original_question": "ISO 27001 對持續改善 ISMS 有什麼具體要求？與矯正措施有何不同？",
+      "question": "在 ISO 27001 標準中，針對資訊安全管理系統（ISMS）的持續改進機制有哪些明確規範？這些規定與修正行動的處理方式有何差異？",
+      "expected_clauses": [
+        "clause_10.1"
+      ],
+      "skipped": false,
+      "keywords": [
+        "持續改善",
+        "ISMS",
+        "有效性",
+        "適切性",
+        "充分性"
+      ]
+    },
+    {
+      "id": "q24",
+      "category": "條文解釋",
+      "original_question": "組織需要建立哪些內外部溝通機制來支援 ISMS？溝通的對象和時機如何決定？",
+      "question": "為了支持 ISMS 的運行，企業應規劃哪些內部與外部的溝通管道？此外，該如何定義溝通對象以及發生的時機？",
+      "expected_clauses": [
+        "clause_7.4"
+      ],
+      "skipped": false,
+      "keywords": [
+        "溝通",
+        "內部",
+        "外部",
+        "機制",
+        "傳達",
+        "對象"
+      ]
+    },
+    {
+      "id": "q25",
+      "category": "風險管理",
+      "original_question": "風險處理計畫需要包含哪些要素？需要由誰核准才能正式執行？",
+      "question": "在制定風險處置方案時，應納入哪些關鍵組成項目？此外，為了讓該計畫得以正式發動，必須獲得哪一方的授權？",
+      "expected_clauses": [
+        "clause_6.1.3",
+        "clause_8.3"
+      ],
+      "skipped": false,
+      "keywords": [
+        "風險處理",
+        "計畫",
+        "核准",
+        "風險當責者",
+        "實作"
+      ]
+    },
+    {
+      "id": "q26",
+      "category": "人員安全",
+      "original_question": "員工入職前，組織應進行哪些背景查核？查核範圍應如何決定？",
+      "question": "在招募新進人員時，組織該執行哪些類型的背景調查？此外，針對這些檢查的範疇該如何界定？",
+      "expected_clauses": [
+        "control_6.1"
+      ],
+      "skipped": false,
+      "keywords": [
+        "篩選",
+        "背景查核",
+        "入職",
+        "聘用",
+        "驗證"
+      ]
+    },
+    {
+      "id": "q27",
+      "category": "人員安全",
+      "original_question": "員工離職時，資訊安全相關責任如何移交？存取權限應何時撤銷？",
+      "question": "當人員退出公司時，資安關聯的職責該如何進行轉讓？權限授予的取消程序應在什麼時間點執行？",
+      "expected_clauses": [
+        "control_6.5",
+        "control_5.11"
+      ],
+      "skipped": false,
+      "keywords": [
+        "離職",
+        "終止",
+        "資產歸還",
+        "存取權限",
+        "撤銷"
+      ]
+    },
+    {
+      "id": "q28",
+      "category": "資產管理",
+      "original_question": "如何建立和維護資訊資產清冊？資產擁有者的責任是什麼？",
+      "question": "請問如何規劃並持續更新資訊資產清單？此外，資產負責人應承擔哪些職責？",
+      "expected_clauses": [
+        "control_5.9",
+        "control_5.10"
+      ],
+      "skipped": false,
+      "keywords": [
+        "資產清冊",
+        "資產盤點",
+        "資產擁有者",
+        "可接受使用"
+      ]
+    },
+    {
+      "id": "q29",
+      "category": "資產管理",
+      "original_question": "資訊分類分級的標準如何制定？文件和資料應如何標示？",
+      "question": "請問如何建立資訊分類與等級的規範？另外，針對文件及數據的標註方式有哪些要求？",
+      "expected_clauses": [
+        "control_5.12",
+        "control_5.13"
+      ],
+      "skipped": false,
+      "keywords": [
+        "分類",
+        "分級",
+        "標示",
+        "機密",
+        "敏感",
+        "標籤"
+      ]
+    },
+    {
+      "id": "q30",
+      "category": "存取控制",
+      "original_question": "存取控制政策應包含哪些原則？最小權限和需知原則如何落實？",
+      "question": "存取權限管理規範中必須涵蓋哪些核心準則？針對最小權限與必要知悉原則，具體該如何執行？",
+      "expected_clauses": [
+        "control_5.15",
+        "control_5.16",
+        "control_5.18"
+      ],
+      "skipped": false,
+      "keywords": [
+        "存取控制",
+        "最小權限",
+        "需知原則",
+        "身分管理",
+        "權限"
+      ]
+    },
+    {
+      "id": "q31",
+      "category": "存取控制",
+      "original_question": "系統管理員帳號（admin/root）等特殊存取權限應如何管控？",
+      "question": "系統管理員帳號（admin/root）等特殊存取權限應如何管控？",
+      "expected_clauses": [
+        "control_8.2",
+        "control_5.18"
+      ],
+      "skipped": true,
+      "keywords": [
+        "特殊存取",
+        "管理員",
+        "權限",
+        "特殊權限",
+        "最小權限"
+      ]
+    },
+    {
+      "id": "q32",
+      "category": "存取控制",
+      "original_question": "密碼和鑑別資訊的管理有哪些具體要求？多因素驗證在什麼情況下必須使用？",
+      "question": "關於密碼與身分識別資料的維護管理，有哪些明確規範？此外，在哪些特定情境中強制要求執行多重因素驗證？",
+      "expected_clauses": [
+        "control_5.17",
+        "control_8.5"
+      ],
+      "skipped": false,
+      "keywords": [
+        "密碼",
+        "鑑別",
+        "多因素",
+        "認證",
+        "鑑別資訊"
+      ]
+    },
+    {
+      "id": "q33",
+      "category": "供應鏈安全",
+      "original_question": "與供應商合作時，應如何透過合約和監視機制保護資訊安全？",
+      "question": "在與外部廠商合作期間，我們該藉由契約條款及監控手段來確保資料安全的保障措施為何？",
+      "expected_clauses": [
+        "control_5.19",
+        "control_5.20",
+        "control_5.22"
+      ],
+      "skipped": false,
+      "keywords": [
+        "供應商",
+        "第三方",
+        "合約",
+        "供應鏈",
+        "監視"
+      ]
+    },
+    {
+      "id": "q34",
+      "category": "雲端安全",
+      "original_question": "組織導入雲端服務（SaaS/IaaS）時，需要考慮哪些 ISO 27001 的資訊安全要求？",
+      "question": "當企業在部署雲端平台（如 SaaS 或 IaaS）進行架構佈建時，應遵循哪些 ISO 27001 標準中的資安控管規範？",
+      "expected_clauses": [
+        "control_5.23"
+      ],
+      "skipped": false,
+      "keywords": [
+        "雲端",
+        "SaaS",
+        "IaaS",
+        "雲端服務",
+        "共享責任"
+      ]
+    },
+    {
+      "id": "q35",
+      "category": "事故管理",
+      "original_question": "資訊安全事故發生時，正確的回應流程是什麼？誰負責協調處理？",
+      "question": "當發生資安事件時，標準的應變程序為何？由哪位人員或單位負責統籌處理？",
+      "expected_clauses": [
+        "control_5.24",
+        "control_5.25",
+        "control_5.26"
+      ],
+      "skipped": false,
+      "keywords": [
+        "事故",
+        "事件",
+        "回應",
+        "通報",
+        "處理",
+        "協調"
+      ]
+    },
+    {
+      "id": "q36",
+      "category": "事故管理",
+      "original_question": "資安事故處理結束後，如何從中學習並避免類似事件再次發生？",
+      "question": "在完成資訊安全事件的應對措施後，我們該如何從經驗中汲取教訓，以防止未來出現重複的類別問題？",
+      "expected_clauses": [
+        "control_5.27",
+        "control_5.28"
+      ],
+      "skipped": false,
+      "keywords": [
+        "事故學習",
+        "改善",
+        "根因分析",
+        "證據蒐集",
+        "知識"
+      ]
+    },
+    {
+      "id": "q37",
+      "category": "營運持續",
+      "original_question": "業務持續計畫（BCP）和 ISO 27001 的關係是什麼？ICT 備妥性要求是什麼？",
+      "question": "業務持續計畫（BCP）和 ISO 27001 的關係是什麼？ICT 備妥性要求是什麼？",
+      "expected_clauses": [
+        "control_5.29",
+        "control_5.30"
+      ],
+      "skipped": true,
+      "keywords": [
+        "BCP",
+        "業務持續",
+        "中斷",
+        "備妥性",
+        "復原",
+        "ICT"
+      ]
+    },
+    {
+      "id": "q38",
+      "category": "法規遵循",
+      "original_question": "如何確保組織持續符合相關法律、法規和合約要求？遵循性如何查核？",
+      "question": "企業該如何維持與法令規範及合約條款的持續一致性？具體的操作流程為何？",
+      "expected_clauses": [
+        "control_5.31",
+        "control_5.36"
+      ],
+      "skipped": false,
+      "keywords": [
+        "法規",
+        "合規",
+        "法律要求",
+        "遵循",
+        "查核"
+      ]
+    },
+    {
+      "id": "q39",
+      "category": "人員安全",
+      "original_question": "允許員工遠端工作或居家辦公時，需要實施哪些額外的資訊安全控制？",
+      "question": "當企業內部人員在外部環境下執行工作任務時，應落實哪些增補性的資安控管措施？",
+      "expected_clauses": [
+        "control_6.7",
+        "control_8.1"
+      ],
+      "skipped": false,
+      "keywords": [
+        "遠端工作",
+        "居家辦公",
+        "行動辦公",
+        "端點",
+        "VPN"
+      ]
+    },
+    {
+      "id": "q40",
+      "category": "實體安全",
+      "original_question": "如何建立機房和辦公室的實體安全管控？門禁系統和周界保護有哪些要求？",
+      "question": "針對機房與辦公空間的實體安全措施，應如何規劃與執行？在門禁管理及邊界防護方面，有何相關規範要求？",
+      "expected_clauses": [
+        "control_7.1",
+        "control_7.2",
+        "control_7.3"
+      ],
+      "skipped": false,
+      "keywords": [
+        "實體安全",
+        "機房",
+        "門禁",
+        "周界",
+        "安全區域"
+      ]
+    },
+    {
+      "id": "q41",
+      "category": "技術控制",
+      "original_question": "如何防範惡意軟體（病毒、勒索軟體）？防惡意軟體控制措施的最低要求是什麼？",
+      "question": "針對惡意程式（包含病毒與勒索軟體）的預防機制為何？此外，防止惡意軟體入侵時應遵循的基礎規範有哪些？",
+      "expected_clauses": [
+        "control_8.7"
+      ],
+      "skipped": false,
+      "keywords": [
+        "惡意軟體",
+        "病毒",
+        "勒索軟體",
+        "防毒",
+        "掃描"
+      ]
+    },
+    {
+      "id": "q42",
+      "category": "技術控制",
+      "original_question": "技術脆弱性（漏洞）管理的流程是什麼？修補程式應在多久內套用？",
+      "question": "請問技術層面的弱點管理程序為何？此外，針對漏洞的修正方案應該於何時完成部署？",
+      "expected_clauses": [
+        "control_8.8"
+      ],
+      "skipped": false,
+      "keywords": [
+        "漏洞",
+        "脆弱性",
+        "修補",
+        "patch",
+        "技術脆弱性"
+      ]
+    },
+    {
+      "id": "q43",
+      "category": "技術控制",
+      "original_question": "系統日誌（log）應記錄哪些事件？日誌需要保存多久？如何防止被竄改？",
+      "question": "為了確保資訊安全，系統紀錄檔中必須包含哪些類型的活動？這些資料的保留期限為何？此外，還有哪些機制可避免其內容遭到變更或刪除？",
+      "expected_clauses": [
+        "control_8.15",
+        "control_8.16"
+      ],
+      "skipped": false,
+      "keywords": [
+        "日誌",
+        "log",
+        "存錄",
+        "監視",
+        "稽核軌跡",
+        "保存"
+      ]
+    },
+    {
+      "id": "q44",
+      "category": "技術控制",
+      "original_question": "網路安全控制措施有哪些要求？網路區隔的原則是什麼？",
+      "question": "在網路安全管理方面，有哪些特定的規範要求？關於網路隔離的實施原則為何？",
+      "expected_clauses": [
+        "control_8.20",
+        "control_8.22"
+      ],
+      "skipped": false,
+      "keywords": [
+        "網路",
+        "區隔",
+        "防火牆",
+        "DMZ",
+        "網路安全"
+      ]
+    },
+    {
+      "id": "q45",
+      "category": "技術控制",
+      "original_question": "密碼技術（加密）應如何選用和實施？金鑰的生命週期如何管理？",
+      "question": "在應用密碼學技術時，該如何進行選擇與部署？此外，針對金鑰的完整生命週期管理流程為何？",
+      "expected_clauses": [
+        "control_8.24"
+      ],
+      "skipped": false,
+      "keywords": [
+        "加密",
+        "密碼技術",
+        "金鑰管理",
+        "憑證",
+        "演算法"
+      ]
+    },
+    {
+      "id": "q46",
+      "category": "技術控制",
+      "original_question": "軟體開發過程中如何落實資訊安全？安全開發生命週期（SDLC）有哪些關鍵控制？",
+      "question": "軟體開發過程中如何落實資訊安全？安全開發生命週期（SDLC）有哪些關鍵控制？",
+      "expected_clauses": [
+        "control_8.25",
+        "control_8.26",
+        "control_8.28"
+      ],
+      "skipped": true,
+      "keywords": [
+        "安全開發",
+        "SDLC",
+        "程式碼安全",
+        "需求",
+        "安全測試"
+      ]
+    },
+    {
+      "id": "q47",
+      "category": "技術控制",
+      "original_question": "IT 系統的變更應如何管理？緊急變更在 ISO 27001 框架下有什麼特殊規範？",
+      "question": "在符合 ISO 27001 標準時，企業該如何管控 IT 基礎架構的變動程序？針對突發性的急迫修改需求，標準中是否有特定的要求？",
+      "expected_clauses": [
+        "control_8.32"
+      ],
+      "skipped": false,
+      "keywords": [
+        "變更管理",
+        "變更控制",
+        "系統變更",
+        "緊急",
+        "批准"
+      ]
+    },
+    {
+      "id": "q48",
+      "category": "技術控制",
+      "original_question": "組態管理對資訊安全有哪些重要性？基準組態（Baseline）應如何建立和維護？",
+      "question": "從資訊安全角度來看，組態管理的關鍵意義為何？此外，針對基準組態的制定與持續更新該有何規範？",
+      "expected_clauses": [
+        "control_8.9"
+      ],
+      "skipped": false,
+      "keywords": [
+        "組態管理",
+        "基準組態",
+        "配置管理",
+        "hardening",
+        "安全設定"
+      ]
+    },
+    {
+      "id": "q49",
+      "category": "合規",
+      "original_question": "如何確認員工實際遵守資訊安全政策？管理階層在遵循性查核中扮演什麼角色？",
+      "question": "若要驗證人員是否確實執行資安政策，領導層應於合規性稽核時擔任何種職責？",
+      "expected_clauses": [
+        "control_5.36",
+        "control_5.4"
+      ],
+      "skipped": false,
+      "keywords": [
+        "政策遵循",
+        "合規",
+        "管理階層責任",
+        "查核",
+        "稽查"
+      ]
+    },
+    {
+      "id": "q50",
+      "category": "合規",
+      "original_question": "ISO 27001 要求對 ISMS 進行獨立審查嗎？外部稽核與內部稽核有什麼不同？",
+      "question": "在 ISO 27001 標準中，是否必須執行獨立的資訊安全管理系統審查？此外，兩者之間的差異為何？",
+      "expected_clauses": [
+        "control_5.35"
+      ],
+      "skipped": false,
+      "keywords": [
+        "獨立審查",
+        "外部稽核",
+        "第三方審查",
+        "獨立性"
+      ]
+    },
+    {
+      "id": "q51",
+      "category": "管理視角",
+      "original_question": "身為 CISO，如何向董事會說明 ISMS 導入成效？需要準備哪些量化指標？",
+      "question": "作為 CISO，應以何種方式向董事會報告 ISMS 的實施效果？此外，有哪些關鍵的量化數據指標可供參考？",
+      "expected_clauses": [
+        "clause_5.1",
+        "clause_9.1",
+        "clause_9.3.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "董事會",
+        "ISMS",
+        "績效報告",
+        "量測",
+        "指標"
+      ]
+    },
+    {
+      "id": "q52",
+      "category": "稽核準備",
+      "original_question": "第一次申請 ISO 27001 外部認證稽核前三個月，哪些準備工作最關鍵？",
+      "question": "在取得 ISO 27001 外審前的最後三個月內，哪些核心準備事項最為重要？",
+      "expected_clauses": [
+        "clause_9.2",
+        "clause_6.1.3",
+        "clause_7.5"
+      ],
+      "skipped": false,
+      "keywords": [
+        "外部稽核",
+        "稽核準備",
+        "適用性聲明",
+        "文件化",
+        "認證"
+      ]
+    },
+    {
+      "id": "q53",
+      "category": "文件管理",
+      "original_question": "通過 ISO 27001 認證必須準備哪些文件？哪些是強制性的書面資訊？",
+      "question": "為了取得 ISO 27001 認證，企業需要備置哪些文件？其中哪些屬於必要且不可或缺的書面紀錄？",
+      "expected_clauses": [
+        "clause_7.5",
+        "clause_7.5.1",
+        "clause_6.1.3"
+      ],
+      "skipped": false,
+      "keywords": [
+        "文件清單",
+        "必要文件",
+        "認證",
+        "書面資訊",
+        "強制"
+      ]
+    },
+    {
+      "id": "q54",
+      "category": "跨條文整合",
+      "original_question": "資安事故發生並處理完畢後，哪些 ISO 27001 條文要求我們更新文件或重新評估風險？",
+      "question": "在完成資訊安全事件的應對與處置後，根據 ISO 27001 標準規範，有哪些項目需要進行文件修訂或風險重估？",
+      "expected_clauses": [
+        "control_5.27",
+        "clause_10.2",
+        "clause_6.1.2"
+      ],
+      "skipped": false,
+      "keywords": [
+        "事故後續",
+        "更新",
+        "風險重評",
+        "矯正",
+        "學習"
+      ]
+    },
+    {
+      "id": "q55",
+      "category": "跨條文整合",
+      "original_question": "新員工入職流程中，哪些 ISO 27001 控制項需要確認已完成？",
+      "question": "在接收新人員到職時，應核對哪些 ISO 27001 標準中的安全管控措施已執行到位？",
+      "expected_clauses": [
+        "control_6.1",
+        "control_6.2",
+        "control_6.3",
+        "control_5.16",
+        "control_5.18"
+      ],
+      "skipped": false,
+      "keywords": [
+        "新進人員",
+        "入職",
+        "查核",
+        "存取開通",
+        "教育訓練"
+      ]
+    },
+    {
+      "id": "q56",
+      "category": "跨條文整合",
+      "original_question": "公司打算導入新的 SaaS 工具，事前應評估哪些 ISO 27001 控制項？",
+      "question": "在企業規劃將新軟體服務（SaaS）納入運作流程時，應該預先檢視哪些 ISO 27001 標準中的安全控制措施？",
+      "expected_clauses": [
+        "control_5.23",
+        "control_5.19",
+        "control_5.20",
+        "control_8.9"
+      ],
+      "skipped": false,
+      "keywords": [
+        "SaaS",
+        "雲端工具",
+        "採購",
+        "風險評估",
+        "供應商"
+      ]
+    },
+    {
+      "id": "q57",
+      "category": "實體安全",
+      "original_question": "如何保護辦公室內的紙本文件與可移除式儲存媒體的安全？",
+      "question": "針對辦公室環境中的實體文書與外接儲存裝置，應採取哪些安全防護措施？",
+      "expected_clauses": [
+        "control_7.6",
+        "control_7.7",
+        "control_7.10"
+      ],
+      "skipped": false,
+      "keywords": [
+        "紙本",
+        "文件",
+        "辦公室",
+        "儲存媒體",
+        "媒體"
+      ]
+    },
+    {
+      "id": "q58",
+      "category": "事故管理",
+      "original_question": "員工發現可疑的資安事件應如何通報？通報流程和負責窗口是什麼？",
+      "question": "若員工察覺到潛在的安全漏洞或異常狀況，該採取何種申報機制？相關的處理程序與對接單位為何？",
+      "expected_clauses": [
+        "control_6.8",
+        "control_5.24"
+      ],
+      "skipped": false,
+      "keywords": [
+        "通報",
+        "事件",
+        "員工",
+        "可疑",
+        "資安事件",
+        "窗口"
+      ]
+    },
+    {
+      "id": "q59",
+      "category": "技術控制",
+      "original_question": "開發、測試和正式（生產）環境為什麼需要區隔？測試時使用真實資料有什麼風險？",
+      "question": "為何必須將開發與測試以及正式環境進行隔離？若在測試階段涉及真實數據，會產生哪些潛在威脅？",
+      "expected_clauses": [
+        "control_8.31",
+        "control_8.33"
+      ],
+      "skipped": false,
+      "keywords": [
+        "環境區隔",
+        "開發",
+        "測試",
+        "生產",
+        "測試資料"
+      ]
+    },
+    {
+      "id": "q60",
+      "category": "供應鏈安全",
+      "original_question": "如何管理 ICT 供應鏈（含開源元件）的資訊安全風險？",
+      "question": "如何管理 ICT 供應鏈（含開源元件）的資訊安全風險？",
+      "expected_clauses": [
+        "control_5.21",
+        "control_5.22"
+      ],
+      "skipped": true,
+      "keywords": [
+        "ICT 供應鏈",
+        "供應商",
+        "第三方",
+        "開源",
+        "元件安全"
+      ]
+    }
+  ]
+}
